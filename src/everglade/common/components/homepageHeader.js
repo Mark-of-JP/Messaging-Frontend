@@ -4,7 +4,10 @@ import {
     Button,
     Container,
     Segment,
-    Menu
+    Menu,
+    Visibility,
+    Responsive,
+    Sidebar
 } from 'semantic-ui-react'
 
 export default class HomepageHeader extends Component {
@@ -14,12 +17,14 @@ export default class HomepageHeader extends Component {
             <Segment
                 inverted
                 textAlign='center'
-                style={{ minHeight: 700, padding: '1em 0em' }}
-                vertical>
+                style={{ padding: '0.5em 4em' }}
+                vertical
+                raised>
                 <Menu
+                    fixed='top'
                     inverted
                     pointing
-                    secondary
+                    secondary={false}
                     size='large'>
                     <Menu.Item as='a' active>Home</Menu.Item>
                     <Menu.Item as='a' onClick={() => console.log('Pog')}>About</Menu.Item>
@@ -29,7 +34,7 @@ export default class HomepageHeader extends Component {
                         <Button as='a' inverted>Log In</Button>
                         <Button as='a' inverted primary={false} style={{ marginLeft: '0.5em' }}>
                             Sign Up
-                        </Button>
+                            </Button>
                     </Menu.Item>
                 </Menu>
             </Segment>
