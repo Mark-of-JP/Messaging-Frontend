@@ -1,16 +1,11 @@
 import React, { Component } from 'react'
 import {
-    Grid,
     Button,
-    Container,
     Segment,
     Menu,
-    Visibility,
-    Responsive,
-    Sidebar
 } from 'semantic-ui-react'
 
-export default class HomepageHeader extends Component {
+class HomepageHeader extends Component {
 
     render() {
         return (
@@ -31,10 +26,12 @@ export default class HomepageHeader extends Component {
                     <Menu.Item as='a'>Contact</Menu.Item>
 
                     <Menu.Item position='right'>
-                        <Button as='a' inverted>Log In</Button>
+                        <Button as='a' inverted primary={false} style={{ marginLeft: '0.5em' }}>
+                            Login
+                        </Button>
                         <Button as='a' inverted primary={false} style={{ marginLeft: '0.5em' }}>
                             Sign Up
-                            </Button>
+                        </Button>
                     </Menu.Item>
                 </Menu>
             </Segment>
@@ -42,3 +39,5 @@ export default class HomepageHeader extends Component {
     }
 
 }
+
+export default HomepageHeader;
