@@ -4,10 +4,28 @@ import {
     Segment,
     Menu,
 } from 'semantic-ui-react'
+import { Redirect } from 'react-router-dom'
 
 class HomepageHeader extends Component {
 
+    state = { redirect: undefined}
+
+    constructor(props){
+        super(props)
+
+        this.state = {redirect:undefined}
+
+        this.setRedirect = (link) => {
+            this.setState({redirect: link})
+        }
+    }
+
     render() {
+
+        if (this.state.redirect !== undefined) {
+            return <Redirect push to={'/' + this.state.redirect} />
+        }
+
         return (
             <Segment
                 inverted
@@ -26,7 +44,8 @@ class HomepageHeader extends Component {
                     <Menu.Item as='a'>Contact</Menu.Item>
 
                     <Menu.Item position='right'>
-                        <Button as='a' inverted primary={false} style={{ marginLeft: '0.5em' }}>
+                        <Button as='a' inverted primary={false} style={{ marginLeft: '0.5em' }}
+                        onClick={() => {this.setRedirect('login')}}>
                             Login
                         </Button>
                         <Button as='a' inverted primary={false} style={{ marginLeft: '0.5em' }}>

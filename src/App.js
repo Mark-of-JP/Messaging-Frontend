@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 
 import Homepage from "./everglade/core/homepage"
+import LoginPage from "./everglade/core/loginPage";
 
 function App() {
   return (
@@ -15,10 +16,9 @@ function App() {
           <Route path="/about">
             <About />
           </Route>
-          <Route path="/users">
-            <Users />
-          </Route>
+          <Route path="/login"> <LoginPage /> </Route>
           <Route path="/"> <Homepage /> </Route>
+
         </Switch>
       </div>
     </Router>
