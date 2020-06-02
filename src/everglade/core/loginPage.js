@@ -15,7 +15,7 @@ class LoginPage extends Component {
         authorizeLogin(this.state.submittedEmail, this.state.submittedPassword)
     }
 
-    handleFormChange = (e, {key, value}) => this.setState({[key]: value})
+    handleFormChange = (e, {name, value}) => this.setState({[name]: value})
     handleFormSubmit = () => {
         const {email, password} = this.state
 
@@ -57,7 +57,7 @@ class LoginPage extends Component {
                             placeholder='Email'
                             name='email'
                             value={this.state.email}
-                            onChange={(e, d) => console.log(d)}
+                            onChange={this.handleFormChange}
                         />
                         <Form.Input
                             label='Password'
