@@ -5,8 +5,21 @@ import authorizeLogin from '../common/util/loginAuth'
 
 class LoginPage extends Component {
 
-    Login = () => {
-        authorizeLogin("mark.of.sanchez@gmail.com", "Poggers123")
+    state = {
+        email: "", submittedEmail: "",
+        password: "", submittedPassword: ""
+    }
+
+    login = () => {
+        console.log(`Logging in with ${this.state.submittedEmail} and ${this.state.submittedPassword}`)
+        authorizeLogin(this.state.submittedEmail, this.state.submittedPassword)
+    }
+
+    handleFormChange = (e, {key, value}) => this.setState({[key]: value})
+    handleFormSubmit = () => {
+        const {email, password} = this.state
+
+        this.setState({submittedEmail: email, submittedPassword: password}, this.login)
     }
 
     render() {
@@ -28,7 +41,7 @@ class LoginPage extends Component {
                             <Header as='h4' style={{color:'white'}}>Don't have an account?</Header>
                         </Menu.Item>
                         <Menu.Item>
-                            <Button as ='a' inverted primary={false} onClick={this.Login}>Sign Up</Button>
+                            <Button as ='a' inverted primary={false}>Sign Up</Button>
                         </Menu.Item>
                     </Menu>
                 </Segment>
@@ -38,18 +51,24 @@ class LoginPage extends Component {
                     transform: 'translate(-50%, -50%)',
                     width: '500px',
                 }}>
-                    <Form>
+                    <Form onSubmit={this.handleFormSubmit}>
                         <Form.Input
                             label='Email'
                             placeholder='Email'
+                            name='email'
+                            value='email'
+                            onChange={this.handleFormChange}
                         />
                         <Form.Input
                             label='Password'
                             placeholder='Password'
                             type='password'
+                            name='password'
+                            value='password'
+                            onChange={this.handleFormChange}
                         />
                         <Form.Checkbox label='Remember Me'/>
-                        <Form.Button>Login</Form.Button>
+                        <Form.Button content='Submit'>Login</Form.Button>
                     </Form>
                 </Container>
             </div>
