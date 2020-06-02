@@ -10,12 +10,12 @@ function authorizeLogin(username, password) {
         pog2: process.env.apiKey,
         pog3: process.env,
         pog4: "Pog",
-        pog5: process.env.EAT,
+        pog5: process.env.REACT_APP_EAT,
         unpog: env.API_KEY,
         unpog2: env.apiKey,
         unpog3: env,
         unpog4: "Unpog",
-        unpog5: env.EAT,
+        unpog5: env.REACT_APP_EAT,
     }
 }
 
