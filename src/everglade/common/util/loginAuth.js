@@ -1,22 +1,19 @@
-import runtimeEnv from '@mars/heroku-js-runtime-env'
 require('dotenv').config()
+
+const firebaseConfig = {
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    databaseURL: process.env.REACT_APP_DATABASE_URL,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_APP_ID,
+    measurementId: process.env.MEASUREMENT_ID
+}
 
 function authorizeLogin(username, password) {
 
-    const env = runtimeEnv();
-
-    return {
-        pog: process.env.API_KEY,
-        pog2: process.env.apiKey,
-        pog3: process.env,
-        pog4: "Pog",
-        pog5: process.env.REACT_APP_EAT,
-        unpog: env.API_KEY,
-        unpog2: env.apiKey,
-        unpog3: env,
-        unpog4: "Unpog",
-        unpog5: env.REACT_APP_EAT,
-    }
+    return firebaseConfig
 }
 
 export default authorizeLogin;
