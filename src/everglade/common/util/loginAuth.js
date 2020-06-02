@@ -1,8 +1,6 @@
 function authorizeLogin(username, password) {
 
-    return {
-        apiKey: process.env.apiKey
-    }
+    return process.env.messagingSenderId
 }
 
 export default authorizeLogin;
