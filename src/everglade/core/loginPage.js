@@ -56,7 +56,7 @@ class LoginPage extends Component {
                             label='Email'
                             placeholder='Email'
                             name='email'
-                            value='email'
+                            value={this.state.email}
                             onChange={this.handleFormChange}
                         />
                         <Form.Input
@@ -64,7 +64,7 @@ class LoginPage extends Component {
                             placeholder='Password'
                             type='password'
                             name='password'
-                            value='password'
+                            value={this.state.password}
                             onChange={this.handleFormChange}
                         />
                         <Form.Checkbox label='Remember Me'/>
