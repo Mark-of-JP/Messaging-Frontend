@@ -57,7 +57,7 @@ class LoginPage extends Component {
                             placeholder='Email'
                             name='email'
                             value={this.state.email}
-                            onChange={this.handleFormChange}
+                            onChange={(e, d) => console.log(d)}
                         />
                         <Form.Input
                             label='Password'
