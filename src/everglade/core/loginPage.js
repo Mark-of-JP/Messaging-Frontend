@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
 import { Segment, Form, Container, Grid, Button, Divider, Header, Menu } from 'semantic-ui-react'
 
+import authorizeLogin from '../common/util/loginAuth'
+
 class LoginPage extends Component {
+
+    Login = () => {
+        console.log(authorizeLogin("", ""))
+    }
 
     render() {
         return (
@@ -22,7 +28,7 @@ class LoginPage extends Component {
                             <Header as='h4' style={{color:'white'}}>Don't have an account?</Header>
                         </Menu.Item>
                         <Menu.Item>
-                            <Button as ='a' inverted primary={false}>Sign Up</Button>
+                            <Button as ='a' inverted primary={false} onClick={this.Login}>Sign Up</Button>
                         </Menu.Item>
                     </Menu>
                 </Segment>
