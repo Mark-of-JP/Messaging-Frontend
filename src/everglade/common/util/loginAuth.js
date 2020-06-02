@@ -1,6 +1,6 @@
 function authorizeLogin(username, password) {
 
-    return process.env.messagingSenderId
+    return process.env
 }
 
 export default authorizeLogin;
