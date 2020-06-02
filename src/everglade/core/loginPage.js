@@ -6,7 +6,7 @@ import authorizeLogin from '../common/util/loginAuth'
 class LoginPage extends Component {
 
     Login = () => {
-        console.log(authorizeLogin("", ""))
+        authorizeLogin("mark.of.sanchez@gmail.com", "Poggers123")
     }
 
     render() {

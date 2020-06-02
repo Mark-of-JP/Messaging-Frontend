@@ -1,5 +1,8 @@
 require('dotenv').config()
 
+import firebase from 'firebase/app'
+import 'firebase/auth'
+
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
     authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -11,9 +14,16 @@ const firebaseConfig = {
     measurementId: process.env.REACT_APP_MEASUREMENT_ID
 }
 
-function authorizeLogin(username, password) {
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth()
 
-    return firebaseConfig
+function authorizeLogin(email, password) {
+
+    auth.signInWithEmailAndPassword(email, password)
+        .then(response => {
+            console.log(response)
+        })
+        .catch(response => console.log(response))
 }
 
 export default authorizeLogin;
