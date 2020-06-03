@@ -4,13 +4,12 @@ import { Redirect } from 'react-router-dom'
 
 import EvergladeLogo from '../../common/images/logos/Everglade_Logo_2.jpg'
 
-import authorizeLogin from '../../common/util/loginAuth'
-
 class LoginPage extends Component {
 
     state = {
         email: "", submittedEmail: "",
         password: "", submittedPassword: "",
+        secondPassword: "",
         redirect: undefined
     }
 
@@ -18,7 +17,6 @@ class LoginPage extends Component {
 
     login = () => {
         console.log(`Logging in with ${this.state.submittedEmail} and ${this.state.submittedPassword}`)
-        authorizeLogin(this.state.submittedEmail, this.state.submittedPassword)
     }
 
     handleFormChange = (e, {name, value}) => this.setState({[name]: value})
@@ -52,10 +50,10 @@ class LoginPage extends Component {
                             <Image src={EvergladeLogo} size='mini' as='a' onClick={() => {this.setRedirect('')}}/>
                         </Menu.Item>
                         <Menu.Item position='right'>
-                            <Header as='h4' style={{color:'white'}}>Don't have an account?</Header>
+                            <Header as='h4' style={{color:'white'}}>Already have an account?</Header>
                         </Menu.Item>
                         <Menu.Item>
-                            <Button as ='a' inverted primary={false} onClick={() => {this.setRedirect('signup')}}>Sign Up</Button>
+                            <Button as ='a' inverted primary={false} onClick={() => this.setRedirect('login')}>Sign Up</Button>
                         </Menu.Item>
                     </Menu>
                 </Segment>
@@ -81,8 +79,15 @@ class LoginPage extends Component {
                             value={this.state.password}
                             onChange={this.handleFormChange}
                         />
-                        <Form.Checkbox label='Remember Me'/>
-                        <Form.Button content='Submit'>Login</Form.Button>
+                        <Form.Input
+                            label='Re-type Password'
+                            placeholder='Re-type Password'
+                            type='password'
+                            name='secondPassword'
+                            value={this.state.secondPassword}
+                            onChange={this.handleFormChange}
+                        />
+                        <Form.Button content='Submit'>Sign Up</Form.Button>
                     </Form>
                 </Container>
             </div>

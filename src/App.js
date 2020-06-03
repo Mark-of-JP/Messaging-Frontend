@@ -7,15 +7,14 @@ import {
 
 import Homepage from "./everglade/core/homepage/homepage"
 import LoginPage from "./everglade/core/loginPage/loginPage";
+import SignUpPage from "./everglade/core/signUpPage/signUpPage"
 
 function App() {
   return (
     <Router>
       <div>
         <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
+          <Route path="/signup"> <SignUpPage /> </Route>
           <Route path="/login"> <LoginPage /> </Route>
           <Route path="/"> <Homepage /> </Route>
 
