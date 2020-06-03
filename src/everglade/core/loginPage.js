@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
-import { Segment, Form, Container, Grid, Button, Divider, Header, Menu } from 'semantic-ui-react'
+import { Segment, Form, Container, Grid, Button, Divider, Header, Menu, Image } from 'semantic-ui-react'
+import { Redirect } from 'react-router-dom'
+
+import EvergladeLogo from '../common/images/logos/Everglade_Logo_2.jpg'
 
 import authorizeLogin from '../common/util/loginAuth'
 
@@ -7,8 +10,11 @@ class LoginPage extends Component {
 
     state = {
         email: "", submittedEmail: "",
-        password: "", submittedPassword: ""
+        password: "", submittedPassword: "",
+        redirect: undefined
     }
+
+    setRedirect = (url) => this.setState({redirect: url})
 
     login = () => {
         console.log(`Logging in with ${this.state.submittedEmail} and ${this.state.submittedPassword}`)
@@ -23,6 +29,11 @@ class LoginPage extends Component {
     }
 
     render() {
+
+        if (this.state.redirect !== undefined) {
+            return <Redirect push to={'/' + this.state.redirect} />
+        }
+
         return (
             <div>
                 <Segment
@@ -37,6 +48,9 @@ class LoginPage extends Component {
                     pointing
                     secondary={false}
                     size='large'>
+                        <Menu.Item>
+                            <Image src={EvergladeLogo} size='mini' as='a' onClick={() => {this.setRedirect('')}}/>
+                        </Menu.Item>
                         <Menu.Item position='right'>
                             <Header as='h4' style={{color:'white'}}>Don't have an account?</Header>
                         </Menu.Item>
