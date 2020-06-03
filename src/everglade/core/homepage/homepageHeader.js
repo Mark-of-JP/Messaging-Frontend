@@ -44,16 +44,17 @@ class HomepageHeader extends Component {
                     <Menu.Item as='a'>Contact</Menu.Item>
 
                     <Menu.Item position='right'>
-                        <Button as='a' inverted primary={false} style={{ marginLeft: '0.5em' }}
-                        onClick={() => {this.setRedirect('login')}}>
-                            Login
-                        </Button>
-                        <Button as='a' inverted primary={false} style={{ marginLeft: '0.5em' }}
+                    <Button as='a' inverted primary={false} style={{ marginLeft: '0.5em' }}
                         onClick={() => {console.log('signup')
                         this.setRedirect('signup')
                         }}>
                             Sign Up
                         </Button>
+                        <Button as='a' inverted primary={false} style={{ marginLeft: '0.5em' }}
+                        onClick={() => {this.setRedirect('login')}}>
+                            Login
+                        </Button>
+                        
                     </Menu.Item>
                 </Menu>
             </Segment>
