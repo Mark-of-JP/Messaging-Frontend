@@ -49,7 +49,8 @@ class HomepageHeader extends Component {
                             Login
                         </Button>
                         <Button as='a' inverted primary={false} style={{ marginLeft: '0.5em' }}
-                        onClick={() =>this.setRedirect('signup')}>
+                        onClick={() => {this.setRedirect('signup')
+                        console.log('signup')}}>
                             Sign Up
                         </Button>
                     </Menu.Item>
