@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Segment, Form, Container, Grid, Button, Divider, Header, Menu, Image } from 'semantic-ui-react'
 import { Redirect } from 'react-router-dom'
 
-import EvergladeLogo from '../common/images/logos/Everglade_Logo_2.jpg'
+import EvergladeLogo from '../../common/images/logos/Everglade_Logo_2.jpg'
 
 import authorizeLogin from '../common/util/loginAuth'
 
