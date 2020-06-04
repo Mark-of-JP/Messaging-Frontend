@@ -53,7 +53,7 @@ class LoginPage extends Component {
                             <Header as='h4' style={{color:'white'}}>Already have an account?</Header>
                         </Menu.Item>
                         <Menu.Item>
-                            <Button as ='a' inverted primary={false} onClick={() => this.setRedirect('login')}>Sign Up</Button>
+                            <Button as ='a' inverted primary={false} onClick={() => this.setRedirect('login')}>Login</Button>
                         </Menu.Item>
                     </Menu>
                 </Segment>
