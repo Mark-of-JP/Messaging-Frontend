@@ -26,7 +26,7 @@ export default class Homepage extends Component {
     checkVisionState = () => {
         var vision = 'home'
 
-        if(this.state.about.bottomPassed)
+        if (this.state.about.bottomPassed)
             vision = 'contact'
         else if (this.state.home.bottomPassed)
             vision = 'about'
@@ -39,15 +39,18 @@ export default class Homepage extends Component {
             <div>
                 <HomepageHeader visionState={this.state.visionState} />
 
-                <Visibility offset={[0, 65]} onUpdate={(e, values) => this.handleScrollUpdate('home', e, values)}>
-                    <Grid centered rows={2} verticalAlign='middle'>
-                        <Grid.Row centered columns={2}>
-                            <GridColumn>
-                                <Image src={EvergladeLogo} fluid />
-                            </GridColumn>
-                        </Grid.Row>
-                    </Grid>
-                </Visibility>
+                <section id='home'>
+                    <Visibility offset={[0, 65]} onUpdate={(e, values) => this.handleScrollUpdate('home', e, values)}>
+                        <Grid centered rows={2} verticalAlign='middle'>
+                            <Grid.Row centered columns={2}>
+                                <GridColumn>
+                                    <Image placeholder src={EvergladeLogo} fluid />
+                                </GridColumn>
+                            </Grid.Row>
+                        </Grid>
+                    </Visibility>
+                </section>
+
 
 
                 <Segment
@@ -55,13 +58,17 @@ export default class Homepage extends Component {
                     vertical
                     style={{ padding: '1em 1em' }}>
 
+                        <section id='about'>
                     <Visibility offset={[0, 50]} onUpdate={(e, values) => this.handleScrollUpdate('about', e, values)}>
                         <HomepageAbout />
                     </Visibility>
+                    </section>
 
+                    <section id='contact'>
                     <Visibility offset={[0, 65]} onUpdate={(e, values) => this.handleScrollUpdate('contact', e, values)}>
                         <HomepageContact />
                     </Visibility>
+                    </section>
 
                 </Segment>
             </div>

@@ -3,8 +3,10 @@ import {
     Button,
     Segment,
     Menu,
+    Header,
 } from 'semantic-ui-react'
 import { Redirect } from 'react-router-dom'
+import { Link, animateScroll as scroll } from 'react-scroll'
 
 class HomepageHeader extends Component {
 
@@ -33,6 +35,7 @@ class HomepageHeader extends Component {
     render() {
 
         if (this.state.redirect !== undefined) {
+
             return <Redirect push to={'/' + this.state.redirect} />
         }
 
@@ -51,9 +54,39 @@ class HomepageHeader extends Component {
                     pointing
                     secondary={false}
                     size='large'>
-                    <Menu.Item as='a' active={visionState.home}>Home</Menu.Item>
-                    <Menu.Item as='a' active={visionState.about}>About</Menu.Item>
-                    <Menu.Item as='a' active={visionState.contact}>Contact</Menu.Item>
+                    <Menu.Item as ='a' active={visionState.home} style={{padding: '0em 0em'}}>
+                        <Link activeClass="active"
+                            to="home"
+                            spy={true}
+                            smooth={true}
+                            offset={-70}
+                            duration={500}
+                            style={{width: '100px', height: '100%', justifyContent:'center', alignContent:'center', display:'flex'}}>
+                            <Header style={{ userSelect: 'none', color: 'white', alignSelf:'center' }}>Home</Header>
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item as ='a' active={visionState.about} style={{padding: '0em 0em'}}>
+                        <Link activeClass="active"
+                            to="about"
+                            spy={true}
+                            smooth={true}
+                            offset={-70}
+                            duration={500}
+                            style={{width: '100px', height: '100%', justifyContent:'center', alignContent:'center', display:'flex'}}>
+                            <Header style={{ userSelect: 'none', color: 'white', alignSelf:'center' }}>About</Header>
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item as ='a' active={visionState.contact} style={{padding: '0em 0em'}}>
+                        <Link activeClass="active"
+                            to="contact"
+                            spy={true}
+                            smooth={true}
+                            offset={-60}
+                            duration={500}
+                            style={{width: '100px', height: '100%', justifyContent:'center', alignContent:'center', display:'flex'}}>
+                            <Header style={{ userSelect: 'none', color: 'white', alignSelf:'center' }}>Contact</Header>
+                        </Link>
+                    </Menu.Item>
 
                     <Menu.Item position='right'>
 

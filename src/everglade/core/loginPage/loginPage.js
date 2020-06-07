@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom'
 
 import EvergladeLogo from '../../common/images/logos/Everglade_Logo_2.jpg'
 
-import authorizeLogin from '../../common/util/loginAuth'
+//import authorizeLogin from '../../common/util/loginAuth'
 
 class LoginPage extends Component {
 
@@ -18,7 +18,7 @@ class LoginPage extends Component {
 
     login = () => {
         console.log(`Logging in with ${this.state.submittedEmail} and ${this.state.submittedPassword}`)
-        authorizeLogin(this.state.submittedEmail, this.state.submittedPassword)
+        //authorizeLogin(this.state.submittedEmail, this.state.submittedPassword)
     }
 
     handleFormChange = (e, {name, value}) => this.setState({[name]: value})
