@@ -6,7 +6,7 @@ import {
     Header,
 } from 'semantic-ui-react'
 import { Redirect } from 'react-router-dom'
-import { Link, animateScroll as scroll } from 'react-scroll'
+import { Link } from 'react-scroll'
 
 class HomepageHeader extends Component {
 
