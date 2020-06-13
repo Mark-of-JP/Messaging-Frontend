@@ -23,7 +23,7 @@ class MessagingSideBar extends Component {
 
     render() {
         return (
-            <Menu inverted fixed='left' vertical style={{ display: 'flex', flexDirection: 'column' }} size='large'>
+            <Menu inverted vertical style={{ flex:1, display: 'flex', flexDirection: 'column', margin:'0em 0em' }}>
                 <Menu.Item>
                     <Dropdown text="Friends"
                         inline
@@ -42,7 +42,7 @@ class MessagingSideBar extends Component {
                     <Input placeholder='Search...' icon='search' />
                 </Menu.Item>
 
-                <PerfectScrollbar style={{ flex: 12, height: '100%', backgroundColor: '#1B1C1D' }}>
+                <PerfectScrollbar style={{ flex: 12, height: '100%', margin:'0em 1.5em', backgroundColor: '#1B1C1D' }}>
                     <List inverted selection verticalAlign='middle'>
                         {this.generateListContent(30)}
                     </List>
