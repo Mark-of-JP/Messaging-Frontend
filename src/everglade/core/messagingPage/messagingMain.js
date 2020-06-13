@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { TextArea, Form, Divider, Comment } from 'semantic-ui-react'
+import { TextArea, Form, Divider, Comment, Header, Button, Icon } from 'semantic-ui-react'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
 function generateMessage(author, message) {
@@ -23,12 +23,17 @@ class MessagingMain extends Component {
         return (
             <div style={{ display: 'flex', flex: 4, flexDirection: 'column' }}>
 
-                <div style={{ flex: 1 }}>
+                <div style={{ flex: 1, display: 'flex', alignItems: 'flex-end', padding: '0em 1em', flexDirection: 'row', justifyContent:'space-between' }}>
+                    <Header as='h2' inverted>The Bean Squad</Header>
+                    <Button inverted icon style={{alignSelf:'center'}}><Icon name='cog' /></Button>
+                </div>
 
+                <div style={{ flex: 0.1, position: 'relative' }}>
+                    <Divider inverted />
                 </div>
 
                 <PerfectScrollbar style={{ maxHeight: '100%', marginRight: '15px', flex: 6, backgroundColor: '#424547' }}>
-                    <div style={{ display: 'flex', alignItems: 'flex-end', minHeight:'100%' }}>
+                    <div style={{ display: 'flex', alignItems: 'flex-end', minHeight: '100%' }}>
                         <Comment.Group>
                             {generateMessage('SoftBoiUwu', 'Eat Nut 12')}
                             {generateMessage('Bean', 'BEANZ')}
@@ -55,7 +60,11 @@ class MessagingMain extends Component {
                 </div>
 
                 <Form style={{ flex: 1, padding: '1em 2em' }}>
-                    <TextArea placeholder='Send a message...' style={{ resize: 'none' }} />
+                    <div style={{ display: 'flex', flexDirection: 'row' }}>
+                        <TextArea placeholder='Send a message...' style={{ resize: 'none', marginRight: '2em' }} />
+                        <Button inverted style={{ margin: '1em 0em' }}>Send</Button>
+                    </div>
+
                 </Form>
             </div>
         )
