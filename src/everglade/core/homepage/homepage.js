@@ -59,13 +59,13 @@ export default class Homepage extends Component {
                     style={{ padding: '1em 1em' }}>
 
                         <section id='about'>
-                    <Visibility offset={[0, 50]} onUpdate={(e, values) => this.handleScrollUpdate('about', e, values)}>
+                    <Visibility offset={[0, 80]} onUpdate={(e, values) => this.handleScrollUpdate('about', e, values)}>
                         <HomepageAbout />
                     </Visibility>
                     </section>
 
                     <section id='contact'>
-                    <Visibility offset={[0, 65]} onUpdate={(e, values) => this.handleScrollUpdate('contact', e, values)}>
+                    <Visibility offset={[0, 50]} onUpdate={(e, values) => this.handleScrollUpdate('contact', e, values)}>
                         <HomepageContact />
                     </Visibility>
                     </section>

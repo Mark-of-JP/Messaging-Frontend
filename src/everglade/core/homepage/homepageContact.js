@@ -57,7 +57,7 @@ class HomepageContact extends Component {
         return (
             <div>
                 <Divider horizontal inverted>
-                    <Header as='h4' inverted>
+                    <Header as='h4' inverted style={{ fontSize: '2em' }}>
                         <Icon name='user' />
                             Contact
                     </Header>
