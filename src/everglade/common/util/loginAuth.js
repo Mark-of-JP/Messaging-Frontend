@@ -14,16 +14,20 @@ const firebaseConfig = {
     measurementId: process.env.REACT_APP_MEASUREMENT_ID
 }
 
+
+
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth()
 
-function authorizeLogin(email, password) {
+async function authorizeLogin(email, password) {
 
-    auth.signInWithEmailAndPassword(email, password)
-        .then(response => {
-            console.log(response)
-        })
-        .catch(response => console.log(response))
+    const response = await auth.signInWithEmailAndPassword(email, password).catch(e => e)
+
+    if(response instanceof Error)
+        throw response
+    
+    console.log(response)
+    return auth.currentUser
 }
 
 export default authorizeLogin;

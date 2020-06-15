@@ -5,10 +5,10 @@ import {
   Route
 } from "react-router-dom";
 
-import Homepage from "./everglade/core/homepage/homepage"
-import LoginPage from "./everglade/core/loginPage/loginPage"
-import SignUpPage from "./everglade/core/signUpPage/signUpPage"
-import MessagingPage from "./everglade/core/messagingPage/messagingPage"
+import Homepage from "./everglade/core/homepage"
+import LoginPage from "./everglade/core/loginPage"
+import SignUpPage from "./everglade/core/signUpPage"
+import MessagingPage from "./everglade/core/messagingPage"
 
 function App() {
   return (

@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 import { Divider, Header, Icon, Container, Image, Grid } from 'semantic-ui-react'
 
-import ReactLogo from '../../common/images/logos/React_Logo.png'
-import HerokuLogo from '../../common/images/logos/Heroku_Logo.png' 
-import FlaskLogo from '../../common/images/logos/Flask_Logo.png' 
-import FirebaseLogo from '../../common/images/logos/Firebase_Logo.png' 
+import { ReactLogo, HerokuLogo, FlaskLogo, FirebaseLogo } from '../../common/images/logos'
 
 class HomepageAbout extends Component {
 

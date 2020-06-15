@@ -5,7 +5,7 @@ import HomepageHeader from './homepageHeader'
 import HomepageAbout from './homepageAbout'
 import HomepageContact from './homepageContact'
 
-import EvergladeLogo from '../../common/images/logos/Everglade_Logo_1.jpg'
+import { EvergladeLogo } from '../../common/images/logos'
 
 export default class Homepage extends Component {
 
