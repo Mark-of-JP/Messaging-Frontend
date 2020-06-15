@@ -15,7 +15,11 @@ let firebaseConfig = {
 }
 
 if(firebaseConfig.apiKey === undefined) {
+    try{
     firebaseConfig = require('./ignore/config').default
+    } catch(e) {
+        console.log('Are you missing the config file or running on the production build?\n' + e)
+    }
 }
 
 
