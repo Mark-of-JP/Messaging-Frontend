@@ -27,15 +27,12 @@ if(firebaseConfig.apiKey === undefined) {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth()
 
-async function authorizeLogin(email, password) {
+export async function authorizeLogin(email, password) {
 
-    const response = await auth.signInWithEmailAndPassword(email, password).catch(e => e)
-
-    if(response instanceof Error)
-        throw response
-    
-    console.log(response)
-    return auth.currentUser
+    return auth.signInWithEmailAndPassword(email, password).then(() => auth.currentUser)
 }
 
-export default authorizeLogin;
+export async function authorizeSignUp(email, password) {
+
+    return auth.createUserWithEmailAndPassword(email, password).then(() => auth.currentUser)
+}

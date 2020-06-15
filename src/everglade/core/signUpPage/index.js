@@ -2,15 +2,29 @@ import React from 'react'
 import { Segment, Container, Button, Header, Menu, Image } from 'semantic-ui-react'
 import { useHistory } from 'react-router-dom'
 import SignUpForm from './signUpForm'
+import { authorizeSignUp } from '../../common/util/loginAuth'
+import { signInAction, setAuthErrorAction, removeAuthErrorAction } from '../../common/util/redux/actions'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { EvergladeMini } from '../../common/images/logos'
 
 function SignUpPage() {
 
     const history = useHistory()
+    const dispatch = useDispatch()
+    const authError = useSelector(state => state.authError)
 
     let signUp = (email, password) => {
         console.log(`Signing Up with ${email} and ${password}`)
+        authorizeSignUp(email, password)
+            .then(response => {
+                dispatch(signInAction(response))
+                dispatch(removeAuthErrorAction())
+                history.push('/messaging')
+            })
+            .catch(error => {
+                dispatch(setAuthErrorAction(error))
+            })
     }
 
     return (<div>
@@ -43,7 +57,7 @@ function SignUpPage() {
             transform: 'translate(-50%, -50%)',
             width: '500px',
         }}>
-            <SignUpForm onSubmit={signUp} />
+            <SignUpForm onSubmit={signUp} authError={authError} />
         </Container>
     </div>)
 }

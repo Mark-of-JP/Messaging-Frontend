@@ -1,12 +1,12 @@
 import React from 'react'
 import { Segment, Container, Header, Menu, Button, Image } from 'semantic-ui-react'
 import { useSelector, useDispatch } from 'react-redux'
-import { signInAction, singOutAction } from '../../common/util/redux/actions'
+import { signInAction, signOutAction } from '../../common/util/redux/actions'
 import LoginForm from './loginForm'
 
 import { EvergladeMini } from '../../common/images/logos'
 
-import authorizeLogin from '../../common/util/loginAuth'
+import {authorizeLogin} from '../../common/util/loginAuth'
 import { useHistory } from 'react-router-dom'
 
 function LoginPage() {
@@ -18,8 +18,11 @@ function LoginPage() {
 
         console.log(`Logging in with ${email} and ${password}`)
         authorizeLogin(email, password)
-            .then(response => dispatch(signInAction(response)))
-            .catch(() => dispatch(singOutAction()))
+            .then(response => {
+                dispatch(signInAction(response))
+                history.push('/messaging')
+            })
+            .catch(() => dispatch(signOutAction()))
     }
 
     return (

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form } from 'semantic-ui-react'
+import { Form, Message } from 'semantic-ui-react'
 
 class SignUpForm extends Component {
 
@@ -72,6 +72,9 @@ class SignUpForm extends Component {
                     onChange={this.handleFormChange}
                     error={!this.state.validPasswordMatch ? {content:'Passwords do not match.', pointing: 'below'} : undefined}
                 />
+
+                {this.props.authError !== null && <Message error header='Sign Up Failed' content={this.props.authError.message} />}
+
                 <Form.Button content='Submit'>Sign Up</Form.Button>
             </Form>
         )
