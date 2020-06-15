@@ -1,7 +1,7 @@
 import React from 'react'
 import { Segment, Container, Header, Menu, Button, Image } from 'semantic-ui-react'
 import { useSelector, useDispatch } from 'react-redux'
-import { signInAction } from '../../common/util/redux/actions'
+import { signInAction, singOutAction } from '../../common/util/redux/actions'
 import LoginForm from './loginForm'
 
 import { EvergladeMini } from '../../common/images/logos'
@@ -11,7 +11,7 @@ import { useHistory } from 'react-router-dom'
 
 function LoginPage() {
     const dispatch = useDispatch()
-
+    const user = useSelector(state => state.auth)
     const history = useHistory()
 
     const login = (email, password) => {
@@ -19,7 +19,7 @@ function LoginPage() {
         console.log(`Logging in with ${email} and ${password}`)
         authorizeLogin(email, password)
             .then(response => dispatch(signInAction(response)))
-            .catch(e => console.log('unpog'))
+            .catch(() => dispatch(singOutAction()))
     }
 
     return (
@@ -59,7 +59,7 @@ function LoginPage() {
                 transform: 'translate(-50%, -50%)',
                 width: '500px',
             }}>
-                <LoginForm onSubmit={login} />
+                <LoginForm onSubmit={login} hasUser={user !== null} />
             </Container>
         </div>
     )

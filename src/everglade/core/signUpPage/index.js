@@ -1,5 +1,5 @@
 import React from 'react'
-import { Segment, Form, Container, Button, Header, Menu, Image } from 'semantic-ui-react'
+import { Segment, Container, Button, Header, Menu, Image } from 'semantic-ui-react'
 import { useHistory } from 'react-router-dom'
 import SignUpForm from './signUpForm'
 
