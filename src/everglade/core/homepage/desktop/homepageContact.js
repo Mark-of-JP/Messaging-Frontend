@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Divider, Header, Grid, Card, Image, Icon } from 'semantic-ui-react'
 
-import { MarkJP } from '../../common/images/developers'
+import { MarkJP } from '../../../common/images/developers'
 
 class HomepageContact extends Component {
 

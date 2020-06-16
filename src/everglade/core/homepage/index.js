@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { Segment, Image, Grid, GridColumn, Visibility } from 'semantic-ui-react'
+import { Segment, Image, Visibility } from 'semantic-ui-react'
 
-import HomepageHeader from './homepageHeader'
 import HomepageAbout from './homepageAbout'
-import HomepageContact from './homepageContact'
+import { DesktopHeader, DesktopContact } from './desktop'
+import { MobileHeader } from './mobile'
 
 import { EvergladeLogo } from '../../common/images/logos'
 
@@ -20,7 +20,25 @@ export default class Homepage extends Component {
         contact: {
             bottomPassed: false
         },
+        width: 0,
+        height: 0
     }
+
+    componentDidMount() {
+        this.updateWindowDimensions();
+        window.addEventListener('resize', this.updateWindowDimensions);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
+    }
+
+    updateWindowDimensions = () => {
+        this.setState({ width: window.innerWidth, height: window.innerHeight });
+    }
+
+    isMobileWidth = () => this.state.width <= 850 //570
+    isMobileHeaderWidth = () => this.state.width <= 570
 
     handleScrollUpdate = (key, e, { calculations }) => this.setState({ [key]: calculations }, this.checkVisionState)
     checkVisionState = () => {
@@ -35,19 +53,16 @@ export default class Homepage extends Component {
     }
 
     render() {
+
+        const HomepageHeader = this.isMobileHeaderWidth() ? MobileHeader : DesktopHeader
+
         return (
             <div>
-                <HomepageHeader visionState={this.state.visionState} />
+                <HomepageHeader visionState={this.state.visionState} >
 
                 <section id='home'>
-                    <Visibility offset={[0, 65]} onUpdate={(e, values) => this.handleScrollUpdate('home', e, values)}>
-                        <Grid centered rows={2} verticalAlign='middle'>
-                            <Grid.Row centered columns={2}>
-                                <GridColumn>
-                                    <Image placeholder src={EvergladeLogo} fluid />
-                                </GridColumn>
-                            </Grid.Row>
-                        </Grid>
+                    <Visibility style={{backgroundColor:'white'}} offset={[0, 65]} onUpdate={(e, values) => this.handleScrollUpdate('home', e, values)}>
+                        <Image placeholder src={EvergladeLogo} size='huge' fluid centered />
                     </Visibility>
                 </section>
 
@@ -58,19 +73,21 @@ export default class Homepage extends Component {
                     vertical
                     style={{ padding: '1em 1em' }}>
 
-                        <section id='about'>
-                    <Visibility offset={[0, 80]} onUpdate={(e, values) => this.handleScrollUpdate('about', e, values)}>
-                        <HomepageAbout />
-                    </Visibility>
+                    <section id='about'>
+                        <Visibility offset={[0, 80]} onUpdate={(e, values) => this.handleScrollUpdate('about', e, values)}>
+                            <HomepageAbout />
+                        </Visibility>
                     </section>
 
                     <section id='contact'>
-                    <Visibility offset={[0, 50]} onUpdate={(e, values) => this.handleScrollUpdate('contact', e, values)}>
-                        <HomepageContact />
-                    </Visibility>
+                        <Visibility offset={[0, 50]} onUpdate={(e, values) => this.handleScrollUpdate('contact', e, values)}>
+                            <DesktopContact />
+                        </Visibility>
                     </section>
 
                 </Segment>
+
+                </HomepageHeader>
             </div>
         )
     }
