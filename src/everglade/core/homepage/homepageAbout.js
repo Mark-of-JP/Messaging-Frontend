@@ -56,13 +56,12 @@ class HomepageAbout extends Component {
 
                 <Container style={{padding:'3em 0em'}}>
                     <p style={{ fontSize: '1.33em' }}>
-                        Everglade Messaging is an online messaging web app which was created and design as a side project by
-                        three people. Both the backend and the frontend of the applcation were created by the 3 developers.
-                        The technology that were used are as follows:
+                        Everglade Messaging is an online messaging web app which was created and design as a side project. Both the backend and the frontend of the applcation were created by the 3 developers.
+                        The technology that was used are as follows:
                     </p>
                 </Container>
 
-                {this.generateTechnologyInfo(ReactLogo, 'React.js', 'React is a popular frontend framework developed by Facebook. React is used to for the frontend of our application and it is what is currently being used to display this page.', false)}
+                {this.generateTechnologyInfo(ReactLogo, 'React.js', 'React is a popular frontend framework developed by Facebook. React is used for the frontend of our application and it is what is currently being used to display this page.', false)}
                 {this.generateTechnologyInfo(HerokuLogo, 'Heroku', 'Heroku is a platform as a service that allows developers to develop and deploy their online web apps. Heroku is being used to host the React frontend of our application.', true)}
                 {this.generateTechnologyInfo(FlaskLogo, 'Flask', 'Flask is a python web application framework that is being used for the backend of our application. We are using flask for our REST API as well as for our websockets.', false)}
                 {this.generateTechnologyInfo(FirebaseLogo, 'Google Firebase', "Firebase is Google's mobile platform. It is hosting our python web app as well as being our database. Authentication is also being handled by Firebase.", true)}

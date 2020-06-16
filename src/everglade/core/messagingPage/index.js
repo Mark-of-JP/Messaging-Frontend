@@ -17,7 +17,7 @@ class MessagingPage extends Component {
                 <div style={{flex:0.1, position:'relative'}}>
                     <Divider inverted vertical>
                         <Icon name='leaf' />
-                        </Divider>
+                    </Divider>
                 </div>
 
 
