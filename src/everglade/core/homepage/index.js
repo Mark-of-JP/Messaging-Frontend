@@ -3,7 +3,7 @@ import { Segment, Image, Visibility } from 'semantic-ui-react'
 
 import HomepageAbout from './homepageAbout'
 import { DesktopHeader, DesktopContact } from './desktop'
-import { MobileHeader } from './mobile'
+import { MobileHeader, MobileContacts } from './mobile'
 
 import { EvergladeLogo } from '../../common/images/logos'
 
@@ -37,7 +37,7 @@ export default class Homepage extends Component {
         this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
 
-    isMobileWidth = () => this.state.width <= 850 //570
+    isMobileContactWidth = () => this.state.width <= 850 //570
     isMobileHeaderWidth = () => this.state.width <= 570
 
     handleScrollUpdate = (key, e, { calculations }) => this.setState({ [key]: calculations }, this.checkVisionState)
@@ -60,32 +60,32 @@ export default class Homepage extends Component {
             <div>
                 <HomepageHeader visionState={this.state.visionState} >
 
-                <section id='home'>
-                    <Visibility style={{backgroundColor:'white'}} offset={[0, 65]} onUpdate={(e, values) => this.handleScrollUpdate('home', e, values)}>
-                        <Image placeholder src={EvergladeLogo} size='huge' fluid centered />
-                    </Visibility>
-                </section>
-
-
-
-                <Segment
-                    inverted
-                    vertical
-                    style={{ padding: '1em 1em' }}>
-
-                    <section id='about'>
-                        <Visibility offset={[0, 80]} onUpdate={(e, values) => this.handleScrollUpdate('about', e, values)}>
-                            <HomepageAbout />
+                    <section id='home'>
+                        <Visibility style={{ backgroundColor: 'white' }} offset={[0, 65]} onUpdate={(e, values) => this.handleScrollUpdate('home', e, values)}>
+                            <Image placeholder src={EvergladeLogo} size='huge' fluid centered />
                         </Visibility>
                     </section>
 
-                    <section id='contact'>
-                        <Visibility offset={[0, 50]} onUpdate={(e, values) => this.handleScrollUpdate('contact', e, values)}>
-                            <DesktopContact />
-                        </Visibility>
-                    </section>
 
-                </Segment>
+
+                    <Segment
+                        inverted
+                        vertical
+                        style={{ padding: '1em 1em' }}>
+
+                        <section id='about'>
+                            <Visibility offset={[0, 80]} onUpdate={(e, values) => this.handleScrollUpdate('about', e, values)}>
+                                <HomepageAbout />
+                            </Visibility>
+                        </section>
+
+                        <section id='contact'>
+                            <Visibility offset={[0, 50]} onUpdate={(e, values) => this.handleScrollUpdate('contact', e, values)}>
+                                {this.isMobileContactWidth() ? <MobileContacts /> : <DesktopContact />}
+                            </Visibility>
+                        </section>
+
+                    </Segment>
 
                 </HomepageHeader>
             </div>

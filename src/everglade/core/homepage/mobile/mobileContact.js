@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
-import { Divider, Header, Grid, Card, Image, Icon } from 'semantic-ui-react'
+import { Divider, Header, Card, Image, Icon, Button } from 'semantic-ui-react'
+
+import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
+import 'pure-react-carousel/dist/react-carousel.es.css';
 
 import { ContactInfo } from '../homepageInfo'
 
 class HomepageContact extends Component {
 
     generateAboutCards = () => (ContactInfo.map(cardInfo => (
-        <Grid.Column>
-            <Card className="ui centered card">
+        <Slide>
+            <Card className="ui centered card" style={{ width: '400px' }}>
                 <div style={{ padding: '1em 1em' }}>
                     <Image src={cardInfo.image} size='medium' centered circular />
                 </div>
@@ -28,11 +31,11 @@ class HomepageContact extends Component {
                         <a href={cardInfo.github}>{cardInfo.github}</a></Card.Description>
                 </Card.Content>
             </Card>
-        </Grid.Column>)))
+        </Slide>)))
 
     render() {
         return (
-            <div>
+            <div >
                 <Divider horizontal inverted>
                     <Header as='h4' inverted style={{ fontSize: '2em' }}>
                         <Icon name='user' />
@@ -40,11 +43,26 @@ class HomepageContact extends Component {
                     </Header>
                 </Divider>
 
-                <Grid columns={3}>
-                    <Grid.Row>
-                        {this.generateAboutCards()}
-                    </Grid.Row>
-                </Grid>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+
+
+                    <CarouselProvider
+                        naturalSlideWidth={100}
+                        naturalSlideHeight={70}
+                        totalSlides={3}
+                        style={{ paddingTop: '1em', width: '1020px' }}
+                    >
+
+                        <Slider style={{ paddingBottom: '4em' }}>
+                            {this.generateAboutCards()}
+                        </Slider>
+                        <Button as={ButtonBack}>Back</Button>
+                        <Button as={ButtonNext}>Next</Button>
+                    </CarouselProvider>
+                </div>
+
+
+
             </div>
         )
     }

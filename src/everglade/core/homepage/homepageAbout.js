@@ -7,7 +7,7 @@ class HomepageAbout extends Component {
 
     generateTechnologyInfo = (image, title, message, isRight) => {
         var left = (<Grid.Column floated='left' width={6}>
-            <Image bordered rounded size='large' src={image} />
+            <Image bordered rounded size='large' src={image} centered/>
         </Grid.Column>)
 
         var right = (<Grid.Column width={8}>
@@ -30,7 +30,7 @@ class HomepageAbout extends Component {
             </Grid.Column>)
 
             right = (<Grid.Column floated='right' width={6}>
-                <Image bordered rounded size='large' src={image} />
+                <Image bordered rounded size='large' src={image} centered />
             </Grid.Column>)
         }
 
