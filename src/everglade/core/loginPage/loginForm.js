@@ -5,8 +5,7 @@ class LoginForm extends Component {
 
     state = {
         email: "",
-        password: "",
-        attemptedLogin: false
+        password: ""
     }
 
     handleFormChange = (e, {name, value}) => this.setState({[name]: value})
@@ -16,7 +15,6 @@ class LoginForm extends Component {
         return (
             <Form error onSubmit={() => {
                 this.props.onSubmit(this.state.email, this.state.password)
-                this.setState({attemptedLogin: true})
             }}>
                 <Form.Input
                     label='Email'
@@ -35,7 +33,7 @@ class LoginForm extends Component {
                 />
                 <Form.Checkbox label='Remember Me' />
 
-                {(!this.props.hasUser && this.state.attemptedLogin) && <Message error header='Login Failed' content='Credentials are invalid'/>}
+                {this.props.authError !== null && <Message error header='Login Failed' content={this.props.authError.message}/>}
 
                 <Form.Button content='Submit'>Login</Form.Button>
             </Form>

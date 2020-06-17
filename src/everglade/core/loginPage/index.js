@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Segment, Container, Header, Menu, Button, Image } from 'semantic-ui-react'
 import { useSelector, useDispatch } from 'react-redux'
-import { signInAction, signOutAction } from '../../common/util/redux/actions'
+import { signInAction, signOutAction, setAuthErrorAction, removeAuthErrorAction } from '../../common/util/redux/actions'
 import LoginForm from './loginForm'
 
 import { EvergladeMini } from '../../common/images/logos'
@@ -11,18 +11,22 @@ import { useHistory } from 'react-router-dom'
 
 function LoginPage() {
     const dispatch = useDispatch()
-    const user = useSelector(state => state.auth)
+    const authError = useSelector(state => state.authError)
     const history = useHistory()
+
+    useEffect(() => (() => dispatch(removeAuthErrorAction())), [dispatch]) 
 
     const login = (email, password) => {
 
-        console.log(`Logging in with ${email} and ${password}`)
         authorizeLogin(email, password)
             .then(response => {
                 dispatch(signInAction(response))
                 history.push('/messaging')
             })
-            .catch(() => dispatch(signOutAction()))
+            .catch(error => {
+                dispatch(setAuthErrorAction(error))
+                dispatch(signOutAction())
+            })
     }
 
     return (
@@ -62,7 +66,7 @@ function LoginPage() {
                 transform: 'translate(-50%, -50%)',
                 width: '500px',
             }}>
-                <LoginForm onSubmit={login} hasUser={user !== null} />
+                <LoginForm onSubmit={login} authError={authError}/>
             </Container>
         </div>
     )

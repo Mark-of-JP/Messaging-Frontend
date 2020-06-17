@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Segment, Container, Button, Header, Menu, Image } from 'semantic-ui-react'
 import { useHistory } from 'react-router-dom'
 import SignUpForm from './signUpForm'
@@ -13,6 +13,10 @@ function SignUpPage() {
     const history = useHistory()
     const dispatch = useDispatch()
     const authError = useSelector(state => state.authError)
+
+    useEffect(() => {
+        return () => dispatch(removeAuthErrorAction())
+    }, [dispatch])
 
     let signUp = (email, password) => {
         console.log(`Signing Up with ${email} and ${password}`)
