@@ -11,7 +11,11 @@ export const ContactInfo = [{
 }, {
     name: 'Jakub Wozniak',
     education: 'Computer Science at UofG 2019-2023',
-    description: 'Nut'
+    description: 'Computers have always fascinated me even at a young age. I love programming and I am very eager and open to learning new things in my field. I am ambitious and excited about what the future has in store.',
+    image: MarkJP,
+    email:'jakubdawidwozniak@gmail.com',
+    linkedin: 'https://www.linkedin.com/in/jakubdwozniak/',
+    github: 'https://github.com/EverGladeZ'
 }, {
     name: 'Carmello Restivo-Cuck',
     education: 'Computer Science at UofT 2019-2023',
