@@ -1,5 +1,5 @@
 import markJP from './MarkJP.png'
-import jakub from './jakub.jpg'
+import jakub from './Jakub.jpg'
 
 export const MarkJP = markJP
 export const Jakub = jakub
