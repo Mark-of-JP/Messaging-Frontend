@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Divider, Header, Grid, Card, Image, Icon } from 'semantic-ui-react'
+import { Divider, Header, Container, Grid, Card, Image, Icon } from 'semantic-ui-react'
 
 import { ContactInfo } from '../homepageInfo'
 
@@ -40,6 +40,7 @@ class HomepageContact extends Component {
                     </Header>
                 </Divider>
 
+                <Container style={{padding:'1.5em 0em'}}></Container>
                 <Grid columns={3}>
                     <Grid.Row>
                         {this.generateAboutCards()}
