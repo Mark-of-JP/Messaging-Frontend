@@ -1,4 +1,5 @@
 import { MarkJP } from '../../common/images/developers'
+import { Jakub } from '../../common/images/developers'
 
 export const ContactInfo = [{
     name: 'Mark JP Sanchez',
@@ -12,7 +13,7 @@ export const ContactInfo = [{
     name: 'Jakub Wozniak',
     education: 'Computer Science at UofG 2019-2023',
     description: 'Computers have always fascinated me even at a young age. I love programming and I am very eager and open to learning new things in my field. I am ambitious and excited about what the future has in store.',
-    image: MarkJP,
+    image: Jakub,
     email:'jakubdawidwozniak@gmail.com',
     linkedin: 'https://www.linkedin.com/in/jakubdwozniak/',
     github: 'https://github.com/EverGladeZ'
