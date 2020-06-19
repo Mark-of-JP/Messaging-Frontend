@@ -10,7 +10,7 @@ class HomepageContact extends Component {
 
     generateAboutCards = () => (ContactInfo.map(cardInfo => (
         <Slide>
-            <Card className="ui centered card" style={{ width: '400px' }}>
+            <Card className="ui centered card" style={{ width: '400px', height:'57em'}}>
                 <div style={{ padding: '1em 1em' }}>
                     <Image src={cardInfo.image} size='medium' centered circular />
                 </div>
