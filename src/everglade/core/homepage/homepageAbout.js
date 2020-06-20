@@ -46,7 +46,7 @@ class HomepageAbout extends Component {
 
     render() {
         return (
-            <div>
+            <div style={{ marginBottom: '3em'}}>
                 <Divider horizontal inverted>
                     <Header as='h4' inverted style={{ fontSize: '2em' }}>
                         <Icon name='cogs' />
@@ -65,8 +65,6 @@ class HomepageAbout extends Component {
                 {this.generateTechnologyInfo(HerokuLogo, 'Heroku', 'Heroku is a platform that allows developers to develop and deploy their online web apps. Heroku is being used to host the React frontend of our application.', true)}
                 {this.generateTechnologyInfo(FlaskLogo, 'Flask', 'Flask is a python web application framework that is being used for the backend of our application. We are using Flask for our REST API as well as for our websockets.', false)}
                 {this.generateTechnologyInfo(FirebaseLogo, 'Google Firebase', "Firebase is Google's mobile platform. It is hosting our python web app as well as being our database. Authentication is also being handled by Firebase.", true)}
-
-                <Container style={{padding:'3em 0em'}}></Container>
 
             </div>
         )
