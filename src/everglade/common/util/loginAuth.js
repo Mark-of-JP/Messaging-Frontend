@@ -29,14 +29,12 @@ const auth = firebase.auth()
 
 export async function authorizeLogin(email, password) {
 
-    const response =  fetch('https://everglade-messaging.web.app/login', {
+    const response = await fetch('https://everglade-messaging.web.app/login', {
         method: 'POST',
-        mode: 'no-cors',
+        mode: 'cors',
         headers: {
             'Content-Type': 'application/json'
         },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
         body: {
             "email": email,
             "password": password
