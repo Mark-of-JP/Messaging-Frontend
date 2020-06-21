@@ -20,8 +20,9 @@ function LoginPage() {
 
         authorizeLogin(email, password)
             .then(response => {
-                dispatch(signInAction(response))
-                history.push('/messaging')
+                console.log(response)
+                //dispatch(signInAction(response))
+                //history.push('/messaging')
             })
             .catch(error => {
                 dispatch(setAuthErrorAction(error))

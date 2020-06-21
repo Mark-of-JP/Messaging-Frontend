@@ -14,10 +14,10 @@ let firebaseConfig = {
     measurementId: process.env.REACT_APP_MEASUREMENT_ID
 }
 
-if(firebaseConfig.apiKey === undefined) {
-    try{
-    firebaseConfig = require('./ignore/config').default
-    } catch(e) {
+if (firebaseConfig.apiKey === undefined) {
+    try {
+        firebaseConfig = require('./ignore/config').default
+    } catch (e) {
         console.log('Are you missing the config file or running on the production build?\n' + e)
     }
 }
@@ -29,7 +29,25 @@ const auth = firebase.auth()
 
 export async function authorizeLogin(email, password) {
 
-    return auth.signInWithEmailAndPassword(email, password).then(() => auth.currentUser)
+    const response = await fetch('https://everglade-messaging.web.app/login', {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: {
+            "email": email,
+            "password": password
+        }
+    })
+
+    return response.json()
+
+    //return auth.signInWithEmailAndPassword(email, password).then(() => auth.currentUser)
 }
 
 export async function authorizeSignUp(email, password) {
