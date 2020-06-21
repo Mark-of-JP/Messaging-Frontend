@@ -29,11 +29,9 @@ const auth = firebase.auth()
 
 export async function authorizeLogin(email, password) {
 
-    const response = await fetch('https://everglade-messaging.web.app/login', {
+    const response =  fetch('https://everglade-messaging.web.app/login', {
         method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
+        mode: 'no-cors',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -44,6 +42,12 @@ export async function authorizeLogin(email, password) {
             "password": password
         }
     })
+
+    // const response = await fetch('https://everglade-messaging.web.app/', {
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     }
+    // })
 
     return response.json()
 
