@@ -35,10 +35,10 @@ export async function authorizeLogin(email, password) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: {
+        body: JSON.stringify({ 
             "email": email,
             "password": password
-        }
+        })
     })
 
     // const response = await fetch('https://everglade-messaging.web.app/', {
