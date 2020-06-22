@@ -19,7 +19,6 @@ function SignUpPage() {
     }, [dispatch])
 
     let signUp = (email, password) => {
-        console.log(`Signing Up with ${email} and ${password}`)
         authorizeSignUp(email, password)
             .then(response => {
                 dispatch(signInAction(response))
