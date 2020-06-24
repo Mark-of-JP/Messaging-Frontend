@@ -3,6 +3,10 @@ import SocketIOClient from 'socket.io-client'
 import { Header } from 'semantic-ui-react';
 
 var socket;
+/**
+ * For debugging uses only
+ * Tests the websocket
+ */
 class WebsocketTest extends Component {
 
     constructor(props) {

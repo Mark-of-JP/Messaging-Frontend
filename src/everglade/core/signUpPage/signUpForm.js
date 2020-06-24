@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { Form, Message } from 'semantic-ui-react'
 
+/**
+ * Handles the form logic and display of the logic form
+ */
 class SignUpForm extends Component {
 
     state = {

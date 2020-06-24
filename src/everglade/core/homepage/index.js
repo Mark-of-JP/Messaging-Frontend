@@ -7,6 +7,9 @@ import { MobileHeader, MobileContacts } from './mobile'
 
 import { EvergladeLogo } from '../../common/images/logos'
 
+/**
+ * The homepage of the website
+ */
 export default class Homepage extends Component {
 
     state = {
@@ -24,22 +27,23 @@ export default class Homepage extends Component {
         height: 0
     }
 
+    //Used to update the state whenever the window resizes
     componentDidMount() {
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
     }
-
     componentWillUnmount() {
         window.removeEventListener('resize', this.updateWindowDimensions);
     }
-
     updateWindowDimensions = () => {
         this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
 
-    isMobileContactWidth = () => this.state.width <= 850 //570
+    //Returns true if the window too thin for contacts and header
+    isMobileContactWidth = () => this.state.width <= 850
     isMobileHeaderWidth = () => this.state.width <= 570
 
+    //Handles the vision state used for the header
     handleScrollUpdate = (key, e, { calculations }) => this.setState({ [key]: calculations }, this.checkVisionState)
     checkVisionState = () => {
         var vision = 'home'

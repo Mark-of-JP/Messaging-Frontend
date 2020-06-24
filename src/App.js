@@ -11,6 +11,9 @@ import SignUpPage from "./everglade/core/signUpPage"
 import MessagingPage from "./everglade/core/messagingPage"
 import WebsocketTest from "./everglade/core/websocketTest"
 
+/**
+ * Sets up the routes
+ */
 function App() {
   return (
     <Router>

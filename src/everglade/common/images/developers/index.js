@@ -1,3 +1,5 @@
+//Used to organize and contain the images of the developers
+
 import markJP from './MarkJP.png'
 import jakub from './Jakub.jpg'
 

@@ -17,6 +17,9 @@ function generateMessage(author, message) {
     )
 }
 
+/**
+ * The messaging area of the messaging page
+ */
 class MessagingMain extends Component {
 
     render() {

@@ -1,3 +1,5 @@
+//Cleans import
+
 import MobileHomeHeader from './mobileHomeHeader'
 import MobileHomeContacts from './mobileContact'
 

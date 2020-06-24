@@ -8,17 +8,20 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { EvergladeMini } from '../../common/images/logos'
 
+/**
+ * The sign up page of the website
+ */
 function SignUpPage() {
 
+    //Hooks
     const history = useHistory()
     const dispatch = useDispatch()
     const authError = useSelector(state => state.authError)
 
-    useEffect(() => {
-        return () => dispatch(removeAuthErrorAction())
-    }, [dispatch])
+    //Resets the auth error when the component dismounts
+    useEffect(() => (() => dispatch(removeAuthErrorAction())), [dispatch])
 
-    let signUp = (email, password) => {
+    const signUp = (email, password) => {
         authorizeSignUp(email, password)
             .then(response => {
                 dispatch(signInAction(response))

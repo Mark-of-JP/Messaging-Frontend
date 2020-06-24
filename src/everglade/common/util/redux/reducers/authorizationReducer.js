@@ -1,3 +1,5 @@
+//Reducers for setting the user and the auth error
+
 export const authReducer = (state = null, action) => {
     switch(action.type) {
         case 'SIGN_IN':

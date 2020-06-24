@@ -1,3 +1,5 @@
+//Used to organize and contain the images of the logos
+
 import evergladeLogo from './Everglade_Logo_1.jpg'
 import evergladeMini from './Everglade_Logo_2.jpg'
 import firebaseLogo from './Firebase_Logo.png'

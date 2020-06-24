@@ -1,3 +1,5 @@
+//Reducers for websockets
+
 export const socketReducer = (state = null, action) => {
     switch(action.type) {
         case "OPEN_SOCKET":

@@ -8,10 +8,32 @@ import {
 import { Redirect } from 'react-router-dom'
 import { Link } from 'react-scroll'
 
+const menuOptions = [
+    {
+        text: 'Home',
+        link: 'home'
+    },
+    {
+        text: 'About',
+        link: 'about'
+    },
+    {
+        text: 'Contact',
+        link: 'contact'
+    }
+]
+
+/**
+ * The Header menu for a widescreen window
+ */
 class HomepageHeader extends Component {
 
     state = {
         redirect: undefined
+    }
+
+    setRedirect = (link) => {
+        this.setState({ redirect: link })
     }
 
     checkVisionState = currentState => {
@@ -22,15 +44,19 @@ class HomepageHeader extends Component {
         }
     }
 
-    constructor(props) {
-        super(props)
-
-        this.state = { redirect: undefined }
-
-        this.setRedirect = (link) => {
-            this.setState({ redirect: link })
-        }
-    }
+    generateMenuOptions = () => (menuOptions.map(menuItem => (
+        <Menu.Item as='a' active={this.checkVisionState(this.props.visionState)[menuItem.link]} style={{ padding: '0em 0em' }}>
+            <Link activeClass="active"
+                to={menuItem.link}
+                spy={true}
+                smooth={true}
+                offset={-70}
+                duration={500}
+                style={{ width: '100px', height: '100%', justifyContent: 'center', alignContent: 'center', display: 'flex' }}>
+                <Header style={{ userSelect: 'none', color: 'white', alignSelf: 'center' }}>{menuItem.text}</Header>
+            </Link>
+        </Menu.Item>
+    )))
 
     render() {
 
@@ -38,8 +64,6 @@ class HomepageHeader extends Component {
 
             return <Redirect push to={'/' + this.state.redirect} />
         }
-
-        var visionState = this.checkVisionState(this.props.visionState)
 
         return (
             <div>
@@ -54,39 +78,7 @@ class HomepageHeader extends Component {
                         pointing
                         secondary={false}
                         size='large'>
-                        <Menu.Item as='a' active={visionState.home} style={{ padding: '0em 0em' }}>
-                            <Link activeClass="active"
-                                to="home"
-                                spy={true}
-                                smooth={true}
-                                offset={-70}
-                                duration={500}
-                                style={{ width: '100px', height: '100%', justifyContent: 'center', alignContent: 'center', display: 'flex' }}>
-                                <Header style={{ userSelect: 'none', color: 'white', alignSelf: 'center' }}>Home</Header>
-                            </Link>
-                        </Menu.Item>
-                        <Menu.Item as='a' active={visionState.about} style={{ padding: '0em 0em' }}>
-                            <Link activeClass="active"
-                                to="about"
-                                spy={true}
-                                smooth={true}
-                                offset={-70}
-                                duration={500}
-                                style={{ width: '100px', height: '100%', justifyContent: 'center', alignContent: 'center', display: 'flex' }}>
-                                <Header style={{ userSelect: 'none', color: 'white', alignSelf: 'center' }}>About</Header>
-                            </Link>
-                        </Menu.Item>
-                        <Menu.Item as='a' active={visionState.contact} style={{ padding: '0em 0em' }}>
-                            <Link activeClass="active"
-                                to="contact"
-                                spy={true}
-                                smooth={true}
-                                offset={-60}
-                                duration={500}
-                                style={{ width: '100px', height: '100%', justifyContent: 'center', alignContent: 'center', display: 'flex' }}>
-                                <Header style={{ userSelect: 'none', color: 'white', alignSelf: 'center' }}>Contact</Header>
-                            </Link>
-                        </Menu.Item>
+                        {this.generateMenuOptions()}
 
                         <Menu.Item position='right'>
 
@@ -103,7 +95,7 @@ class HomepageHeader extends Component {
                     {this.props.children}
                 </Segment>
 
-                
+
             </div>
         )
     }

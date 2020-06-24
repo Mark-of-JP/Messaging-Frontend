@@ -3,6 +3,32 @@ import { Divider, Header, Icon, Container, Image, Grid } from 'semantic-ui-react
 
 import { ReactLogo, HerokuLogo, FlaskLogo, FirebaseLogo } from '../../common/images/logos'
 
+const technologyInfo = [
+    {
+        image: ReactLogo,
+        name: 'React.js',
+        description: 'React is a popular frontend framework developed by Facebook. React is used for the frontend of our application and is currently being used to display this page.'
+    },
+    {
+        image: HerokuLogo,
+        name: 'Heroku',
+        description: 'Heroku is a platform that allows developers to develop and deploy their online web apps. Heroku is being used to host the React frontend of our application.'
+    },
+    {
+        image: FlaskLogo,
+        name: 'Flask',
+        description: 'Flask is a python web application framework that is being used for the backend of our application. We are using Flask for our REST API as well as for our websockets.'
+    },
+    {
+        image: FirebaseLogo,
+        name: 'Google Firebase',
+        description: "Firebase is Google's mobile platform. It is hosting our python web app as well as being our database. Authentication is also being handled by Firebase."
+    }
+]
+
+/**
+ * The about section of a window
+ */
 class HomepageAbout extends Component {
 
     generateTechnologyInfo = (image, title, message, isRight) => {
@@ -44,6 +70,8 @@ class HomepageAbout extends Component {
         )
     }
 
+    generateTechnologyList = () => (technologyInfo.map((techInfo, index) => this.generateTechnologyInfo(techInfo.image, techInfo.name, techInfo.description, index % 2 !== 0)))
+
     render() {
         return (
             <div style={{ marginBottom: '3em'}}>
@@ -61,10 +89,7 @@ class HomepageAbout extends Component {
                     </p>
                 </Container>
 
-                {this.generateTechnologyInfo(ReactLogo, 'React.js', 'React is a popular frontend framework developed by Facebook. React is used for the frontend of our application and is currently being used to display this page.', false)}
-                {this.generateTechnologyInfo(HerokuLogo, 'Heroku', 'Heroku is a platform that allows developers to develop and deploy their online web apps. Heroku is being used to host the React frontend of our application.', true)}
-                {this.generateTechnologyInfo(FlaskLogo, 'Flask', 'Flask is a python web application framework that is being used for the backend of our application. We are using Flask for our REST API as well as for our websockets.', false)}
-                {this.generateTechnologyInfo(FirebaseLogo, 'Google Firebase', "Firebase is Google's mobile platform. It is hosting our python web app as well as being our database. Authentication is also being handled by Firebase.", true)}
+                {this.generateTechnologyList()}
 
             </div>
         )

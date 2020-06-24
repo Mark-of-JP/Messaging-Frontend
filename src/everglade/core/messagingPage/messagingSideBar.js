@@ -4,6 +4,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar'
 
 import 'react-perfect-scrollbar/dist/css/styles.css'
 
+//The sidebar of the messaging page
 class MessagingSideBar extends Component {
 
     generateListContent = (num) => {

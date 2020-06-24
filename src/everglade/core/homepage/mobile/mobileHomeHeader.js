@@ -25,6 +25,9 @@ const sidebarOptions = [
     }
 ]
 
+/**
+ * The Header menu for a thin window
+ */
 class HomepageHeader extends Component {
 
     state = {

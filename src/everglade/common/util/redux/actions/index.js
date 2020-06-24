@@ -1,5 +1,7 @@
-export const signInAction = (payload) => ({
-    type: 'SIGN_IN', payload: payload
+//Actions used for redux
+
+export const signInAction = (user) => ({
+    type: 'SIGN_IN', payload: user
 }) 
 
 export const signOutAction = () => ({

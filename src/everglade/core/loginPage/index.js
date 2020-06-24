@@ -6,15 +6,20 @@ import LoginForm from './loginForm'
 
 import { EvergladeMini } from '../../common/images/logos'
 
-import {authorizeLogin} from '../../common/util/apiCalls/loginAuth'
+import { authorizeLogin } from '../../common/util/apiCalls/loginAuth'
 import { useHistory } from 'react-router-dom'
 
+/**
+ * The login page of the website
+ */
 function LoginPage() {
+    //Hooks
     const dispatch = useDispatch()
     const authError = useSelector(state => state.authError)
     const history = useHistory()
 
-    useEffect(() => (() => dispatch(removeAuthErrorAction())), [dispatch]) 
+    //Resets the auth error when component unmounts
+    useEffect(() => (() => dispatch(removeAuthErrorAction())), [dispatch])
 
     const login = (email, password) => {
 
@@ -66,7 +71,7 @@ function LoginPage() {
                 transform: 'translate(-50%, -50%)',
                 width: '500px',
             }}>
-                <LoginForm onSubmit={login} authError={authError}/>
+                <LoginForm onSubmit={login} authError={authError} />
             </Container>
         </div>
     )

@@ -3,6 +3,9 @@ import { Divider, Header, Grid, Card, Image, Icon } from 'semantic-ui-react'
 
 import { ContactInfo } from '../homepageInfo'
 
+/**
+ * The contact section on a widescreen window
+ */
 class HomepageContact extends Component {
 
     generateAboutCards = () => (ContactInfo.map(cardInfo => (

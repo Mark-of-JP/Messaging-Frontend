@@ -8,8 +8,12 @@ import MessagingMain from './messagingMain'
 import { setSocketAction } from '../../common/util/redux/actions'
 import { getMessagingSocket } from '../../common/util/websockets'
 
+/**
+ * The main messaging page of the website
+ */
 function MessagingPage() {
 
+    //Hooks
     const history = useHistory()
     const dispatch = useDispatch()
 
@@ -19,6 +23,7 @@ function MessagingPage() {
     if (currentUser === null)
         history.push('/')
 
+    //Starts the websocket if none exists
     if (socket === null)
         dispatch(setSocketAction(getMessagingSocket()))
 

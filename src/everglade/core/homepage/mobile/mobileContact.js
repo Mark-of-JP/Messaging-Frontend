@@ -6,6 +6,9 @@ import 'pure-react-carousel/dist/react-carousel.es.css';
 
 import { ContactInfo } from '../homepageInfo'
 
+/**
+ * The contact section on a thin window
+ */
 class HomepageContact extends Component {
 
     generateAboutCards = () => (ContactInfo.map(cardInfo => (
