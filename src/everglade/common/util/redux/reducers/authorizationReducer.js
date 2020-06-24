@@ -19,5 +19,3 @@ export const authErrorReducer = (state = null, action) => {
             return state
     }
 }
-
-export default authReducer

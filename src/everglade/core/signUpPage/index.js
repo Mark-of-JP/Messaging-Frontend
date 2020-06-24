@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Segment, Container, Button, Header, Menu, Image } from 'semantic-ui-react'
 import { useHistory } from 'react-router-dom'
 import SignUpForm from './signUpForm'
-import { authorizeSignUp } from '../../common/util/loginAuth'
+import { authorizeSignUp } from '../../common/util/apiCalls/loginAuth'
 import { signInAction, setAuthErrorAction, removeAuthErrorAction } from '../../common/util/redux/actions'
 import { useDispatch, useSelector } from 'react-redux'
 

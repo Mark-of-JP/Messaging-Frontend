@@ -6,7 +6,7 @@ import LoginForm from './loginForm'
 
 import { EvergladeMini } from '../../common/images/logos'
 
-import {authorizeLogin} from '../../common/util/loginAuth'
+import {authorizeLogin} from '../../common/util/apiCalls/loginAuth'
 import { useHistory } from 'react-router-dom'
 
 function LoginPage() {
