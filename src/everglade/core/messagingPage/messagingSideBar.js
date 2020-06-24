@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { List, Image, Menu, Dropdown, Input } from 'semantic-ui-react'
+import { List, Image, Menu, Dropdown, Input, Button } from 'semantic-ui-react'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
 import 'react-perfect-scrollbar/dist/css/styles.css'
@@ -42,14 +42,16 @@ class MessagingSideBar extends Component {
                     <Input placeholder='Search...' icon='search' />
                 </Menu.Item>
 
-                <PerfectScrollbar style={{ flex: 12, height: '100%', margin:'0em 1.5em', backgroundColor: '#1B1C1D' }}>
+                <PerfectScrollbar style={{ margin:'0em 1.5em', backgroundColor: '#1B1C1D' }}>
                     <List inverted selection verticalAlign='middle'>
                         {this.generateListContent(30)}
                     </List>
                 </PerfectScrollbar>
 
                 <Menu.Item>
-                    <div style={{ flex: 1, backgroundColor: 'purple' }} />
+                    <div style={{ backgroundColor: 'purple' }}>
+                        <Button>Pog</Button>
+                    </div>
                 </Menu.Item>
             </Menu>
         )

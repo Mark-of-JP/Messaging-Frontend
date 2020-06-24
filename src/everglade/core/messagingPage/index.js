@@ -1,18 +1,26 @@
 import React from 'react'
 import { Divider, Icon } from 'semantic-ui-react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 import MessagingSideBar from './messagingSideBar'
 import MessagingMain from './messagingMain'
-import { useHistory } from 'react-router-dom'
+import { setSocketAction } from '../../common/util/redux/actions'
+import { getMessagingSocket } from '../../common/util/websockets'
 
 function MessagingPage() {
 
-    const currentUser = useSelector(state => state.auth)
     const history = useHistory()
+    const dispatch = useDispatch()
+
+    const currentUser = useSelector(state => state.auth)
+    const socket = useSelector(state => state.socket)
 
     if (currentUser === null)
         history.push('/')
+
+    if (socket === null)
+        dispatch(setSocketAction(getMessagingSocket()))
 
     return (
         <div style={{ display: 'flex', flexDirection: 'row', height: '100vh', backgroundColor: '#1B1C1D' }}>
