@@ -20,12 +20,12 @@ function MessagingPage() {
     const currentUser = useSelector(state => state.auth)
     const socket = useSelector(state => state.socket)
 
-    if (currentUser === null)
-        history.push('/')
+    // if (currentUser === null)
+    //     history.push('/')
 
     //Starts the websocket if none exists
-    if (socket === null)
-        dispatch(setSocketAction(getMessagingSocket()))
+    // if (socket === null)
+    //     dispatch(setSocketAction(getMessagingSocket()))
 
     return (
         <div style={{ display: 'flex', flexDirection: 'row', height: '100vh', backgroundColor: '#1B1C1D' }}>

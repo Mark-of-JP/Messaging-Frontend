@@ -22,6 +22,11 @@ function generateMessage(author, message) {
  */
 class MessagingMain extends Component {
 
+    componentDidMount() {
+        console.log(this.psRef)
+        this.psRef.scrollTop = Number.MAX_SAFE_INTEGER
+    }
+
     render() {
         return (
             <div style={{ display: 'flex', flex: 4, flexDirection: 'column' }}>
@@ -35,7 +40,13 @@ class MessagingMain extends Component {
                     <Divider inverted />
                 </div>
 
-                <PerfectScrollbar style={{ maxHeight: '100%', marginRight: '15px', flex: 6, backgroundColor: '#424547' }}>
+                <PerfectScrollbar style={{ maxHeight: '100%', marginRight: '15px', flex: 6, backgroundColor: '#424547' }}
+                    containerRef={ref => {
+                        if (this.psRef === undefined) {
+                            this.psRef = ref
+                            this.setState({})
+                        }
+                    }}>
                     <div style={{ display: 'flex', alignItems: 'flex-end', minHeight: '100%' }}>
                         <Comment.Group>
                             {generateMessage('SoftBoiUwu', 'Eat Nut 12')}

@@ -21,8 +21,8 @@ function SignUpPage() {
     //Resets the auth error when the component dismounts
     useEffect(() => (() => dispatch(removeAuthErrorAction())), [dispatch])
 
-    const signUp = (email, password) => {
-        authorizeSignUp(email, password)
+    const signUp = (email, password, display_name) => {
+        authorizeSignUp(email, password, display_name)
             .then(response => {
                 dispatch(signInAction(response))
                 dispatch(removeAuthErrorAction())

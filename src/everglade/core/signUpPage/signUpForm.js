@@ -8,6 +8,7 @@ class SignUpForm extends Component {
 
     state = {
         email: "",
+        display_name: "",
         password: "",
         secondPassword: "",
         validEmail: true,
@@ -22,7 +23,7 @@ class SignUpForm extends Component {
     isPasswordMatch = (password, secondPassword) => password === secondPassword
 
     submitSignUp = () => {
-        const {email, password, secondPassword} = this.state
+        const {email, display_name, password, secondPassword} = this.state
 
         let invalidValues = {validEmail: true, validPassword: true, validPasswordMatch: true}
 
@@ -40,7 +41,7 @@ class SignUpForm extends Component {
 
         this.setState(invalidValues, () => {
             if(this.state.validEmail && this.state.validPassword && this.state.validPasswordMatch) {
-                this.props.onSubmit(this.state.email, this.state.password)
+                this.props.onSubmit(email, password, display_name)
             }
         })
     }
@@ -54,6 +55,14 @@ class SignUpForm extends Component {
                     placeholder='Email'
                     name='email'
                     value={this.state.email}
+                    onChange={this.handleFormChange}
+                    error={!this.state.validEmail ? {content:'Please provide a proper email.', pointing: 'below'} : undefined}
+                />
+                <Form.Input
+                    label='Display Name'
+                    placeholder='Display Name'
+                    name='display_name'
+                    value={this.state.display_name}
                     onChange={this.handleFormChange}
                     error={!this.state.validEmail ? {content:'Please provide a proper email.', pointing: 'below'} : undefined}
                 />

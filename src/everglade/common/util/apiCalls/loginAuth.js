@@ -36,7 +36,7 @@ export async function authorizeLogin(email, password) {
  * @param {string} password The users password
  * @return {Promise<JSON>} 
  */
-export async function authorizeSignUp(email, password) {
+export async function authorizeSignUp(email, password, display_name) {
 
     const response = await fetch(apiUrl + 'signup', {
         method: 'POST',
@@ -46,7 +46,8 @@ export async function authorizeSignUp(email, password) {
         },
         body: JSON.stringify({
             "email": email,
-            "password": password
+            "password": password,
+            "display_name": display_name
         })
     })
 
