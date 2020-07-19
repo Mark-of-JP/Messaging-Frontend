@@ -25,3 +25,22 @@ export const setSocketAction = (socket) => ({
 export const removeSocketAction = () => ({
     type: 'CLOSE_SOCKET'
 })
+
+export const setUserAction = (info) => ({
+    type: 'SET_USER_INFO',
+    payload: info
+})
+
+export const removeUserAction = () => ({
+    type: 'REMOVE_USER_INFO'
+})
+
+export const setMessageOptionAction = (option) => ({
+    type: 'SET_MESSAGE_OPTION',
+    payload: option
+})
+
+export const setCachedUsersActions = (users) => ({
+    type: 'SET_CACHED_USERS',
+    payload: users
+})

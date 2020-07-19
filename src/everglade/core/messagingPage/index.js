@@ -5,8 +5,12 @@ import { useHistory } from 'react-router-dom'
 
 import MessagingSideBar from './messagingSideBar'
 import MessagingMain from './messagingMain'
-import { setSocketAction } from '../../common/util/redux/actions'
+
+import { setSocketAction, setMessageOptionAction, setUserAction } from '../../common/util/redux/actions'
 import { getMessagingSocket } from '../../common/util/websockets'
+
+import { fetchTokenUser } from '../../common/util/apiCalls/userCalls'
+import { getFriends } from '../../common/testInfo'
 
 /**
  * The main messaging page of the website
@@ -17,20 +21,41 @@ function MessagingPage() {
     const history = useHistory()
     const dispatch = useDispatch()
 
-    const currentUser = useSelector(state => state.auth)
+    const auth = useSelector(state => state.auth)
+    const user = useSelector(state => state.user)
     const socket = useSelector(state => state.socket)
 
-    // if (currentUser === null)
-    //     history.push('/')
+    const messageOption = useSelector(state => state.messageOption)
+
+    if (auth === null) {
+        history.push('/')
+        return (<div></div>)
+    }
+
+    if (user === null) {
+        fetchTokenUser(auth['token'])
+            .then(response => dispatch(setUserAction(response)))
+
+        return (<div></div>)
+    }
+
+    console.log(user)
 
     //Starts the websocket if none exists
     // if (socket === null)
     //     dispatch(setSocketAction(getMessagingSocket()))
 
+    const setMessageOption = (option) => dispatch(setMessageOptionAction(option))
+    const friendsInfo = getFriends()
+
     return (
         <div style={{ display: 'flex', flexDirection: 'row', height: '100vh', backgroundColor: '#1B1C1D' }}>
 
-            <MessagingSideBar />
+            <MessagingSideBar 
+                setMessageOption={setMessageOption} 
+                messageOption={messageOption}
+                userInfo={user}
+                friendsInfo={friendsInfo} />
 
             <div style={{ flex: 0.1, position: 'relative' }}>
                 <Divider inverted vertical>
