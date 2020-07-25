@@ -20,14 +20,26 @@ class MessagingSideBar extends Component {
         }
     }
 
-    generateFriendsContent = (friendInfo) => friendInfo.map((info) => (
-        <List.Item>
-            <Image avatar placeholder />
-            <List.Content>
-                <List.Header>{info.display_name}</List.Header>
-            </List.Content>
-        </List.Item>
-    ))
+    generateFriendsContent = (friendInfo) => {
+
+        let friendContent = []
+
+        Object.keys(friendInfo).forEach(friendUID => {
+            let info = friendInfo[friendUID]
+
+            friendContent.push((
+                <List.Item>
+                    <Image avatar placeholder />
+                    <List.Content>
+                        <List.Header>{info.display_name}</List.Header>
+                    </List.Content>
+                </List.Item>
+            ))
+        })
+
+        return friendContent
+
+    }
 
     render() {
         this.optionInfo = this.messageOptionInfo[this.props.messageOption]

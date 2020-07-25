@@ -1,6 +1,4 @@
-require('dotenv').config()
-
-const apiUrl = process.env.REACT_APP_API_URL !== undefined ? process.env.REACT_APP_API_URL : 'https://everglade-messaging.web.app/'
+import { apiUrl } from '../constants'
 
 /**
  * Logs in to the username and password using our api backend

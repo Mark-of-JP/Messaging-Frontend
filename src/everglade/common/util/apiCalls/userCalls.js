@@ -1,6 +1,4 @@
-require('dotenv').config()
-
-const apiUrl = process.env.REACT_APP_API_URL !== undefined ? process.env.REACT_APP_API_URL : 'https://everglade-messaging.web.app/'
+import { apiUrl } from '../constants'
 
 export async function fetchTokenUser(authToken) {
     return fetch(apiUrl + 'users/me', {
@@ -16,6 +14,7 @@ export async function fetchTokenUser(authToken) {
 }
 
 export async function fetchMultipleUsers(userUids, authToken) {
+    console.log('Fetching Users')
     return fetch(apiUrl + 'users', {
         method: 'POST',
         mode: 'cors',
