@@ -6,10 +6,10 @@ import { useHistory } from 'react-router-dom'
 import MessagingSideBar from './messagingSideBar'
 import MessagingMain from './messagingMain'
 
-import { setSocketAction, setMessageOptionAction, setUserAction } from '../../common/util/redux/actions'
+import { setSocketAction, setMessageOptionAction, setUserAction, setCachedUsersActions } from '../../common/util/redux/actions'
 import { getMessagingSocket } from '../../common/util/websockets'
 
-import { fetchTokenUser } from '../../common/util/apiCalls/userCalls'
+import { fetchTokenUser, fetchMultipleUsers } from '../../common/util/apiCalls/userCalls'
 import { getFriends } from '../../common/testInfo'
 
 /**
@@ -23,6 +23,7 @@ function MessagingPage() {
 
     const auth = useSelector(state => state.auth)
     const user = useSelector(state => state.user)
+    const cachedUsers = useSelector(state => state.cachedUsers)
     const socket = useSelector(state => state.socket)
 
     const messageOption = useSelector(state => state.messageOption)
@@ -39,14 +40,23 @@ function MessagingPage() {
         return (<div></div>)
     }
 
-    console.log(user)
+    if (cachedUsers === null) {
+        fetchMultipleUsers(Object.keys(user.friends_list), auth['token'])
+            .then(response => dispatch(setCachedUsersActions(response["users"])))
+
+        return (<div></div>)
+    }
 
     //Starts the websocket if none exists
     // if (socket === null)
     //     dispatch(setSocketAction(getMessagingSocket()))
 
     const setMessageOption = (option) => dispatch(setMessageOptionAction(option))
-    const friendsInfo = getFriends()
+    const friendsInfo = cachedUsers.map(cachedUser => {
+        if (Object.keys(user.friends_list).includes(cachedUser["uid"])) {
+            return cachedUser
+        }
+    })
 
     return (
         <div style={{ display: 'flex', flexDirection: 'row', height: '100vh', backgroundColor: '#1B1C1D' }}>
