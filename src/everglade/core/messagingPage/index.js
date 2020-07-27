@@ -12,6 +12,7 @@ import { getMessagingSocket } from '../../common/util/websockets'
 import { fetchTokenUser, fetchMultipleUsers } from '../../common/util/apiCalls/userCalls'
 import { fetchSimpleChat, fetchMultipleSimpleChats } from '../../common/util/apiCalls/chatCalls'
 import { getFriends } from '../../common/testInfo'
+import { MESSAGE_OPTIONS } from '../../common/util/redux/reducers/messagingOptionsReducer'
 
 var hasFetchedTokenUser = false
 var hasFetchedCachedUsers = false
@@ -21,6 +22,9 @@ var hasFetchedCachedChats = false
  * The main messaging page of the website
  */
 function MessagingPage() {
+    //Forced Update function
+    const [, updateState] = React.useState();
+    const forceUpdate = React.useCallback(() => updateState({}), []);
 
     //Hooks
     const history = useHistory()
@@ -30,15 +34,20 @@ function MessagingPage() {
     const user = useSelector(state => state.user)
     const cachedUsers = useSelector(state => state.cachedUsers)
     const cachedChats = useSelector(state => state.cachedChats)
+    const messageOption = useSelector(state => state.messageOption)
     const socket = useSelector(state => state.socket)
 
-    const messageOption = useSelector(state => state.messageOption)
-
+    //Redirect to different url checks
     if (auth === null) {
         history.push('/')
         return (<div></div>)
     }
 
+    if (window.location.pathname === '/messaging') {
+        history.push('/messaging/users/@me')
+    }
+
+    //Fetch data from the api
     if (user === null) {
         if (!hasFetchedTokenUser) {
             hasFetchedTokenUser = true
@@ -61,35 +70,53 @@ function MessagingPage() {
         return (<div></div>)
     }
 
-    if (!hasFetchedCachedChats) {
-        hasFetchedCachedChats = true
-
-        const chatUIDs = Object.keys(user.chats)
-        fetchMultipleSimpleChats(chatUIDs, auth['token'], cachedChats)
-            .then(response => dispatch(setCachedChatsAction(response)))
-    }
-    console.log(cachedUsers)
-    console.log(cachedChats)
-
     //Starts the websocket if none exists
     // if (socket === null)
     //     dispatch(setSocketAction(getMessagingSocket()))
 
-    const setMessageOption = (option) => dispatch(setMessageOptionAction(option))
+    //Formats data for components
+    const chatUIDs = Object.keys(user.chats)
+    if (!hasFetchedCachedChats) {
+        hasFetchedCachedChats = true
+
+        fetchMultipleSimpleChats(chatUIDs, auth['token'], cachedChats)
+            .then(response => dispatch(setCachedChatsAction(response)))
+    }
+
     const friendsInfo = { ...cachedUsers }
     Object.keys(friendsInfo).forEach(friendUID => {
         if (!(friendUID in user.friends_list))
             delete friendsInfo[friendUID]
     })
+    const chatsInfo = { ...cachedChats }
+    Object.keys(chatsInfo).forEach(chatUID => {
+        if (!(chatUIDs.includes(chatUID)))
+            delete chatsInfo[chatUID]
+    })
+
+    const setMessageOption = (option) => dispatch(setMessageOptionAction(option))
+    const setMessagingUrl = (option, uid) => {
+        history.push('/messaging/' + option + '/' + uid)
+        forceUpdate()
+    }
+
+    //Extracting parameters from url
+    const parameters = window.location.pathname.split('/')
+    const urlOption = parameters[2]
+    const uid = parameters[3]
 
     return (
         <div style={{ display: 'flex', flexDirection: 'row', height: '100vh', backgroundColor: '#1B1C1D' }}>
 
             <MessagingSideBar
                 setMessageOption={setMessageOption}
+                setMessagingUrl={setMessagingUrl}
                 messageOption={messageOption}
                 userInfo={user}
-                friendsInfo={friendsInfo} />
+                friendsInfo={friendsInfo} 
+                chatsInfo = {chatsInfo}
+                cachedUsers = {cachedUsers}
+                cachedChats = {cachedChats} />
 
             <div style={{ flex: 0.1, position: 'relative' }}>
                 <Divider inverted vertical>
@@ -98,7 +125,11 @@ function MessagingPage() {
             </div>
 
 
-            <MessagingMain />
+            <MessagingMain
+                messageOption={messageOption}
+                selectedUID={uid}
+                user={user}
+                cachedUsers = {cachedUsers} />
         </div>
     )
 }

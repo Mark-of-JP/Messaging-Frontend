@@ -11,16 +11,18 @@ class MessagingSideBar extends Component {
 
     messageOptionInfo = {
         [MESSAGE_OPTIONS.FRIENDS]: {
+            option: 'users',
             addButtonText: 'Add Friend',
-            generateContent: () => this.generateFriendsContent(this.props.friendsInfo)
+            generateContent: () => this.generateFriendsSidebar(this.props.friendsInfo)
         },
         [MESSAGE_OPTIONS.CHATS]: {
+            options: 'chats',
             addButtonText: 'Create Chat',
-            generateContent: () => { }
+            generateContent: () => this.generateChatSidebar(this.props.chatsInfo)
         }
     }
 
-    generateFriendsContent = (friendInfo) => {
+    generateFriendsSidebar = (friendInfo) => {
 
         let friendContent = []
 
@@ -28,7 +30,7 @@ class MessagingSideBar extends Component {
             let info = friendInfo[friendUID]
 
             friendContent.push((
-                <List.Item>
+                <List.Item onClick={() => this.props.setMessagingUrl('users', friendUID)}>
                     <Image avatar placeholder />
                     <List.Content>
                         <List.Header>{info.display_name}</List.Header>
@@ -38,6 +40,27 @@ class MessagingSideBar extends Component {
         })
 
         return friendContent
+
+    }
+
+    generateChatSidebar = (chatInfo) => {
+
+        let chatContent = []
+
+        Object.keys(chatInfo).forEach(chatUID => {
+            let info = chatInfo[chatUID]
+
+            chatContent.push((
+                <List.Item>
+                    <Image avatar placeholder />
+                    <List.Content>
+                        <List.Header>{info.chat_name}</List.Header>
+                    </List.Content>
+                </List.Item>
+            ))
+        })
+
+        return chatContent
 
     }
 
@@ -64,12 +87,13 @@ class MessagingSideBar extends Component {
 
                 <PerfectScrollbar style={{ margin: '0em 1.5em', backgroundColor: '#1B1C1D' }}>
                     <List inverted selection verticalAlign='middle'>
-                        <List.Item>
+                        { this.props.messageOption === MESSAGE_OPTIONS.FRIENDS && (
+                        <List.Item onClick={() => this.props.setMessagingUrl('users', '@me')}>
                             <Image avatar placeholder />
                             <List.Content>
                                 <List.Header>YOU</List.Header>
                             </List.Content>
-                        </List.Item>
+                        </List.Item> ) }
                         {this.optionInfo.generateContent()}
                     </List>
                 </PerfectScrollbar>

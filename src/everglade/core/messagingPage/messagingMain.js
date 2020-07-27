@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { TextArea, Form, Divider, Comment, Header, Button, Icon } from 'semantic-ui-react'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
+import { UserMain } from './users'
+
 function generateMessage(author, message) {
     return (
         <Comment>
@@ -22,16 +24,27 @@ function generateMessage(author, message) {
  */
 class MessagingMain extends Component {
 
-    componentDidMount() {
-        console.log(this.psRef)
-        this.psRef.scrollTop = Number.MAX_SAFE_INTEGER
-    }
+    // componentDidMount() {
+    //     console.log(this.psRef)
+    //     this.psRef.scrollTop = Number.MAX_SAFE_INTEGER
+    // }
 
     render() {
+
+        if (this.props.selectedUID === '@me')
+            var currUser = this.props.user
+        else if (this.props.selectedUID in this.props.cachedUsers)
+            var currUser = this.props.cachedUsers[this.props.selectedUID]
+
+        console.log(currUser)
+
         return (
             <div style={{ display: 'flex', flex: 4, flexDirection: 'column' }}>
 
-                <div style={{ flex: 1, display: 'flex', alignItems: 'flex-end', padding: '0em 1em', flexDirection: 'row', justifyContent:'space-between' }}>
+                <UserMain
+                    user={currUser} />
+
+                {/* <div style={{ flex: 1, display: 'flex', alignItems: 'flex-end', padding: '0em 1em', flexDirection: 'row', justifyContent:'space-between' }}>
                     <Header as='h2' inverted>The Bean Squad</Header>
                     <Button inverted icon style={{alignSelf:'center'}}><Icon name='cog' /></Button>
                 </div>
@@ -79,7 +92,7 @@ class MessagingMain extends Component {
                         <Button inverted style={{ margin: '1em 0em' }}>Send</Button>
                     </div>
 
-                </Form>
+                </Form> */}
             </div>
         )
     }
