@@ -2,9 +2,14 @@ import React, { Component } from 'react'
 import { TextArea, Form, Divider, Comment, Header, Button, Icon } from 'semantic-ui-react'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
+import { MarkJP } from '../../../common/images/developers'
 import formatTime from '../../../common/util/basics/formatTime'
 
 class MainSection extends Component {
+
+    state={
+        message: ""
+    }
 
     componentDidMount() {
         this.psRef.scrollTop = Number.MAX_SAFE_INTEGER
@@ -14,8 +19,8 @@ class MainSection extends Component {
         return this.props.chat.messages.map(messageInfo => {
 
             return (
-            <Comment>
-                <Comment.Avatar />
+            <Comment style={{paddingLeft: '1em'}} >
+                <Comment.Avatar src={MarkJP} />
                 <Comment.Content>
                     <Comment.Author as='a'>{this.props.cachedUsers[messageInfo.author].display_name}</Comment.Author>
                     <Comment.Metadata>
@@ -28,7 +33,6 @@ class MainSection extends Component {
     }
 
     render() {
-
         return (
             <div style={{ display: 'flex', flex: 4, flexDirection: 'column', height: '100%' }}>
                 <div style={{ flex: 1, display: 'flex', alignItems: 'flex-end', padding: '0em 1em', flexDirection: 'row', justifyContent:'space-between' }}>
@@ -63,8 +67,12 @@ class MainSection extends Component {
 
                 <Form style={{ flex: 1, padding: '1em 2em' }}>
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
-                        <TextArea placeholder='Send a message...' style={{ resize: 'none', marginRight: '2em' }} />
-                        <Button inverted style={{ margin: '1em 0em' }}>Send</Button>
+                        <TextArea placeholder='Send a message...' style={{ resize: 'none', marginRight: '2em' }} 
+                        onChange={(e, v) => this.setState({message: v['value']}, () => {})}/>
+                        <Button inverted style={{ margin: '1em 0em' }}
+                            onClick={() => this.props.sendMessage(this.props.chatUID, this.state.message)}>
+                            Send
+                        </Button>
                     </div>
 
                 </Form>

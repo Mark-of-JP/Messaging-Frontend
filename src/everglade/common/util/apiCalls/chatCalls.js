@@ -64,3 +64,20 @@ export async function fetchChat(chatUID, authToken, messageLimit) {
     })
     .catch(err => console.log(err))
 }
+
+export async function sendMessage(chatUID, authToken, message) {
+    console.log(chatUID)
+    return fetch(apiUrl + 'chat/' + chatUID, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+            'EVERGLADE-USER-TOKEN': authToken
+        },
+        body: JSON.stringify({
+            'message': message
+        })
+    })
+    .then(response => response.json())
+    .catch(err => console.log(err))
+}

@@ -54,3 +54,11 @@ export const updateCachedChatsACTION = chats => ({
     type: 'UPDATE_CACHED_CHATS',
     payload: chats
 })
+
+export const sendMessageToChatAction = (chatUID, message) => ({
+    type: 'SEND_MESSAGE_TO_CHAT',
+    payload: {
+        'chatUID': chatUID,
+        'message': message
+    }
+})

@@ -41,7 +41,9 @@ class MessagingMain extends Component {
 
                 {this.props.urlOption == 'chats' &&
                     <ChatMain
+                        sendMessage={this.props.sendChatMessage}
                         chat={currChat}
+                        chatUID={this.props.selectedUID}
                         cachedUsers={this.props.cachedUsers} />}
 
             </div>

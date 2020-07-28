@@ -9,6 +9,11 @@ export const cachedChatReducer = (state = {}, action) => {
                 ...state,
                 ...action.payload
             }
+        case 'SEND_MESSAGE_TO_CHAT':
+            console.log(action.payload)
+            state[action.payload['chatUID']].messages.push(action.payload['message'])
+
+            return state
         case 'REMOVE_CACHED_CHATS':
             return {}
 

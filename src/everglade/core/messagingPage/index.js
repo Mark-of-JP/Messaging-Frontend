@@ -12,12 +12,13 @@ import {
     setUserAction, 
     setCachedUsersActions, 
     setCachedChatsAction,
-    updateCachedChatsACTION
+    updateCachedChatsACTION,
+    sendMessageToChatAction
 } from '../../common/util/redux/actions'
 import { getMessagingSocket } from '../../common/util/websockets'
 
 import { fetchTokenUser, fetchMultipleUsers } from '../../common/util/apiCalls/userCalls'
-import { fetchMultipleSimpleChats, fetchChat } from '../../common/util/apiCalls/chatCalls'
+import { fetchMultipleSimpleChats, fetchChat, sendMessage } from '../../common/util/apiCalls/chatCalls'
 
 var hasFetchedTokenUser = false
 var hasFetchedCachedUsers = false
@@ -112,6 +113,16 @@ function MessagingPage() {
             .then(response => dispatch(updateCachedChatsACTION(response)))
             .then(() => forceUpdate())
     }
+    const sendChatMessage = (chatUID, message) => {
+        sendMessage(chatUID, auth['token'], message)
+            .then(response => { 
+                console.log(response)
+                dispatch(sendMessageToChatAction(chatUID, response[Object.keys(response)[0]])) 
+                forceUpdate()
+            })
+    }
+
+    console.log(cachedChats)
 
 
     //Extracting parameters from url
@@ -141,6 +152,7 @@ function MessagingPage() {
 
             <MessagingMain
                 updateChatData={updateChatData}
+                sendChatMessage={sendChatMessage}
                 messageOption={messageOption}
                 selectedUID={uid}
                 urlOption={urlOption}
