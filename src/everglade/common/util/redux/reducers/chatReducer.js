@@ -7,8 +7,7 @@ export const cachedChatReducer = (state = {}, action) => {
         case 'UPDATE_CACHED_CHATS':
             return {
                 ...state,
-                ...action.payload,
-                ...{ "simple": false }
+                ...action.payload
             }
         case 'REMOVE_CACHED_CHATS':
             return {}

@@ -6,13 +6,18 @@ import { useHistory } from 'react-router-dom'
 import MessagingSideBar from './messagingSideBar'
 import MessagingMain from './messagingMain'
 
-import { setSocketAction, setMessageOptionAction, setUserAction, setCachedUsersActions, setCachedChatsAction } from '../../common/util/redux/actions'
+import { 
+    setSocketAction, 
+    setMessageOptionAction, 
+    setUserAction, 
+    setCachedUsersActions, 
+    setCachedChatsAction,
+    updateCachedChatsACTION
+} from '../../common/util/redux/actions'
 import { getMessagingSocket } from '../../common/util/websockets'
 
 import { fetchTokenUser, fetchMultipleUsers } from '../../common/util/apiCalls/userCalls'
-import { fetchSimpleChat, fetchMultipleSimpleChats } from '../../common/util/apiCalls/chatCalls'
-import { getFriends } from '../../common/testInfo'
-import { MESSAGE_OPTIONS } from '../../common/util/redux/reducers/messagingOptionsReducer'
+import { fetchMultipleSimpleChats, fetchChat } from '../../common/util/apiCalls/chatCalls'
 
 var hasFetchedTokenUser = false
 var hasFetchedCachedUsers = false
@@ -64,7 +69,10 @@ function MessagingPage() {
             hasFetchedCachedUsers = true
 
             fetchMultipleUsers(Object.keys(user.friends_list), auth['token'])
-                .then(response => dispatch(setCachedUsersActions(response["users"])))
+                .then(response => {
+                    response['users'][user.uid] = user
+                    dispatch(setCachedUsersActions(response["users"]))
+            })
         }
 
         return (<div></div>)
@@ -99,6 +107,12 @@ function MessagingPage() {
         history.push('/messaging/' + option + '/' + uid)
         forceUpdate()
     }
+    const updateChatData = (chatUID, messageLimit) => {
+        fetchChat(chatUID, auth['token'], messageLimit)
+            .then(response => dispatch(updateCachedChatsACTION(response)))
+            .then(() => forceUpdate())
+    }
+
 
     //Extracting parameters from url
     const parameters = window.location.pathname.split('/')
@@ -126,10 +140,13 @@ function MessagingPage() {
 
 
             <MessagingMain
+                updateChatData={updateChatData}
                 messageOption={messageOption}
                 selectedUID={uid}
+                urlOption={urlOption}
                 user={user}
-                cachedUsers = {cachedUsers} />
+                cachedUsers={cachedUsers}
+                cachedChats={cachedChats} />
         </div>
     )
 }

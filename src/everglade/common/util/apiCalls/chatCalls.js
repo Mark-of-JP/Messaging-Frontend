@@ -45,3 +45,22 @@ export async function fetchMultipleSimpleChats(chatUIDs, authToken, currentChatI
 
     return chatInfo
 }
+
+export async function fetchChat(chatUID, authToken, messageLimit) {
+    return fetch(apiUrl + 'chat/' + chatUID + "?message_limit=" + messageLimit, {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+            'EVERGLADE-USER-TOKEN': authToken
+        }
+    })
+    .then(response => response.json())
+    .then(response => {
+        response['simple'] = false
+        return {
+            [chatUID]: response
+        }
+    })
+    .catch(err => console.log(err))
+}

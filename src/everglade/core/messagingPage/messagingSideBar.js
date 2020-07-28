@@ -51,7 +51,7 @@ class MessagingSideBar extends Component {
             let info = chatInfo[chatUID]
 
             chatContent.push((
-                <List.Item>
+                <List.Item onClick={() => this.props.setMessagingUrl('chats', chatUID)} >
                     <Image avatar placeholder />
                     <List.Content>
                         <List.Header>{info.chat_name}</List.Header>
