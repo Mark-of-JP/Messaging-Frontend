@@ -16,6 +16,7 @@ class MainSection extends Component {
     }
 
     generateMessages() {
+
         return this.props.chat.messages.map(messageInfo => {
 
             return (

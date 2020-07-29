@@ -58,6 +58,10 @@ export async function fetchChat(chatUID, authToken, messageLimit) {
     .then(response => response.json())
     .then(response => {
         response['simple'] = false
+
+        if (response.messages === undefined)
+            response.messages = []
+
         return {
             [chatUID]: response
         }
@@ -66,7 +70,6 @@ export async function fetchChat(chatUID, authToken, messageLimit) {
 }
 
 export async function sendMessage(chatUID, authToken, message) {
-    console.log(chatUID)
     return fetch(apiUrl + 'chat/' + chatUID, {
         method: 'POST',
         mode: 'cors',
@@ -76,6 +79,22 @@ export async function sendMessage(chatUID, authToken, message) {
         },
         body: JSON.stringify({
             'message': message
+        })
+    })
+    .then(response => response.json())
+    .catch(err => console.log(err))
+}
+
+export async function callCreateChat(authToken, chatName) {
+    return fetch(apiUrl + 'create/chat', {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+            'EVERGLADE-USER-TOKEN': authToken
+        },
+        body: JSON.stringify({
+            'chat_name': chatName
         })
     })
     .then(response => response.json())

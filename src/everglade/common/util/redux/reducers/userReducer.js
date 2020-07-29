@@ -4,6 +4,11 @@ export const userReducer = (state = null, action) => {
     switch(action.type) {
         case 'SET_USER_INFO':
             return action.payload
+        case 'UPDATE_USER_INFO':
+            return {
+                ...state,
+                ...action.payload
+            }
         case 'REMOVE_USER_INFO':
             return null
         default:

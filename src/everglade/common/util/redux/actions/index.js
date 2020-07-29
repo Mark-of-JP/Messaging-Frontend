@@ -31,6 +31,11 @@ export const setUserAction = (info) => ({
     payload: info
 })
 
+export const updateUserAction = update => ({
+    type: 'UPDATE_USER_INFO',
+    payload: update
+})
+
 export const removeUserAction = () => ({
     type: 'REMOVE_USER_INFO'
 })

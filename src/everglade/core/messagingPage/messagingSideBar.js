@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import { List, Image, Menu, Dropdown, Input, Button, Icon } from 'semantic-ui-react'
+import { List, Image, Menu, Dropdown, Input } from 'semantic-ui-react'
 import PerfectScrollbar from 'react-perfect-scrollbar'
+
+import CreateModal from './messagingCreateModal'
 
 import 'react-perfect-scrollbar/dist/css/styles.css'
 
@@ -12,56 +14,39 @@ class MessagingSideBar extends Component {
     messageOptionInfo = {
         [MESSAGE_OPTIONS.FRIENDS]: {
             option: 'users',
+            nameKey: 'display_name',
             addButtonText: 'Add Friend',
-            generateContent: () => this.generateFriendsSidebar(this.props.friendsInfo)
+            addText: 'Display Name',
+            generateContent: () => this.generateSidebar(this.props.friendsInfo),
+            onAddCreate: () => {}
         },
         [MESSAGE_OPTIONS.CHATS]: {
-            options: 'chats',
+            option: 'chats',
+            nameKey: 'chat_name',
             addButtonText: 'Create Chat',
-            generateContent: () => this.generateChatSidebar(this.props.chatsInfo)
+            addText: 'Chat Name',
+            generateContent: () => this.generateSidebar(this.props.chatsInfo),
+            onAddCreate: this.props.createChat
         }
     }
 
-    generateFriendsSidebar = (friendInfo) => {
+    generateSidebar = rawInfo => {
+        let content = []
 
-        let friendContent = []
+        Object.keys(rawInfo).forEach(uid => {
+            let info = rawInfo[uid]
 
-        Object.keys(friendInfo).forEach(friendUID => {
-            let info = friendInfo[friendUID]
-
-            friendContent.push((
-                <List.Item onClick={() => this.props.setMessagingUrl('users', friendUID)}>
+            content.push((
+                <List.Item onClick={() => this.props.setMessagingUrl(this.optionInfo.option, uid)}>
                     <Image avatar placeholder />
                     <List.Content>
-                        <List.Header>{info.display_name}</List.Header>
+                        <List.Header>{info[this.optionInfo.nameKey]}</List.Header>
                     </List.Content>
                 </List.Item>
             ))
         })
 
-        return friendContent
-
-    }
-
-    generateChatSidebar = (chatInfo) => {
-
-        let chatContent = []
-
-        Object.keys(chatInfo).forEach(chatUID => {
-            let info = chatInfo[chatUID]
-
-            chatContent.push((
-                <List.Item onClick={() => this.props.setMessagingUrl('chats', chatUID)} >
-                    <Image avatar placeholder />
-                    <List.Content>
-                        <List.Header>{info.chat_name}</List.Header>
-                    </List.Content>
-                </List.Item>
-            ))
-        })
-
-        return chatContent
-
+        return content
     }
 
     render() {
@@ -87,22 +72,20 @@ class MessagingSideBar extends Component {
 
                 <PerfectScrollbar style={{ margin: '0em 1.5em', backgroundColor: '#1B1C1D' }}>
                     <List inverted selection verticalAlign='middle'>
-                        { this.props.messageOption === MESSAGE_OPTIONS.FRIENDS && (
-                        <List.Item onClick={() => this.props.setMessagingUrl('users', '@me')}>
-                            <Image avatar placeholder />
-                            <List.Content>
-                                <List.Header>YOU</List.Header>
-                            </List.Content>
-                        </List.Item> ) }
+                        {this.props.messageOption === MESSAGE_OPTIONS.FRIENDS && (
+                            <List.Item onClick={() => this.props.setMessagingUrl('users', '@me')}>
+                                <Image avatar placeholder />
+                                <List.Content>
+                                    <List.Header>YOU</List.Header>
+                                </List.Content>
+                            </List.Item>)}
                         {this.optionInfo.generateContent()}
                     </List>
                 </PerfectScrollbar>
 
                 <Menu.Item>
-                    <Button fluid icon labelPosition='right' color='green'>
-                        <Icon name="plus" />
-                        {this.optionInfo.addButtonText}
-                    </Button>
+                    <CreateModal optionInfo={this.optionInfo} />
+
                 </Menu.Item>
             </Menu>
         )

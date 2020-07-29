@@ -10,6 +10,7 @@ import {
     setSocketAction, 
     setMessageOptionAction, 
     setUserAction, 
+    updateUserAction,
     setCachedUsersActions, 
     setCachedChatsAction,
     updateCachedChatsACTION,
@@ -18,7 +19,7 @@ import {
 import { getMessagingSocket } from '../../common/util/websockets'
 
 import { fetchTokenUser, fetchMultipleUsers } from '../../common/util/apiCalls/userCalls'
-import { fetchMultipleSimpleChats, fetchChat, sendMessage } from '../../common/util/apiCalls/chatCalls'
+import { fetchMultipleSimpleChats, fetchChat, sendMessage, callCreateChat } from '../../common/util/apiCalls/chatCalls'
 
 var hasFetchedTokenUser = false
 var hasFetchedCachedUsers = false
@@ -91,7 +92,6 @@ function MessagingPage() {
         fetchMultipleSimpleChats(chatUIDs, auth['token'], cachedChats)
             .then(response => dispatch(setCachedChatsAction(response)))
     }
-
     const friendsInfo = { ...cachedUsers }
     Object.keys(friendsInfo).forEach(friendUID => {
         if (!(friendUID in user.friends_list))
@@ -108,6 +108,27 @@ function MessagingPage() {
         history.push('/messaging/' + option + '/' + uid)
         forceUpdate()
     }
+
+    const createChat = chatName => {
+        callCreateChat(auth['token'], chatName)
+            .then(response => {
+                const chatUID = Object.keys(response)[0]
+
+                const simpleResponse = {
+                    [chatUID]: {
+                        ...response[chatUID],
+                    }
+                }
+                delete simpleResponse[chatUID].messages
+                simpleResponse[chatUID].simple = true
+                
+
+                dispatch(updateCachedChatsACTION(simpleResponse))
+
+                user.chats[chatUID] = true
+                dispatch(updateUserAction(user))
+            })
+    }
     const updateChatData = (chatUID, messageLimit) => {
         fetchChat(chatUID, auth['token'], messageLimit)
             .then(response => dispatch(updateCachedChatsACTION(response)))
@@ -122,8 +143,8 @@ function MessagingPage() {
             })
     }
 
+    console.log(user)
     console.log(cachedChats)
-
 
     //Extracting parameters from url
     const parameters = window.location.pathname.split('/')
@@ -136,6 +157,7 @@ function MessagingPage() {
             <MessagingSideBar
                 setMessageOption={setMessageOption}
                 setMessagingUrl={setMessagingUrl}
+                createChat={createChat}
                 messageOption={messageOption}
                 userInfo={user}
                 friendsInfo={friendsInfo} 
