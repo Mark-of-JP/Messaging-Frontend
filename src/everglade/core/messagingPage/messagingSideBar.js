@@ -6,10 +6,15 @@ import CreateModal from './messagingCreateModal'
 
 import 'react-perfect-scrollbar/dist/css/styles.css'
 
+import filterByName from '../../common/util/basics/filterByName'
 import { MESSAGE_OPTIONS } from '../../common/util/redux/reducers/messagingOptionsReducer'
 
 //The sidebar of the messaging page
 class MessagingSideBar extends Component {
+
+    state = {
+        search: ''
+    }
 
     messageOptionInfo = {
         [MESSAGE_OPTIONS.FRIENDS]: {
@@ -31,9 +36,11 @@ class MessagingSideBar extends Component {
     }
 
     generateSidebar = rawInfo => {
+        let filteredInfo = filterByName(this.state.search, rawInfo, this.optionInfo.nameKey)
+
         let content = []
 
-        Object.keys(rawInfo).forEach(uid => {
+        Object.keys(filteredInfo).forEach(uid => {
             let info = rawInfo[uid]
 
             content.push((
@@ -67,7 +74,7 @@ class MessagingSideBar extends Component {
                 </Menu.Item>
 
                 <Menu.Item>
-                    <Input placeholder='Search...' icon='search' />
+                    <Input placeholder='Search...' icon='search' onChange={(e, v) => this.setState({ search: v['value'] })} />
                 </Menu.Item>
 
                 <PerfectScrollbar style={{ margin: '0em 1.5em', backgroundColor: '#1B1C1D' }}>
