@@ -143,9 +143,6 @@ function MessagingPage() {
             })
     }
 
-    console.log(user)
-    console.log(cachedChats)
-
     //Extracting parameters from url
     const parameters = window.location.pathname.split('/')
     const urlOption = parameters[2]

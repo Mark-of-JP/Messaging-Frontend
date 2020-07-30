@@ -8,7 +8,7 @@ export const ContactInfo = [{
     image: MarkJP,
     email: 'mark.of.sanchez@gmail.com',
     linkedin: 'https://www.linkedin.com/in/mark-of-jp-5406/',
-    github: 'https://github.com/DarkLordCentury'
+    github: 'https://github.com/Mark-of-JP'
 }, {
     name: 'Jakub Wozniak',
     education: 'Computer Science at UofG 2019-2023',
@@ -17,8 +17,4 @@ export const ContactInfo = [{
     email:'jakubdawidwozniak@gmail.com',
     linkedin: 'https://www.linkedin.com/in/jakubdwozniak/',
     github: 'https://github.com/EverGladeZ'
-}, {
-    name: 'Carmello Restivo-Cuck',
-    education: 'Computer Science at UofT 2019-2023',
-    description: '12'
 }]

@@ -44,7 +44,7 @@ class HomepageContact extends Component {
                 </Divider>
 
                 
-                <Grid columns={3} style={{margin: '2em 0em'}}>
+                <Grid columns={2} style={{margin: '2em 0em'}}>
                     <Grid.Row>
                         {this.generateAboutCards()}
                     </Grid.Row>

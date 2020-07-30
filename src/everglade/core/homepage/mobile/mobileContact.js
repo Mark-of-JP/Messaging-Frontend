@@ -52,7 +52,7 @@ class HomepageContact extends Component {
                     <CarouselProvider
                         naturalSlideWidth={100}
                         naturalSlideHeight={70}
-                        totalSlides={3}
+                        totalSlides={2}
                         style={{ paddingTop: '1em', width: '1020px' }}
                     >
 

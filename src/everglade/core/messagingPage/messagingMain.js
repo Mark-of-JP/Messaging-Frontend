@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import { TextArea, Form, Divider, Comment, Header, Button, Icon } from 'semantic-ui-react'
-import PerfectScrollbar from 'react-perfect-scrollbar'
 
 import { UserMain } from './users'
 import { ChatMain } from './chats'
@@ -18,7 +16,7 @@ class MessagingMain extends Component {
             if (this.props.selectedUID === '@me')
                 var currUser = this.props.user
             else if (this.props.selectedUID in this.props.cachedUsers)
-                var currUser = this.props.cachedUsers[this.props.selectedUID]
+                currUser = this.props.cachedUsers[this.props.selectedUID]
         }
 
         if (this.props.urlOption === 'chats') {
@@ -35,11 +33,11 @@ class MessagingMain extends Component {
         return (
             <div style={{ display: 'flex', flex: 4, flexDirection: 'column' }}>
 
-                {this.props.urlOption == 'users' &&
+                {this.props.urlOption === 'users' &&
                     <UserMain
                         user={currUser} />}
 
-                {this.props.urlOption == 'chats' &&
+                {this.props.urlOption === 'chats' &&
                     <ChatMain
                         sendMessage={this.props.sendChatMessage}
                         chat={currChat}

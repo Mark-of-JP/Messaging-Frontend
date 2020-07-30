@@ -86,6 +86,7 @@ class MessagingSideBar extends Component {
                                     <List.Header>YOU</List.Header>
                                 </List.Content>
                             </List.Item>)}
+                            
                         {this.optionInfo.generateContent()}
                     </List>
                 </PerfectScrollbar>
