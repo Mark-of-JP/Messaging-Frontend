@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import { Dimmer, Loader } from 'semantic-ui-react'
+
 import { UserMain } from './users'
 import { ChatMain } from './chats'
 
@@ -9,6 +11,11 @@ import { ChatMain } from './chats'
 class MessagingMain extends Component {
 
     fetchingChats = []
+
+    state = {
+        isUserLoading: false,
+        isChatsLoading: false
+    }
 
     render() {
 
@@ -20,13 +27,15 @@ class MessagingMain extends Component {
         }
 
         if (this.props.urlOption === 'chats') {
-            if(!(this.props.selectedUID in this.props.cachedChats) || this.props.cachedChats[this.props.selectedUID]['simple'])
-                if(!this.fetchingChats.includes(this.props.selectedUID)) {
+            if (!(this.props.selectedUID in this.props.cachedChats) || this.props.cachedChats[this.props.selectedUID]['simple'])
+                if (!this.fetchingChats.includes(this.props.selectedUID)) {
                     this.fetchingChats.push(this.props.selectedUID)
+                    this.setState({ isChatsLoading: true })
                     this.props.updateChatData(this.props.selectedUID, 20)
-                    return (<div></div>)
+                        .then(() => this.setState({ isChatsLoading: false }))
+
                 }
-            
+
             var currChat = this.props.cachedChats[this.props.selectedUID]
         }
 
@@ -42,7 +51,8 @@ class MessagingMain extends Component {
                         sendMessage={this.props.sendChatMessage}
                         chat={currChat}
                         chatUID={this.props.selectedUID}
-                        cachedUsers={this.props.cachedUsers} />}
+                        cachedUsers={this.props.cachedUsers}
+                        isChatsLoading={this.state.isChatsLoading} />}
 
             </div>
         )

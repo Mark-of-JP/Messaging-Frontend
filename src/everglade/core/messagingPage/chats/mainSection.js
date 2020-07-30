@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import { TextArea, Form, Divider, Comment, Header, Button, Icon } from 'semantic-ui-react'
+import { TextArea, Form, Divider, Comment, Header, Button, Icon, Dimmer, Loader } from 'semantic-ui-react'
 import PerfectScrollbar from 'react-perfect-scrollbar'
+
+import InviteModal from './inviteToChatModal'
 
 import { MarkJP } from '../../../common/images/developers'
 import formatTime from '../../../common/util/basics/formatTime'
@@ -17,31 +19,33 @@ class MainSection extends Component {
 
     generateMessages() {
 
-        return this.props.chat.messages.map(messageInfo => {
+        if (this.props.chat.messages)
+            return this.props.chat.messages.map(messageInfo => {
 
-            return (
-                <Comment style={{ paddingLeft: '1em' }} >
-                    <Comment.Avatar src={MarkJP} />
-                    <Comment.Content>
-                        <Comment.Author as='a'>{this.props.cachedUsers[messageInfo.author].display_name}</Comment.Author>
-                        <Comment.Metadata>
-                            <div>{formatTime(parseInt(messageInfo.time))}</div>
-                        </Comment.Metadata>
-                        <Comment.Text>{messageInfo.message}</Comment.Text>
-                    </Comment.Content>
-                </Comment>)
-        })
+                return (
+                    <Comment style={{ paddingLeft: '1em' }} >
+                        <Comment.Avatar src={MarkJP} />
+                        <Comment.Content>
+                            <Comment.Author as='a'>{this.props.cachedUsers[messageInfo.author].display_name}</Comment.Author>
+                            <Comment.Metadata>
+                                <div>{formatTime(parseInt(messageInfo.time))}</div>
+                            </Comment.Metadata>
+                            <Comment.Text>{messageInfo.message}</Comment.Text>
+                        </Comment.Content>
+                    </Comment>)
+            })
     }
 
     render() {
         return (
             <div style={{ display: 'flex', flex: 4, flexDirection: 'column', height: '100%' }}>
+                <Dimmer active={this.props.isChatsLoading}>
+                    <Loader>Loading</Loader>
+                </Dimmer>
+
                 <div style={{ flex: 1, display: 'flex', alignItems: 'flex-end', padding: '0em 1em', flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Header as='h2' inverted style={{ flex: 22 }} >{this.props.chat['chat_name']}</Header>
-                    <Button style={{ alignSelf: 'center',  marginRight: '1em' }} icon labelPosition='right' color='green'>
-                        <Icon name="user plus" />
-                        Invite User
-                    </Button>
+                    <InviteModal />
                     <Button inverted icon style={{ alignSelf: 'center', flex: 1, marginRight: '1em' }}><Icon name='cog' /></Button>
                 </div>
 

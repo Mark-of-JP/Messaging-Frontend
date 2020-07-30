@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { List, Image, Menu, Dropdown, Input } from 'semantic-ui-react'
+import { List, Image, Menu, Dropdown, Input, Dimmer, Loader } from 'semantic-ui-react'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
 import CreateModal from './messagingCreateModal'
@@ -61,6 +61,10 @@ class MessagingSideBar extends Component {
 
         return (
             <Menu inverted vertical style={{ flex: 1, display: 'flex', flexDirection: 'column', margin: '0em 0em' }}>
+                <Dimmer active={this.props.isChatSidebarLoading && this.props.messageOption === MESSAGE_OPTIONS.CHATS}>
+                    <Loader>Loading</Loader>
+                </Dimmer>
+
                 <Menu.Item>
                     <Dropdown text={this.props.messageOption}
                         inline

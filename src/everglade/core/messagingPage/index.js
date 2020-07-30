@@ -25,6 +25,8 @@ var hasFetchedTokenUser = false
 var hasFetchedCachedUsers = false
 var hasFetchedCachedChats = false
 
+var isChatSidebarLoading = false
+
 /**
  * The main messaging page of the website
  */
@@ -88,9 +90,12 @@ function MessagingPage() {
     const chatUIDs = Object.keys(user.chats)
     if (!hasFetchedCachedChats) {
         hasFetchedCachedChats = true
-
+        isChatSidebarLoading = true
         fetchMultipleSimpleChats(chatUIDs, auth['token'], cachedChats)
-            .then(response => dispatch(setCachedChatsAction(response)))
+            .then(response => {
+                isChatSidebarLoading = false
+                dispatch(setCachedChatsAction(response))
+            })
     }
     const friendsInfo = { ...cachedUsers }
     Object.keys(friendsInfo).forEach(friendUID => {
@@ -129,8 +134,8 @@ function MessagingPage() {
                 dispatch(updateUserAction(user))
             })
     }
-    const updateChatData = (chatUID, messageLimit) => {
-        fetchChat(chatUID, auth['token'], messageLimit)
+    const updateChatData = async (chatUID, messageLimit) => {
+        return fetchChat(chatUID, auth['token'], messageLimit)
             .then(response => dispatch(updateCachedChatsACTION(response)))
             .then(() => forceUpdate())
     }
@@ -160,7 +165,9 @@ function MessagingPage() {
                 friendsInfo={friendsInfo} 
                 chatsInfo = {chatsInfo}
                 cachedUsers = {cachedUsers}
-                cachedChats = {cachedChats} />
+                cachedChats = {cachedChats}
+                
+                isChatSidebarLoading={isChatSidebarLoading}/>
 
             <div style={{ flex: 0.1, position: 'relative' }}>
                 <Divider inverted vertical>
