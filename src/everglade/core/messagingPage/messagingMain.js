@@ -18,10 +18,14 @@ class MessagingMain extends Component {
     render() {
 
         if (this.props.urlOption === 'users') {
-            if (this.props.selectedUID === '@me')
+            if (this.props.selectedUID === '@me') {
                 var currUser = this.props.user
-            else if (this.props.selectedUID in this.props.cachedUsers)
+                var isTokenUser = true
+            }
+            else if (this.props.selectedUID in this.props.cachedUsers) {
                 currUser = this.props.cachedUsers[this.props.selectedUID]
+                isTokenUser = false
+            }
         }
 
         if (this.props.urlOption === 'chats') {
@@ -42,7 +46,9 @@ class MessagingMain extends Component {
 
                 {this.props.urlOption === 'users' &&
                     <UserMain
-                        user={currUser} />}
+                        user={currUser} 
+                        isTokenUser={isTokenUser}/>
+                }
 
                 {this.props.urlOption === 'chats' &&
                     <ChatMain

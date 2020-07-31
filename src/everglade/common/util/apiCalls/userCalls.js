@@ -14,7 +14,10 @@ export async function fetchTokenUser(authToken) {
 }
 
 export async function fetchMultipleUsers(userUids, authToken) {
-    console.log('Fetching Users')
+
+    if (userUids.length === 0)
+        return { 'users': {} }
+
     return fetch(apiUrl + 'users', {
         method: 'POST',
         mode: 'cors',
