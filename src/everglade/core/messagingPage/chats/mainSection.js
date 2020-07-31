@@ -17,6 +17,13 @@ class MainSection extends Component {
         this.psRef.scrollTop = Number.MAX_SAFE_INTEGER
     }
 
+    visitProfile(userUID) {
+        if (userUID === this.props.user['uid'])
+            this.props.setMessagingUrl('users', '@me')
+        else
+            this.props.setMessagingUrl('users', userUID)
+    }
+
     generateMessages() {
 
         if (this.props.chat.messages)
@@ -26,7 +33,7 @@ class MainSection extends Component {
                     <Comment style={{ paddingLeft: '1em' }} >
                         <Comment.Avatar src={MarkJP} />
                         <Comment.Content>
-                            <Comment.Author as='a'>{this.props.cachedUsers[messageInfo.author].display_name}</Comment.Author>
+                            <Comment.Author as='a' onClick={() => this.visitProfile(messageInfo.author)}>{this.props.cachedUsers[messageInfo.author].display_name}</Comment.Author>
                             <Comment.Metadata>
                                 <div>{formatTime(parseInt(messageInfo.time))}</div>
                             </Comment.Metadata>
@@ -37,6 +44,7 @@ class MainSection extends Component {
     }
 
     render() {
+
         return (
             <div style={{ display: 'flex', flex: 4, flexDirection: 'column', height: '100%' }}>
                 <Dimmer active={this.props.isChatsLoading}>
@@ -45,7 +53,7 @@ class MainSection extends Component {
 
                 <div style={{ flex: 1, display: 'flex', alignItems: 'flex-end', padding: '0em 1em', flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Header as='h2' inverted style={{ flex: 22 }} >{this.props.chat['chat_name']}</Header>
-                    <InviteModal />
+                    <InviteModal chatUID={this.props.chatUID} friendsInfo={this.props.friendsInfo} auth={this.props.auth} />
                     <Button inverted icon style={{ alignSelf: 'center', flex: 1, marginRight: '1em' }}><Icon name='cog' /></Button>
                 </div>
 

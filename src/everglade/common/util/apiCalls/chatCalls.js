@@ -100,3 +100,19 @@ export async function callCreateChat(authToken, chatName) {
     .then(response => response.json())
     .catch(err => console.log(err))
 }
+
+export async function callInviteToChat(chatUID, authToken, receiver) {
+    return fetch(apiUrl + 'chat/' + chatUID + '/invite', {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+            'EVERGLADE-USER-TOKEN': authToken
+        },
+        body: JSON.stringify({
+            'receiver': receiver
+        })
+    })
+    .then(response => response.json())
+    .catch(err => console.log(err))
+}

@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 
-import { Dimmer, Loader } from 'semantic-ui-react'
-
 import { UserMain } from './users'
 import { ChatMain } from './chats'
 
@@ -48,10 +46,15 @@ class MessagingMain extends Component {
 
                 {this.props.urlOption === 'chats' &&
                     <ChatMain
+                        setMessagingUrl={this.props.setMessagingUrl}
                         sendMessage={this.props.sendChatMessage}
+                        user={this.props.user}
+                        auth={this.props.auth}
                         chat={currChat}
                         chatUID={this.props.selectedUID}
                         cachedUsers={this.props.cachedUsers}
+                        friendsInfo={this.props.friendsInfo}
+
                         isChatsLoading={this.state.isChatsLoading} />}
 
             </div>

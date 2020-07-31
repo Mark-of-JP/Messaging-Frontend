@@ -1,7 +1,48 @@
 import React, { Component } from 'react'
 import { Modal, Button, Icon, Input, List, Image } from 'semantic-ui-react'
 
+import { callInviteToChat } from '../../../common/util/apiCalls/chatCalls'
+
 class InviteModal extends Component {
+
+    state = {
+        invitationSent: []
+    }
+
+    componentWillUnmount() {
+        this.state.invitationSent = []
+    }
+
+    sendInvite(invitationUID) {
+        this.state.invitationSent.push(invitationUID)
+
+        callInviteToChat(this.props.chatUID, this.props.auth['token'], invitationUID)
+
+        this.setState({})
+    }
+
+    generateInvites = () => {
+
+        return Object.keys(this.props.friendsInfo).map(friendUID => {
+            let info = this.props.friendsInfo[friendUID]
+
+            return (
+                <List.Item style={{ display: 'flex' }} onClick={() => this.sendInvite(friendUID)} >
+                    <Image avatar placeholder />
+                    <List.Content style={{ flex: 1, alignSelf: 'center' }}>
+                        <List.Header>{info['display_name']}</List.Header>
+                    </List.Content>
+
+                    { this.state.invitationSent.includes(friendUID) && 
+                        <List.Content style={{ flex: 1, alignSelf: 'center' }} floated='right' >
+                            Invitation Sent!
+                        </List.Content>
+                    }
+                </List.Item>
+            )
+        })
+    }
+
     render() {
         return (
             <Modal centered={false} trigger={(
@@ -14,25 +55,9 @@ class InviteModal extends Component {
                 <Modal.Content>
                     <Modal.Description>
                         <Input placeholder='Search...' icon='search' fluid />
+
                         <List celled selection>
-                            <List.Item style={{ display: 'flex' }} >
-                                <Image avatar placeholder />
-                                <List.Content style={{ flex: 1, alignSelf: 'center', }}>
-                                    <List.Header>Pog 1</List.Header>
-                                </List.Content>
-                            </List.Item>
-                            <List.Item >
-                                <Image avatar placeholder />
-                                <List.Content>
-                                    <List.Header>Pog 2</List.Header>
-                                </List.Content>
-                            </List.Item>
-                            <List.Item >
-                                <Image avatar placeholder />
-                                <List.Content>
-                                    <List.Header>Pog 1</List.Header>
-                                </List.Content>
-                            </List.Item>
+                            {this.generateInvites()}
                         </List>
                     </Modal.Description>
                 </Modal.Content>

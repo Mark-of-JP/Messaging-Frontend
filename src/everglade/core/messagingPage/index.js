@@ -179,12 +179,15 @@ function MessagingPage() {
             <MessagingMain
                 updateChatData={updateChatData}
                 sendChatMessage={sendChatMessage}
+                setMessagingUrl={setMessagingUrl}
                 messageOption={messageOption}
                 selectedUID={uid}
                 urlOption={urlOption}
                 user={user}
+                auth={auth}
                 cachedUsers={cachedUsers}
-                cachedChats={cachedChats} />
+                cachedChats={cachedChats}
+                friendsInfo={friendsInfo} />
         </div>
     )
 }
