@@ -50,6 +50,11 @@ export const setCachedUsersActions = (users) => ({
     payload: users
 })
 
+export const updateCachedUsersAction = users => ({
+    type: 'UPDATE_CACHED_USERS',
+    payload: users
+})
+
 export const setCachedChatsAction = (chats) => ({
     type: 'SET_CACHED_CHATS',
     payload: chats

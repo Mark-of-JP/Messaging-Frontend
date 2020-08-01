@@ -4,6 +4,13 @@ import { Divider, Header, Button, Icon, Image, Container, Card } from 'semantic-
 
 import RequestSection from './requestSection'
 
+import { fetchMultipleUsers } from '../../../common/util/apiCalls/userCalls'
+import { fetchMultipleSimpleChats } from '../../../common/util/apiCalls/chatCalls'
+
+import { 
+    updateCachedChatsACTION, updateCachedUsersAction
+} from '../../../common/util/redux/actions'
+
 import { MarkJP } from '../../../common/images/developers'
 
 const MainSection = props => {
@@ -16,12 +23,26 @@ const MainSection = props => {
     const cachedUsers = useSelector(state => state.cachedUsers)
     const cachedChats = useSelector(state => state.cachedChats)
 
-    console.log(user)
+    let isChatRequestsLoading = Object.keys(user.chat_requests).length === 0
+    let unknownChats = Object.keys(user.chat_requests).filter(uid => !(uid in cachedChats))
+    if (unknownChats.length > 0) {
+        isChatRequestsLoading = true
 
-    if (user.chat_requests) {
-        let unknownChats = Object.keys(user.chat_requests).filter(uid => uid in cachedChats)
-        
+        fetchMultipleSimpleChats(unknownChats, auth['token'])
+            .then(response => dispatch(updateCachedChatsACTION(response)))
+            .then(() => isChatRequestsLoading = false)
     }
+
+    let isUserRequestsLoading = Object.keys(user.friend_requests).length === 0
+    let unknownUsers = Object.keys(user.friend_requests).filter(uid => !(uid in cachedUsers))
+    if (unknownUsers.length > 0) {
+        isUserRequestsLoading = true
+        
+        fetchMultipleUsers(unknownUsers, auth['token'])
+            .then(response => dispatch(updateCachedUsersAction(response['users'])))
+            .then(() => isUserRequestsLoading = false)
+    }
+    console.log(cachedUsers)
 
     return (
         <div style={{ display: 'flex', flex: 4, flexDirection: 'column' }}>
@@ -49,9 +70,17 @@ const MainSection = props => {
                         <Card.Group centered style={{ flex: 1, margin: '0.5em 0.5em', display: 'flex' }}>
                             <RequestSection 
                                 title={'Friend Requests'}
+                                requestUIDs={Object.keys(user.friend_requests)}
+                                cachedValues={cachedUsers}
+                                requestNameKey={'display_name'}
+                                isLoading={isUserRequestsLoading}
                             />
                             <RequestSection 
                                 title={'Chat Requests'}
+                                requestUIDs={Object.keys(user.chat_requests)}
+                                cachedValues={cachedChats}
+                                requestNameKey={'chat_name'}
+                                isLoading={isChatRequestsLoading}
                             />
                         </Card.Group>
                     )}

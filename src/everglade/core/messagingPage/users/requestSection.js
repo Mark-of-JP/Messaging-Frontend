@@ -8,7 +8,31 @@ const RequestSection = props => {
 
     const generateRequests = () => {
 
-        
+        if (props.isLoading)
+            return (<div></div>)
+
+        return props.requestUIDs.map(uid => {
+            const info = props.cachedValues[uid]
+
+            return (
+                <List.Item style={{ display: 'flex' }}>
+                    <Image avatar placeholder />
+                    <List.Content style={{ flex: 1, alignSelf: 'center' }}>
+                        <List.Header>{info[props.requestNameKey]}</List.Header>
+                    </List.Content>
+                    <List.Content floated='right'>
+                        <div className='ui two buttons' >
+                            <Button basic color='green'>
+                                Accept
+                                    </Button>
+                            <Button basic color='red'>
+                                Decline
+                                    </Button>
+                        </div>
+                    </List.Content>
+                </List.Item>
+            )
+        })
     }
 
     return (
@@ -17,22 +41,7 @@ const RequestSection = props => {
                 <Card.Header>{props.title}</Card.Header>
                 <PerfectScrollbar >
                     <List celled>
-                        <List.Item style={{ display: 'flex' }}>
-                            <Image avatar placeholder />
-                            <List.Content style={{ flex: 1, alignSelf: 'center' }}>
-                                <List.Header>Poog</List.Header>
-                            </List.Content>
-                            <List.Content floated='right'>
-                                <div className='ui two buttons'>
-                                    <Button basic color='green'>
-                                        Accept
-                                    </Button>
-                                    <Button basic color='red'>
-                                        Decline
-                                    </Button>
-                                </div>
-                            </List.Content>
-                        </List.Item>
+                        {generateRequests()}
                     </List>
                 </PerfectScrollbar>
             </Card.Content>
