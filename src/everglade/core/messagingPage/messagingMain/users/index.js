@@ -4,14 +4,14 @@ import { Divider, Header, Button, Icon, Image, Container, Card } from 'semantic-
 
 import RequestSection from './requestSection'
 
-import { fetchMultipleUsers } from '../../../common/util/apiCalls/userCalls'
-import { fetchMultipleSimpleChats } from '../../../common/util/apiCalls/chatCalls'
+import { fetchMultipleUsers } from '../../../../common/util/apiCalls/userCalls'
+import { fetchMultipleSimpleChats } from '../../../../common/util/apiCalls/chatCalls'
 
 import { 
     updateCachedChatsACTION, updateCachedUsersAction
-} from '../../../common/util/redux/actions'
+} from '../../../../common/util/redux/actions'
 
-import { MarkJP } from '../../../common/images/developers'
+import { MarkJP } from '../../../../common/images/developers'
 
 const MainSection = props => {
 

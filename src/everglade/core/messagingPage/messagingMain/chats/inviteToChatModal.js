@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Modal, Button, Icon, Input, List, Image } from 'semantic-ui-react'
 
-import { callInviteToChat } from '../../../common/util/apiCalls/chatCalls'
+import { callInviteToChat } from '../../../../common/util/apiCalls/chatCalls'
 
 class InviteModal extends Component {
 
@@ -27,7 +27,7 @@ class InviteModal extends Component {
             let info = this.props.friendsInfo[friendUID]
 
             return (
-                <List.Item style={{ display: 'flex' }} onClick={() => this.sendInvite(friendUID)} >
+                <List.Item key={friendUID} style={{ display: 'flex' }} onClick={() => this.sendInvite(friendUID)} >
                     <Image avatar placeholder />
                     <List.Content style={{ flex: 1, alignSelf: 'center' }}>
                         <List.Header>{info['display_name']}</List.Header>

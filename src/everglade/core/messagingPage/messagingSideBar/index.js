@@ -6,8 +6,8 @@ import CreateModal from './messagingCreateModal'
 
 import 'react-perfect-scrollbar/dist/css/styles.css'
 
-import filterByName from '../../common/util/basics/filterByName'
-import { MESSAGE_OPTIONS } from '../../common/util/redux/reducers/messagingOptionsReducer'
+import filterByName from '../../../common/util/basics/filterByName'
+import { MESSAGE_OPTIONS } from '../../../common/util/redux/reducers/messagingOptionsReducer'
 
 //The sidebar of the messaging page
 class MessagingSideBar extends Component {

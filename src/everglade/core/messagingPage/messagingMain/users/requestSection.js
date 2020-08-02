@@ -15,7 +15,7 @@ const RequestSection = props => {
             const info = props.cachedValues[uid]
 
             return (
-                <List.Item style={{ display: 'flex' }}>
+                <List.Item key={uid} style={{ display: 'flex' }}>
                     <Image avatar placeholder />
                     <List.Content style={{ flex: 1, alignSelf: 'center' }}>
                         <List.Header>{info[props.requestNameKey]}</List.Header>
