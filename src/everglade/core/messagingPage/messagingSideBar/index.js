@@ -14,7 +14,7 @@ import {
 import { fetchMultipleSimpleChats, callCreateChat } from '../../../common/util/apiCalls/chatCalls'
 
 var isChatSidebarLoading = false
-var hasFetchedCachedChats = false
+var fetchingChats = []
 
 //The sidebar of the messaging page
 const MessagingSideBar = props => {
@@ -30,8 +30,9 @@ const MessagingSideBar = props => {
     const messageOption = useSelector(state => state.messageOption)
     
     const chatUIDs = Object.keys(user.chats)
-    if (!hasFetchedCachedChats) {
-        hasFetchedCachedChats = true
+    const unfetchedChats = chatUIDs.filter(uid => !(uid in cachedChats) && !fetchingChats.includes(uid))
+    if (unfetchedChats.length > 0) {
+        fetchingChats = fetchingChats.concat(unfetchedChats)
         isChatSidebarLoading = true
         fetchMultipleSimpleChats(chatUIDs, auth['token'], cachedChats)
             .then(response => {

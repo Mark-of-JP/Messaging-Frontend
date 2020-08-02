@@ -4,11 +4,13 @@ import { Divider, Header, Button, Icon, Image, Container, Card } from 'semantic-
 
 import RequestSection from './requestSection'
 
-import { fetchMultipleUsers } from '../../../../common/util/apiCalls/userCalls'
-import { fetchMultipleSimpleChats } from '../../../../common/util/apiCalls/chatCalls'
+import { fetchTokenUser, fetchMultipleUsers } from '../../../../common/util/apiCalls/userCalls'
+import { fetchMultipleSimpleChats, acceptInviteToChat, declineInviteToChat } from '../../../../common/util/apiCalls/chatCalls'
 
-import { 
-    updateCachedChatsACTION, updateCachedUsersAction
+import {
+    setUserAction,
+    updateCachedChatsACTION, 
+    updateCachedUsersAction
 } from '../../../../common/util/redux/actions'
 
 import { MarkJP } from '../../../../common/images/developers'
@@ -37,16 +39,27 @@ const MainSection = props => {
     let unknownUsers = Object.keys(user.friend_requests).filter(uid => !(uid in cachedUsers))
     if (unknownUsers.length > 0) {
         isUserRequestsLoading = true
-        
+
         fetchMultipleUsers(unknownUsers, auth['token'])
             .then(response => dispatch(updateCachedUsersAction(response['users'])))
             .then(() => isUserRequestsLoading = false)
     }
 
+    const acceptChatRequest = chatUID => {
+        acceptInviteToChat(chatUID, auth['token'])
+            .then(() => fetchTokenUser(auth['token']))
+            .then(response => dispatch(setUserAction(response)))
+    }
+    const declineChatRequest = chatUID => {
+        declineInviteToChat(chatUID, auth['token'])
+            .then(() => fetchTokenUser(auth['token']))
+            .then(response => dispatch(setUserAction(response)))
+    }
+
     return (
         <div style={{ display: 'flex', flex: 4, flexDirection: 'column' }}>
             <div style={{ flex: 1, display: 'flex', alignItems: 'flex-end', padding: '0em 1em', flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Header as='h2' inverted style={{ flex: 22 }} >{props.user.display_name}</Header>
+                <Header as='h2' inverted style={{ flex: 22 }} >{props.currUser.display_name}</Header>
                 <Button inverted icon style={{ alignSelf: 'center', flex: 1, marginRight: '1em' }}><Icon name='cog' /></Button>
             </div>
 
@@ -60,21 +73,25 @@ const MainSection = props => {
                     <Container text style={{ padding: '1em' }} >
                         <Header as='h2' inverted>Description</Header>
                         <Header as='h4' inverted >
-                            {props.user.description}
+                            {props.currUser.description}
                         </Header>
                     </Container>
                 </div>
                 <div style={{ display: 'flex', flex: 3 }}>
                     {props.isTokenUser && (
                         <Card.Group centered style={{ flex: 1, margin: '0.5em 0.5em', display: 'flex' }}>
-                            <RequestSection 
+                            <RequestSection
+                                acceptRequest={(uid) => console.log(uid)}
+                                declineRequest={uid => console.log(uid)}
                                 title={'Friend Requests'}
                                 requestUIDs={Object.keys(user.friend_requests)}
                                 cachedValues={cachedUsers}
                                 requestNameKey={'display_name'}
                                 isLoading={isUserRequestsLoading}
                             />
-                            <RequestSection 
+                            <RequestSection
+                                acceptRequest={acceptChatRequest}
+                                declineRequest={declineChatRequest}
                                 title={'Chat Requests'}
                                 requestUIDs={Object.keys(user.chat_requests)}
                                 cachedValues={cachedChats}

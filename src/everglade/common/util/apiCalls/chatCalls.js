@@ -115,3 +115,29 @@ export async function callInviteToChat(chatUID, authToken, receiver) {
     .then(response => response.json())
     .catch(err => console.log(err))
 }
+
+export async function acceptInviteToChat(chatUID, authToken) {
+    return fetch(apiUrl + 'chat/' + chatUID + '/accept', {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+            'EVERGLADE-USER-TOKEN': authToken
+        }
+    })
+    .then(response => response.json())
+    .catch(err => console.log(err))
+}
+
+export async function declineInviteToChat(chatUID, authToken) {
+    return fetch(apiUrl + 'chat/' + chatUID + '/decline', {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+            'EVERGLADE-USER-TOKEN': authToken
+        }
+    })
+    .then(response => response.json())
+    .catch(err => console.log(err))
+}

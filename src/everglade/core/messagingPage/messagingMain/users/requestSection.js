@@ -22,10 +22,10 @@ const RequestSection = props => {
                     </List.Content>
                     <List.Content floated='right'>
                         <div className='ui two buttons' >
-                            <Button basic color='green'>
+                            <Button basic color='green' onClick={() => props.acceptRequest(uid)}>
                                 Accept
                                     </Button>
-                            <Button basic color='red'>
+                            <Button basic color='red' onClick={() => props.declineRequest(uid)}>
                                 Decline
                                     </Button>
                         </div>

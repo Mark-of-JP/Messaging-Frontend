@@ -107,12 +107,8 @@ function MessagingPage() {
 
             <MessagingSideBar
                 forceUpdate={forceUpdate}
-                messageOption={messageOption}
-                userInfo={user}
                 friendsInfo={friendsInfo}
                 chatsInfo={chatsInfo}
-                cachedUsers={cachedUsers}
-                cachedChats={cachedChats}
                 />
 
             <div style={{ flex: 0.1, position: 'relative' }}>
@@ -127,10 +123,6 @@ function MessagingPage() {
                 messageOption={messageOption}
                 selectedUID={uid}
                 urlOption={urlOption}
-                user={user}
-                auth={auth}
-                cachedUsers={cachedUsers}
-                cachedChats={cachedChats}
                 friendsInfo={friendsInfo} />
         </div>
     )
