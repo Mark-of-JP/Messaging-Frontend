@@ -42,7 +42,6 @@ const MainSection = props => {
             .then(response => dispatch(updateCachedUsersAction(response['users'])))
             .then(() => isUserRequestsLoading = false)
     }
-    console.log(cachedUsers)
 
     return (
         <div style={{ display: 'flex', flex: 4, flexDirection: 'column' }}>
