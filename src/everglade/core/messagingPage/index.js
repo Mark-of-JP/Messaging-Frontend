@@ -8,23 +8,15 @@ import MessagingMain from './messagingMain'
 
 import {
     setSocketAction,
-    setMessageOptionAction,
     setUserAction,
-    updateUserAction,
     setCachedUsersActions,
-    setCachedChatsAction,
-    updateCachedChatsACTION
 } from '../../common/util/redux/actions'
 import { getMessagingSocket } from '../../common/util/websockets'
 
 import { fetchTokenUser, fetchMultipleUsers } from '../../common/util/apiCalls/userCalls'
-import { fetchMultipleSimpleChats, callCreateChat } from '../../common/util/apiCalls/chatCalls'
 
 var hasFetchedTokenUser = false
 var hasFetchedCachedUsers = false
-var hasFetchedCachedChats = false
-
-var isChatSidebarLoading = false
 
 /**
  * The main messaging page of the website
@@ -47,7 +39,7 @@ function MessagingPage() {
 
     useEffect(() => {
         history.listen((location, action) => {
-            if(action === 'POP' && location.pathname.split('/')[1] === 'messaging')
+            if (action === 'POP' && location.pathname.split('/')[1] === 'messaging')
                 forceUpdate()
         })
     })
@@ -93,53 +85,17 @@ function MessagingPage() {
     //     dispatch(setSocketAction(getMessagingSocket()))
 
     //Formats data for components
-    const chatUIDs = Object.keys(user.chats)
-    if (!hasFetchedCachedChats) {
-        hasFetchedCachedChats = true
-        isChatSidebarLoading = true
-        fetchMultipleSimpleChats(chatUIDs, auth['token'], cachedChats)
-            .then(response => {
-                isChatSidebarLoading = false
-                dispatch(setCachedChatsAction(response))
-            })
-    }
     const friendsInfo = { ...cachedUsers }
     Object.keys(friendsInfo).forEach(friendUID => {
         if (!(friendUID in user.friends_list))
             delete friendsInfo[friendUID]
     })
+    const chatUIDs = Object.keys(user.chats)
     const chatsInfo = { ...cachedChats }
     Object.keys(chatsInfo).forEach(chatUID => {
         if (!(chatUIDs.includes(chatUID)))
             delete chatsInfo[chatUID]
     })
-
-    const setMessageOption = (option) => dispatch(setMessageOptionAction(option))
-    const setMessagingUrl = (option, uid) => {
-        history.push('/messaging/' + option + '/' + uid)
-        forceUpdate()
-    }
-
-    const createChat = chatName => {
-        callCreateChat(auth['token'], chatName)
-            .then(response => {
-                const chatUID = Object.keys(response)[0]
-
-                const simpleResponse = {
-                    [chatUID]: {
-                        ...response[chatUID],
-                    }
-                }
-                delete simpleResponse[chatUID].messages
-                simpleResponse[chatUID].simple = true
-
-
-                dispatch(updateCachedChatsACTION(simpleResponse))
-
-                user.chats[chatUID] = true
-                dispatch(updateUserAction(user))
-            })
-    }
 
     //Extracting parameters from url
     const parameters = window.location.pathname.split('/')
@@ -150,17 +106,14 @@ function MessagingPage() {
         <div style={{ display: 'flex', flexDirection: 'row', height: '100vh', backgroundColor: '#1B1C1D' }}>
 
             <MessagingSideBar
-                setMessageOption={setMessageOption}
-                setMessagingUrl={setMessagingUrl}
-                createChat={createChat}
+                forceUpdate={forceUpdate}
                 messageOption={messageOption}
                 userInfo={user}
                 friendsInfo={friendsInfo}
                 chatsInfo={chatsInfo}
                 cachedUsers={cachedUsers}
                 cachedChats={cachedChats}
-
-                isChatSidebarLoading={isChatSidebarLoading} />
+                />
 
             <div style={{ flex: 0.1, position: 'relative' }}>
                 <Divider inverted vertical>

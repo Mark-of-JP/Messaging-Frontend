@@ -36,7 +36,6 @@ export async function fetchMultipleSimpleChats(chatUIDs, authToken, currentChatI
     let chatInfo = {}
 
     for (let i = 0; i < chosenChatUids.length; i++){
-        console.log('Fetching ' + chosenChatUids[i])
         await fetchSimpleChat(chosenChatUids[i], authToken)
             .then(response => {
                 chatInfo[chosenChatUids[i]] = response
