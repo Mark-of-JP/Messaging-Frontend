@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Divider, Icon } from 'semantic-ui-react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
@@ -6,12 +6,12 @@ import { useHistory } from 'react-router-dom'
 import MessagingSideBar from './messagingSideBar'
 import MessagingMain from './messagingMain'
 
-import { 
-    setSocketAction, 
-    setMessageOptionAction, 
-    setUserAction, 
+import {
+    setSocketAction,
+    setMessageOptionAction,
+    setUserAction,
     updateUserAction,
-    setCachedUsersActions, 
+    setCachedUsersActions,
     setCachedChatsAction,
     updateCachedChatsACTION
 } from '../../common/util/redux/actions'
@@ -45,6 +45,13 @@ function MessagingPage() {
     const messageOption = useSelector(state => state.messageOption)
     const socket = useSelector(state => state.socket)
 
+    useEffect(() => {
+        history.listen((location, action) => {
+            if(action === 'POP' && location.pathname.split('/')[1] === 'messaging')
+                forceUpdate()
+        })
+    })
+
     //Redirect to different url checks
     if (auth === null) {
         history.push('/')
@@ -75,7 +82,7 @@ function MessagingPage() {
                 .then(response => {
                     response['users'][user.uid] = user
                     dispatch(setCachedUsersActions(response["users"]))
-            })
+                })
         }
 
         return (<div></div>)
@@ -125,7 +132,7 @@ function MessagingPage() {
                 }
                 delete simpleResponse[chatUID].messages
                 simpleResponse[chatUID].simple = true
-                
+
 
                 dispatch(updateCachedChatsACTION(simpleResponse))
 
@@ -148,12 +155,12 @@ function MessagingPage() {
                 createChat={createChat}
                 messageOption={messageOption}
                 userInfo={user}
-                friendsInfo={friendsInfo} 
-                chatsInfo = {chatsInfo}
-                cachedUsers = {cachedUsers}
-                cachedChats = {cachedChats}
-                
-                isChatSidebarLoading={isChatSidebarLoading}/>
+                friendsInfo={friendsInfo}
+                chatsInfo={chatsInfo}
+                cachedUsers={cachedUsers}
+                cachedChats={cachedChats}
+
+                isChatSidebarLoading={isChatSidebarLoading} />
 
             <div style={{ flex: 0.1, position: 'relative' }}>
                 <Divider inverted vertical>
