@@ -49,7 +49,6 @@ const MessagingMain = props => {
                 props.forceUpdate()
                 fetchChat(props.selectedUID, auth['token'], 20)
                     .then(response => dispatch(updateCachedChatsACTION(response)))
-                    .then(() => isChatLoading = false)
                     .then(() => fetchingChats = fetchingChats.filter(uid => uid !== props.selectedUID))
                     .then(() => props.forceUpdate())
             }
@@ -73,7 +72,7 @@ const MessagingMain = props => {
     }
 
     return (
-        <div style={{ display: 'flex', flex: 4, flexDirection: 'column' }}>
+        <div style={{ display: 'flex', flex: 4, flexDirection: 'column', maxHeight:'100vh', }}>
 
             {props.urlOption === 'users' &&
                 <UserMain

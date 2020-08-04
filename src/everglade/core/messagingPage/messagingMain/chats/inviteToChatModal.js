@@ -14,11 +14,9 @@ class InviteModal extends Component {
     }
 
     sendInvite(invitationUID) {
-        this.state.invitationSent.push(invitationUID)
-
         callInviteToChat(this.props.chatUID, this.props.auth['token'], invitationUID)
 
-        this.setState({})
+        this.setState({ invitationSent: this.state.invitationSent.concat([invitationUID]) })
     }
 
     generateInvites = () => {

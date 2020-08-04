@@ -3,6 +3,8 @@ import { Divider, Icon } from 'semantic-ui-react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
+import WebsocketContainer from './websocketContainer'
+
 import MessagingSideBar from './messagingSideBar'
 import MessagingMain from './messagingMain'
 
@@ -11,7 +13,6 @@ import {
     setUserAction,
     setCachedUsersActions,
 } from '../../common/util/redux/actions'
-import { getMessagingSocket } from '../../common/util/websockets'
 
 import { fetchTokenUser, fetchMultipleUsers } from '../../common/util/apiCalls/userCalls'
 
@@ -35,7 +36,6 @@ function MessagingPage() {
     const cachedUsers = useSelector(state => state.cachedUsers)
     const cachedChats = useSelector(state => state.cachedChats)
     const messageOption = useSelector(state => state.messageOption)
-    const socket = useSelector(state => state.socket)
 
     useEffect(() => {
         history.listen((location, action) => {
@@ -80,10 +80,6 @@ function MessagingPage() {
         return (<div></div>)
     }
 
-    //Starts the websocket if none exists
-    // if (socket === null)
-    //     dispatch(setSocketAction(getMessagingSocket()))
-
     //Formats data for components
     const friendsInfo = { ...cachedUsers }
     Object.keys(friendsInfo).forEach(friendUID => {
@@ -104,6 +100,8 @@ function MessagingPage() {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'row', height: '100vh', backgroundColor: '#1B1C1D' }}>
+
+            <WebsocketContainer />
 
             <MessagingSideBar
                 forceUpdate={forceUpdate}

@@ -8,11 +8,19 @@ import formatTime from '../../../../common/util/basics/formatTime'
 class MessagesSection extends Component {
 
     state = {
-        message: ""
+        message: "",
+        lastMessage: {}
     }
 
-    componentDidMount() {
-        this.psRef.scrollTop = Number.MAX_SAFE_INTEGER
+    componentDidUpdate() {
+        if(this.props.chat.messages) {
+            const lastMessage = this.props.chat.messages[this.props.chat.messages.length - 1]
+    
+            if (!this.props.isChatLoading && this.state.lastMessage != lastMessage) {
+                this.psRef.scrollTop = Number.MAX_SAFE_INTEGER
+                this.setState({ lastMessage: lastMessage })
+            }
+        }
     }
 
     visitProfile(userUID) {
@@ -43,7 +51,7 @@ class MessagesSection extends Component {
 
     render() {
         return (
-            <div style={{ flex: 7, display: 'flex', flexDirection: 'column',}}>
+            <div style={{ flex: 7, display: 'flex', flexDirection: 'column', maxHeight: '87.5%' }}>
                 <PerfectScrollbar style={{ marginRight: '15px', flex: 6, backgroundColor: '#424547' }}
                     containerRef={ref => {
                         if (this.psRef === undefined) {
@@ -68,9 +76,16 @@ class MessagesSection extends Component {
                 <Form style={{ flex: 1, padding: '1em 2em' }}>
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                         <TextArea placeholder='Send a message...' style={{ resize: 'none', marginRight: '2em' }}
+                            value={this.state.message}
                             onChange={(e, v) => this.setState({ message: v['value'] }, () => { })} />
                         <Button inverted style={{ margin: '1em 0em' }}
-                            onClick={() => this.props.sendMessage(this.props.chatUID, this.state.message)}>
+                            onClick={() => { 
+                                if (this.state.message === "")
+                                    return
+
+                                this.props.sendMessage(this.props.chatUID, this.state.message)
+                                this.setState({message: ""}) 
+                            }}>
                             Send
                         </Button>
                     </div>
