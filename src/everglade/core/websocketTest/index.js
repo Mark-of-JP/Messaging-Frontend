@@ -15,7 +15,7 @@ class WebsocketTest extends Component {
         socket = SocketIOClient('everglade-messaging.web.app')
         //socket = SocketIOClient('localhost:5000')
         socket.on('connect', () => console.log('poggers'))
-        socket.on('pog', pog => console.log(pog))
+        socket.on('confirm', pog => console.log(pog))
     }
 
     render() {

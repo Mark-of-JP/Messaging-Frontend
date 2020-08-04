@@ -1,15 +1,27 @@
 import SocketIOClient, { Socket } from 'socket.io-client'
 
+var chats = []
 /**
  * @returns {Socket} Returns the websocket formatted to interact with our api
  */
 export function getMessagingSocket() {
-    var socket = SocketIOClient('everglade-messaging.web.app')
+    var socket = SocketIOClient('https://everglade-messaging-api.herokuapp.com/')
     //var socket = SocketIOClient('localhost:5000')
     socket.on('connect', () => {
-        socket.emit('join_rooms', { 'eat': ['poggers', 'unpog'] })
+        console.log('Connected')
     })
-    socket.on('pog', pog => console.log(pog))
+    socket.on('confirm', response => { 
+        console.log(response)
+        socket.emit('marco', { "echo": "echo"})
+    })
+    socket.on('respond', response => { 
+        console.log(response)
+        socket.emit('join_chats', { 'chats': chats})
+    })
+    socket.on('message_sent', message => {
+        console.log("Poggers")
+        console.log(message)
+    })
 
     return socket
 }
@@ -19,5 +31,7 @@ export function getMessagingSocket() {
  * @param {[string]} chatIDs
  */
 export function joinChatSockets(socket, chatIDs) {
-    socket.emit('join_chats', { 'chats': chatIDs })
+    console.log('Joining Chats')
+    chats = chatIDs
+    // socket.emit('join_chats', { 'chats': chatIDs })
 }
