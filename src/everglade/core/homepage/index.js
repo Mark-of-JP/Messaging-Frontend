@@ -6,6 +6,7 @@ import { DesktopHeader, DesktopContact } from './desktop'
 import { MobileHeader, MobileContacts } from './mobile'
 
 import { EvergladeLogo } from '../../common/images/logos'
+import { apiUrl } from '../../common/util/constants'
 
 /**
  * The homepage of the website
@@ -31,6 +32,9 @@ export default class Homepage extends Component {
     componentDidMount() {
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
+
+        fetch(apiUrl)
+            .then(response => console.log(response))
     }
     componentWillUnmount() {
         window.removeEventListener('resize', this.updateWindowDimensions);

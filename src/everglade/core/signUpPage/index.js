@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { Segment, Container, Button, Header, Menu, Image } from 'semantic-ui-react'
+import React, { useEffect, useState } from 'react'
+import { Segment, Container, Button, Header, Menu, Image, Dimmer, Loader } from 'semantic-ui-react'
 import { useHistory } from 'react-router-dom'
 import SignUpForm from './signUpForm'
 import { authorizeSignUp } from '../../common/util/apiCalls/loginAuth'
@@ -13,6 +13,8 @@ import { EvergladeMini } from '../../common/images/logos'
  */
 function SignUpPage() {
 
+    const [isSigningUp, toggleSigningUp] = useState(false)
+
     //Hooks
     const history = useHistory()
     const dispatch = useDispatch()
@@ -22,6 +24,7 @@ function SignUpPage() {
     useEffect(() => (() => dispatch(removeAuthErrorAction())), [dispatch])
 
     const signUp = (email, password, display_name) => {
+        toggleSigningUp(true)
         authorizeSignUp(email, password, display_name)
             .then(response => {
                 dispatch(signInAction(response))
@@ -31,6 +34,7 @@ function SignUpPage() {
             .catch(error => {
                 dispatch(setAuthErrorAction(error))
             })
+            .finally(() => toggleSigningUp(false))
     }
 
     return (<div>
@@ -57,6 +61,10 @@ function SignUpPage() {
                 </Menu.Item>
             </Menu>
         </Segment>
+
+        <Dimmer active={isSigningUp} >
+            <Loader >Signing Up...</Loader>
+        </Dimmer>
 
         <Container style={{
             position: 'absolute', left: '50%', top: '50%',

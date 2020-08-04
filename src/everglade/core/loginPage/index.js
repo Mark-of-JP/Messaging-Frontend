@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { Segment, Container, Header, Menu, Button, Image } from 'semantic-ui-react'
+import React, { useEffect, useState } from 'react'
+import { Segment, Container, Header, Menu, Button, Image, Dimmer, Loader } from 'semantic-ui-react'
 import { useSelector, useDispatch } from 'react-redux'
 import { signInAction, signOutAction, setAuthErrorAction, removeAuthErrorAction } from '../../common/util/redux/actions'
 import LoginForm from './loginForm'
@@ -13,6 +13,9 @@ import { useHistory } from 'react-router-dom'
  * The login page of the website
  */
 function LoginPage() {
+
+    const [isLoggingIn, toggleLoggingIn] = useState(false)
+
     //Hooks
     const dispatch = useDispatch()
     const authError = useSelector(state => state.authError)
@@ -22,14 +25,17 @@ function LoginPage() {
     useEffect(() => (() => dispatch(removeAuthErrorAction())), [dispatch])
 
     const login = (email, password) => {
+        toggleLoggingIn(true)
 
         authorizeLogin(email, password)
             .then(response => {
                 dispatch(signInAction(response))
+                toggleLoggingIn(false)
                 history.push('/messaging')
             })
             .catch(error => {
                 dispatch(setAuthErrorAction(error))
+                toggleLoggingIn(false)
                 dispatch(signOutAction())
             })
     }
@@ -65,6 +71,10 @@ function LoginPage() {
                     </Menu.Item>
                 </Menu>
             </Segment>
+
+            <Dimmer active={isLoggingIn} >
+                <Loader>Logging In...</Loader>
+            </Dimmer>
 
             <Container style={{
                 position: 'absolute', left: '50%', top: '50%',
