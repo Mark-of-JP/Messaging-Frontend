@@ -2,12 +2,14 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import {
+    setUserAction,
     setSocketAction,
     updateCachedChatsACTION
 } from '../../common/util/redux/actions'
 
+import { fetchTokenUser } from '../../common/util/apiCalls/userCalls'
 import { fetchChat } from '../../common/util/apiCalls/chatCalls'
-import { getMessagingSocket, joinChatSockets } from '../../common/util/websockets'
+import { getMessagingSocket } from '../../common/util/websockets'
 
 const WebsocketContainer = () => {
 
@@ -20,10 +22,8 @@ const WebsocketContainer = () => {
 
     //Starts the websocket if none exists
     if (socket === null) {
-        let newSocket = getMessagingSocket()
+        let newSocket = getMessagingSocket(user.uid, Object.keys(user.chats))
         dispatch(setSocketAction(newSocket))
-
-        joinChatSockets(newSocket, Object.keys(user.chats))
 
         newSocket.on('message_sent', message => {
             const chatUID = Object.keys(message)[0]
@@ -31,6 +31,12 @@ const WebsocketContainer = () => {
             console.log('UPDATE')
             fetchChat(chatUID, auth['token'], 20)
                     .then(response => dispatch(updateCachedChatsACTION(response)))
+        })
+
+        newSocket.on('user_updated', response => {
+            console.log(response)
+            fetchTokenUser(auth['token'])
+                .then(response => dispatch(setUserAction(response)))
         })
     }
 

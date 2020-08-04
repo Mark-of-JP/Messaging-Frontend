@@ -68,6 +68,8 @@ const MessagingMain = props => {
                     .then(() => fetchingUsers = fetchingUsers.filter(uid => !unfetchedUsers.includes(uid)))
                     .then(() => props.forceUpdate())
             }
+
+            isChatLoading = fetchingUsers.length > 0
         }
     }
 

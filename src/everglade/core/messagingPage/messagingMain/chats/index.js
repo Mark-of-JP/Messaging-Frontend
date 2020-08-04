@@ -50,7 +50,7 @@ const MainSection = props => {
 
             <div style={{ flex: 1, display: 'flex', alignItems: 'flex-end', padding: '0em 1em', flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Header as='h2' inverted style={{ flex: 22 }} >{props.chat['chat_name']}</Header>
-                <InviteModal chatUID={props.chatUID} friendsInfo={props.friendsInfo} auth={props.auth} />
+                <InviteModal chatUID={props.chatUID} friendsInfo={props.friendsInfo} auth={auth} />
                 <ChatSettingsModal
                     deleteChat={deleteChat}
                 />
