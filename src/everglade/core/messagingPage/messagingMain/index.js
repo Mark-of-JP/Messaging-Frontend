@@ -1,20 +1,22 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { 
-    updateCachedChatsACTION, 
+import {
+    updateCachedChatsACTION,
     updateCachedUsersAction
 } from '../../../common/util/redux/actions'
 
 import { fetchChat } from '../../../common/util/apiCalls/chatCalls'
 
-import UserMain from './users'
+import TokenUserMain from './tokenUser'
 import ChatMain from './chats'
+import UserMain from './users'
 import { fetchMultipleUsers } from '../../../common/util/apiCalls/userCalls'
 
 var fetchingUsers = []
 var fetchingChats = []
 var isChatLoading = false
+var isUserLoading = false
 
 /**
  * The messaging area of the messaging page
@@ -30,13 +32,23 @@ const MessagingMain = props => {
     const cachedChats = useSelector(state => state.cachedChats)
 
     if (props.urlOption === 'users') {
-        if (props.selectedUID === '@me') {
+        if (props.selectedUID === '@me' || props.selectedUID === user.uid) {
             var currUser = user
             var isTokenUser = true
         }
         else if (props.selectedUID in cachedUsers) {
             currUser = cachedUsers[props.selectedUID]
             isTokenUser = false
+        }
+        else if (!fetchingUsers.includes(props.selectedUID)) {
+            isUserLoading = true
+
+            fetchingUsers([props.selectedUID], auth['token'])
+                .then(response => {
+                    fetchingUsers = fetchingUsers.filter(uid => uid !== props.selectedUID)
+                    isUserLoading = false
+                    dispatch(updateCachedUsersAction(response['users']))
+                })
         }
     }
 
@@ -74,12 +86,26 @@ const MessagingMain = props => {
     }
 
     return (
-        <div style={{ display: 'flex', flex: 4, flexDirection: 'column', maxHeight:'100vh', }}>
+        <div style={{ display: 'flex', flex: 4, flexDirection: 'column', maxHeight: '100vh', }}>
 
-            {props.urlOption === 'users' &&
+            {props.urlOption === 'users' && isTokenUser &&
+                <TokenUserMain
+                    currUser={currUser}
+                    isTokenUser={isTokenUser}
+                    userUID={props.selectedUID}
+                    friendsInfo={props.friendsInfo}
+
+                    isUserLoading={isUserLoading} />
+            }
+
+            {props.urlOption === 'users' && !isTokenUser &&
                 <UserMain
                     currUser={currUser}
-                    isTokenUser={isTokenUser} />
+                    isTokenUser={isTokenUser}
+                    userUID={props.selectedUID}
+                    friendsInfo={props.friendsInfo}
+
+                    isUserLoading={isUserLoading} />
             }
 
             {props.urlOption === 'chats' &&

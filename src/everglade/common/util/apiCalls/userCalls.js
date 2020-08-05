@@ -32,3 +32,9 @@ export async function fetchMultipleUsers(userUids, authToken) {
     .then(response => response.json())
     .catch(err => console.log(err))
 }
+
+export async function fetchUserByDisplayName(displayName) {
+    return fetch(apiUrl + 'users/' + displayName + "/name")
+        .then(response => response.json())
+        .catch(err => console.log(err))
+}

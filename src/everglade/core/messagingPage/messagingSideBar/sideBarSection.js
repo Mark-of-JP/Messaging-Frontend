@@ -20,10 +20,10 @@ class MessagingSideBar extends Component {
         [MESSAGE_OPTIONS.FRIENDS]: {
             option: 'users',
             nameKey: 'display_name',
-            addButtonText: 'Add Friend',
+            addButtonText: 'Visit User',
             addText: 'Display Name',
             generateContent: () => this.generateSidebar(this.props.friendsInfo),
-            onAddCreate: () => {}
+            onAddCreate: this.props.visitUnknownUser
         },
         [MESSAGE_OPTIONS.CHATS]: {
             option: 'chats',

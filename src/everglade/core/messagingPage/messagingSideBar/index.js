@@ -8,10 +8,12 @@ import {
     setMessageOptionAction,
     updateUserAction,
     setCachedChatsAction,
-    updateCachedChatsACTION
+    updateCachedChatsACTION,
+    updateCachedUsersAction
 } from '../../../common/util/redux/actions'
 
 import { fetchMultipleSimpleChats, callCreateChat } from '../../../common/util/apiCalls/chatCalls'
+import { fetchUserByDisplayName } from '../../../common/util/apiCalls/userCalls'
 
 var isChatSidebarLoading = false
 var fetchingChats = []
@@ -68,11 +70,24 @@ const MessagingSideBar = props => {
             })
     }
 
+    const visitUnknownUser = displayName => {
+        fetchUserByDisplayName(displayName)
+            .then(response => { 
+                if(response.error) {
+                    
+                } else {
+                    history.replace('/messaging/users/' + Object.keys(response)[0])
+                    dispatch(updateCachedUsersAction(response))
+                }
+            })
+    }
+
     return (
         <Sidebar
             setMessageOption={setMessageOption}
             setMessagingUrl={setMessagingUrl}
             createChat={createChat}
+            visitUnknownUser={visitUnknownUser}
             messageOption={messageOption}
             userInfo={user}
             friendsInfo={props.friendsInfo}

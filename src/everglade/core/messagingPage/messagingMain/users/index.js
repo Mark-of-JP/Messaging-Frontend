@@ -1,21 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Divider, Header, Button, Icon, Image, Container, Card } from 'semantic-ui-react'
-
-import RequestSection from './requestSection'
+import { Divider, Header, Button, Icon, Image, Container, Modal } from 'semantic-ui-react'
 
 import { fetchTokenUser, fetchMultipleUsers } from '../../../../common/util/apiCalls/userCalls'
 import { fetchMultipleSimpleChats, acceptInviteToChat, declineInviteToChat } from '../../../../common/util/apiCalls/chatCalls'
 
 import {
     setUserAction,
-    updateCachedChatsACTION, 
+    updateCachedChatsACTION,
     updateCachedUsersAction
 } from '../../../../common/util/redux/actions'
 
 import { MarkJP } from '../../../../common/images/developers'
 
 const MainSection = props => {
+
+    const [isModalShowing, toggleModalShowing] = useState(false)
 
     //Hooks
     const dispatch = useDispatch()
@@ -25,41 +25,23 @@ const MainSection = props => {
     const cachedUsers = useSelector(state => state.cachedUsers)
     const cachedChats = useSelector(state => state.cachedChats)
 
-    let isChatRequestsLoading = Object.keys(user.chat_requests).length === 0
-    let unknownChats = Object.keys(user.chat_requests).filter(uid => !(uid in cachedChats))
-    if (unknownChats.length > 0) {
-        isChatRequestsLoading = true
+    const isUnknown = !(props.userUID in props.friendsInfo)
 
-        fetchMultipleSimpleChats(unknownChats, auth['token'])
-            .then(response => dispatch(updateCachedChatsACTION(response)))
-            .then(() => isChatRequestsLoading = false)
-    }
-
-    let isUserRequestsLoading = Object.keys(user.friend_requests).length === 0
-    let unknownUsers = Object.keys(user.friend_requests).filter(uid => !(uid in cachedUsers))
-    if (unknownUsers.length > 0) {
-        isUserRequestsLoading = true
-
-        fetchMultipleUsers(unknownUsers, auth['token'])
-            .then(response => dispatch(updateCachedUsersAction(response['users'])))
-            .then(() => isUserRequestsLoading = false)
-    }
-
-    const acceptChatRequest = chatUID => {
-        acceptInviteToChat(chatUID, auth['token'])
-            .then(() => fetchTokenUser(auth['token']))
-            .then(response => dispatch(setUserAction(response)))
-    }
-    const declineChatRequest = chatUID => {
-        declineInviteToChat(chatUID, auth['token'])
-            .then(() => fetchTokenUser(auth['token']))
-            .then(response => dispatch(setUserAction(response)))
+    const onInviteFriend = () => {
+        toggleModalShowing(true)
     }
 
     return (
         <div style={{ display: 'flex', flex: 4, flexDirection: 'column' }}>
             <div style={{ flex: 1, display: 'flex', alignItems: 'flex-end', padding: '0em 1em', flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Header as='h2' inverted style={{ flex: 22 }} >{props.currUser.display_name}</Header>
+                {isUnknown && (
+                    <Button style={{ alignSelf: 'center', marginRight: '1em' }} icon labelPosition='right' color='green'
+                    onClick={onInviteFriend}>
+                        <Icon name="user plus" />
+                        Add Friend
+                    </Button>
+                )}
                 <Button inverted icon style={{ alignSelf: 'center', flex: 1, marginRight: '1em' }}><Icon name='cog' /></Button>
             </div>
 
@@ -78,30 +60,26 @@ const MainSection = props => {
                     </Container>
                 </div>
                 <div style={{ display: 'flex', flex: 3 }}>
-                    {props.isTokenUser && (
-                        <Card.Group centered style={{ flex: 1, margin: '0.5em 0.5em', display: 'flex' }}>
-                            <RequestSection
-                                acceptRequest={(uid) => console.log(uid)}
-                                declineRequest={uid => console.log(uid)}
-                                title={'Friend Requests'}
-                                requestUIDs={Object.keys(user.friend_requests)}
-                                cachedValues={cachedUsers}
-                                requestNameKey={'display_name'}
-                                isLoading={isUserRequestsLoading}
-                            />
-                            <RequestSection
-                                acceptRequest={acceptChatRequest}
-                                declineRequest={declineChatRequest}
-                                title={'Chat Requests'}
-                                requestUIDs={Object.keys(user.chat_requests)}
-                                cachedValues={cachedChats}
-                                requestNameKey={'chat_name'}
-                                isLoading={isChatRequestsLoading}
-                            />
-                        </Card.Group>
-                    )}
+
                 </div>
             </div>
+
+            <Modal
+                onClose={() => toggleModalShowing(false)}
+                onOpen={() => toggleModalShowing(true)}
+                open={isModalShowing} >
+                <Modal.Header>Request Sent!</Modal.Header>
+                <Modal.Content>
+                    <Modal.Description>
+                        Friend request has been sent!
+                    </Modal.Description>
+                </Modal.Content>
+                <Modal.Actions>
+                    <Button onClick={() => toggleModalShowing(false)}>
+                        Proceed
+                    </Button>
+                </Modal.Actions>
+            </Modal>
 
 
             <div style={{ flex: 0.1, position: 'relative' }}>
