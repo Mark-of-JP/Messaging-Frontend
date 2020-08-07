@@ -13,6 +13,23 @@ export async function fetchTokenUser(authToken) {
     .catch(err => console.log(err))
 }
 
+export async function updateTokenUserInfo(authToken, displayName, description) {
+    return fetch(apiUrl + 'users/me', {
+        method: 'PATCH',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+            'EVERGLADE-USER-TOKEN': authToken
+        },
+        body: JSON.stringify({
+            "new_display_name": displayName,
+            "description": description
+        })
+    })
+    .then(response => response.json())
+    .catch(err => console.log(err))
+}
+
 export async function fetchMultipleUsers(userUids, authToken) {
 
     if (userUids.length === 0)

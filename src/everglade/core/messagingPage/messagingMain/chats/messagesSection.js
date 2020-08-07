@@ -39,7 +39,7 @@ class MessagesSection extends Component {
                     <Comment key={messageInfo['uid']} style={{ paddingLeft: '1em' }} >
                         <Comment.Avatar src={MarkJP} />
                         <Comment.Content>
-                            <Comment.Author as='a' onClick={() => this.visitProfile(messageInfo.author)}>{this.props.cachedUsers[messageInfo.author].display_name}</Comment.Author>
+                            <Comment.Author as='a' onClick={() => this.visitProfile(messageInfo.author)}>{messageInfo['author_display_name']}</Comment.Author>
                             <Comment.Metadata>
                                 <div>{formatTime(parseInt(messageInfo.time))}</div>
                             </Comment.Metadata>

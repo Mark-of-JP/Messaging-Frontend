@@ -2,14 +2,7 @@ import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Divider, Header, Button, Icon, Image, Container, Modal } from 'semantic-ui-react'
 
-import { fetchTokenUser, fetchMultipleUsers } from '../../../../common/util/apiCalls/userCalls'
-import { fetchMultipleSimpleChats, acceptInviteToChat, declineInviteToChat } from '../../../../common/util/apiCalls/chatCalls'
-
-import {
-    setUserAction,
-    updateCachedChatsACTION,
-    updateCachedUsersAction
-} from '../../../../common/util/redux/actions'
+import SettingsModal from './settingsModal'
 
 import { MarkJP } from '../../../../common/images/developers'
 
@@ -42,7 +35,8 @@ const MainSection = props => {
                         Add Friend
                     </Button>
                 )}
-                <Button inverted icon style={{ alignSelf: 'center', flex: 1, marginRight: '1em' }}><Icon name='cog' /></Button>
+                <SettingsModal 
+                    isUnknown={isUnknown}/>
             </div>
 
             <div style={{ flex: 0.1, position: 'relative' }}>

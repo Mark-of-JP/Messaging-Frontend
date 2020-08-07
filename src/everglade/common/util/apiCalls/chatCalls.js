@@ -154,3 +154,14 @@ export async function declineInviteToChat(chatUID, authToken) {
     .then(response => response.json())
     .catch(err => console.log(err))
 }
+
+export async function callLeaveChat(chatUID, authToken) {
+    return fetch(apiUrl + 'chat/' + chatUID + '/leave', {
+        method: 'DELETE',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+            'EVERGLADE-USER-TOKEN': authToken
+        }
+    })
+}

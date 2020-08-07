@@ -12,7 +12,7 @@ import {
     sendMessageToChatAction
 } from '../../../../common/util/redux/actions'
 import { fetchTokenUser } from '../../../../common/util/apiCalls/userCalls'
-import { sendMessage, callDeleteChat } from '../../../../common/util/apiCalls/chatCalls'
+import { sendMessage, callDeleteChat, callLeaveChat } from '../../../../common/util/apiCalls/chatCalls'
 
 const MainSection = props => {
     //Hooks
@@ -21,7 +21,6 @@ const MainSection = props => {
 
     const auth = useSelector(state => state.auth)
     const user = useSelector(state => state.user)
-    const cachedUsers = useSelector(state => state.cachedUsers)
 
     const visitUser = userUID => {
         history.push('/messaging/users/' + userUID)
@@ -35,6 +34,10 @@ const MainSection = props => {
                 props.forceUpdate()
             })
     }
+    const leaveChat = () => callLeaveChat(props.chatUID, auth['token'])
+        .then(() => visitUser('@me'))
+        .then(() => fetchTokenUser(auth['token']))
+        .then(response => dispatch(setUserAction(response)))
     const deleteChat = () => {
         callDeleteChat(props.chatUID, auth['token'])
             .then(() => visitUser('@me'))
@@ -52,6 +55,7 @@ const MainSection = props => {
                 <Header as='h2' inverted style={{ flex: 22 }} >{props.chat['chat_name']}</Header>
                 <InviteModal chatUID={props.chatUID} friendsInfo={props.friendsInfo} auth={auth} />
                 <ChatSettingsModal
+                    leaveChat={leaveChat}
                     deleteChat={deleteChat}
                 />
             </div>
@@ -67,7 +71,6 @@ const MainSection = props => {
                     user={user}
                     chat={props.chat}
                     chatUID={props.chatUID}
-                    cachedUsers={cachedUsers}
 
                     isChatLoading={props.isChatsLoading}
                 />

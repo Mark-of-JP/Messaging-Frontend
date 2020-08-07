@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Divider, Header, Button, Icon, Image, Container, Card } from 'semantic-ui-react'
 
 import RequestSection from './requestSection'
+import SettingsModal from './settingsModal'
 
 import { fetchTokenUser, fetchMultipleUsers } from '../../../../common/util/apiCalls/userCalls'
 import { fetchMultipleSimpleChats, acceptInviteToChat, declineInviteToChat } from '../../../../common/util/apiCalls/chatCalls'
@@ -60,7 +61,7 @@ const MainSection = props => {
         <div style={{ display: 'flex', flex: 4, flexDirection: 'column' }}>
             <div style={{ flex: 1, display: 'flex', alignItems: 'flex-end', padding: '0em 1em', flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Header as='h2' inverted style={{ flex: 22 }} >{props.currUser.display_name}</Header>
-                <Button inverted icon style={{ alignSelf: 'center', flex: 1, marginRight: '1em' }}><Icon name='cog' /></Button>
+                <SettingsModal />
             </div>
 
             <div style={{ flex: 0.1, position: 'relative' }}>
