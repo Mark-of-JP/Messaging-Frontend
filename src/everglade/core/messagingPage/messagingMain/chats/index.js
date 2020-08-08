@@ -12,7 +12,7 @@ import {
     sendMessageToChatAction
 } from '../../../../common/util/redux/actions'
 import { fetchTokenUser } from '../../../../common/util/apiCalls/userCalls'
-import { sendMessage, callDeleteChat, callLeaveChat } from '../../../../common/util/apiCalls/chatCalls'
+import { sendMessage, callDeleteChat, callLeaveChat, callEditMessage, callDeleteMessage } from '../../../../common/util/apiCalls/chatCalls'
 
 const MainSection = props => {
     //Hooks
@@ -45,6 +45,15 @@ const MainSection = props => {
             .then(response => dispatch(setUserAction(response)))
     }
 
+    const editMessage = (messageUID, message) => {
+        callEditMessage(messageUID, message, auth['token'])
+            .then(response => console.log(response))
+    }
+    const deleteMessage = messageUID => {
+        callDeleteMessage(messageUID, auth['token'])
+            .then(response => console.log(response))
+    }
+
     return (
         <div style={{ display: 'flex', flex: 4, flexDirection: 'column', height: '100%', maxHeight: '100vh' }}>
             <Dimmer active={props.isChatsLoading}>
@@ -68,6 +77,8 @@ const MainSection = props => {
                 <MessagesSection
                     sendMessage={sendChatMessage}
                     visitUser={visitUser}
+                    editMessage={editMessage}
+                    deleteMessage={deleteMessage}
                     user={user}
                     chat={props.chat}
                     chatUID={props.chatUID}

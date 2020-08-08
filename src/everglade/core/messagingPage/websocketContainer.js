@@ -27,8 +27,6 @@ const WebsocketContainer = () => {
 
         newSocket.on('message_sent', message => {
             const chatUID = Object.keys(message)[0]
-            console.log(chatUID)
-            console.log('UPDATE')
             fetchChat(chatUID, auth['token'], 20)
                     .then(response => dispatch(updateCachedChatsACTION(response)))
         })
@@ -37,6 +35,12 @@ const WebsocketContainer = () => {
             console.log(response)
             fetchTokenUser(auth['token'])
                 .then(response => dispatch(setUserAction(response)))
+        })
+
+        newSocket.on('chat_updated', message => {
+            const chatUID = message['chat']
+            fetchChat(chatUID, auth['token'], 20)
+                    .then(response => dispatch(updateCachedChatsACTION(response)))
         })
     }
 

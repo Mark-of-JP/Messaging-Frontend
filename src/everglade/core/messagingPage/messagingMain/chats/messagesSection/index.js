@@ -2,8 +2,11 @@ import React, { Component } from 'react'
 import { TextArea, Form, Divider, Comment, Button } from 'semantic-ui-react'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
-import { MarkJP } from '../../../../common/images/developers'
-import formatTime from '../../../../common/util/basics/formatTime'
+import EditModal from './editModal'
+import AreYouSureModel from '../../../../../common/components/areYouSureModal' 
+
+import { MarkJP } from '../../../../../common/images/developers'
+import formatTime from '../../../../../common/util/basics/formatTime'
 
 class MessagesSection extends Component {
 
@@ -13,9 +16,9 @@ class MessagesSection extends Component {
     }
 
     componentDidUpdate() {
-        if(this.props.chat.messages) {
+        if (this.props.chat.messages) {
             const lastMessage = this.props.chat.messages[this.props.chat.messages.length - 1]
-    
+
             if (!this.props.isChatLoading && this.state.lastMessage != lastMessage) {
                 this.psRef.scrollTop = Number.MAX_SAFE_INTEGER
                 this.setState({ lastMessage: lastMessage })
@@ -39,12 +42,26 @@ class MessagesSection extends Component {
                     <Comment key={messageInfo['uid']} style={{ paddingLeft: '1em' }} >
                         <Comment.Avatar src={MarkJP} />
                         <Comment.Content>
-                            <Comment.Author as='a' onClick={() => this.visitProfile(messageInfo.author)}>{messageInfo['author_display_name']}</Comment.Author>
+                            <Comment.Author as='a' onClick={() => this.visitProfile(messageInfo.author)}>
+                                {messageInfo['is_editted'] ? messageInfo['author_display_name'] + " (Editted)" : messageInfo['author_display_name']}</Comment.Author>
                             <Comment.Metadata>
                                 <div>{formatTime(parseInt(messageInfo.time))}</div>
                             </Comment.Metadata>
                             <Comment.Text>{messageInfo.message}</Comment.Text>
                         </Comment.Content>
+                        {this.props.user.uid === messageInfo['author'] && (
+                            <Comment.Actions>
+                                <EditModal
+                                    trigger={<Comment.Action>Edit</Comment.Action>}
+                                    message={messageInfo.message}
+                                    onSubmit={edit => this.props.editMessage(messageInfo['uid'], edit)}
+                                />
+                                <AreYouSureModel 
+                                    trigger={<Comment.Action>Delete</Comment.Action>}
+                                    onConfirm={() => this.props.deleteMessage(messageInfo['uid'])}
+                                />
+                            </Comment.Actions>
+                        )}
                     </Comment>)
             })
     }
@@ -79,12 +96,12 @@ class MessagesSection extends Component {
                             value={this.state.message}
                             onChange={(e, v) => this.setState({ message: v['value'] }, () => { })} />
                         <Button inverted style={{ margin: '1em 0em' }}
-                            onClick={() => { 
+                            onClick={() => {
                                 if (this.state.message === "")
                                     return
 
                                 this.props.sendMessage(this.props.chatUID, this.state.message)
-                                this.setState({message: ""}) 
+                                this.setState({ message: "" })
                             }}>
                             Send
                         </Button>

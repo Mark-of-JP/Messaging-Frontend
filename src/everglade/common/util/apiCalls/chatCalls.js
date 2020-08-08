@@ -164,4 +164,34 @@ export async function callLeaveChat(chatUID, authToken) {
             'EVERGLADE-USER-TOKEN': authToken
         }
     })
+    .then(response => response.json())
+    .catch(err => console.log(err))
 }
+
+export async function callEditMessage(messageUID, edit, authToken) {
+    return fetch(apiUrl + 'message/' + messageUID, {
+        method: 'PATCH',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+            'EVERGLADE-USER-TOKEN': authToken
+        },
+        body: JSON.stringify({ "edit": edit })
+    })
+    .then(response => response.json())
+    .catch(err => console.log(err))
+}
+
+export async function callDeleteMessage(messageUID, authToken) {
+    return fetch(apiUrl + 'message/' + messageUID, {
+        method: 'DELETE',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+            'EVERGLADE-USER-TOKEN': authToken
+        }
+    })
+    .then(response => response.json())
+    .catch(err => console.log(err))
+}
+
