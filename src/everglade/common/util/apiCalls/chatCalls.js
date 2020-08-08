@@ -130,7 +130,7 @@ export async function callInviteToChat(chatUID, authToken, receiver) {
 }
 
 export async function acceptInviteToChat(chatUID, authToken) {
-    return fetch(apiUrl + 'chat/' + chatUID + '/accept', {
+    return fetch(apiUrl + 'chat/' + chatUID + '/request', {
         method: 'PUT',
         mode: 'cors',
         headers: {
@@ -143,8 +143,8 @@ export async function acceptInviteToChat(chatUID, authToken) {
 }
 
 export async function declineInviteToChat(chatUID, authToken) {
-    return fetch(apiUrl + 'chat/' + chatUID + '/decline', {
-        method: 'PUT',
+    return fetch(apiUrl + 'chat/' + chatUID + '/request', {
+        method: 'DELETE',
         mode: 'cors',
         headers: {
             'Content-Type': 'application/json',

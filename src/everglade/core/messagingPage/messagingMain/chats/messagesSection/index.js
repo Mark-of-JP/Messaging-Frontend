@@ -68,15 +68,15 @@ class MessagesSection extends Component {
 
     render() {
         return (
-            <div style={{ flex: 7, display: 'flex', flexDirection: 'column', maxHeight: '87.5%' }}>
-                <PerfectScrollbar style={{ marginRight: '15px', flex: 6, backgroundColor: '#424547' }}
+            <div style={{ flex: 7, flexDirection: 'column', maxHeight: '87.5%' }}>
+                <PerfectScrollbar style={{ marginRight: '15px', maxHeight: '75%', backgroundColor: '#424547' }}
                     containerRef={ref => {
                         if (this.psRef === undefined) {
                             this.psRef = ref
                             this.setState({})
                         }
                     }}>
-                    <div style={{ display: 'flex', alignItems: 'flex-end', minHeight: '100%' }}>
+                    <div style={{ display: 'flex', alignItems: 'flex-end' }}>
                         <Comment.Group>
 
                             {this.generateMessages()}
