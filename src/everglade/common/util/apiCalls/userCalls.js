@@ -55,3 +55,55 @@ export async function fetchUserByDisplayName(displayName) {
         .then(response => response.json())
         .catch(err => console.log(err))
 }
+
+export async function callSendFriendRequest(userUID, authToken) {
+    return fetch(apiUrl + 'users/' + userUID + '/invite', {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+            'EVERGLADE-USER-TOKEN': authToken
+        }
+    })
+    .then(response => response.json())
+    .catch(err => console.log(err))
+}
+
+export async function callAcceptFriendRequest(userUID, authToken) {
+    return fetch(apiUrl + 'users/' + userUID + '/request', {
+        method: 'PUT',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+            'EVERGLADE-USER-TOKEN': authToken
+        }
+    })
+    .then(response => response.json())
+    .catch(err => console.log(err))
+}
+
+export async function callDeclineFriendRequest(userUID, authToken) {
+    return fetch(apiUrl + 'users/' + userUID + '/request', {
+        method: 'DELETE',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+            'EVERGLADE-USER-TOKEN': authToken
+        }
+    })
+    .then(response => response.json())
+    .catch(err => console.log(err))
+}
+
+export async function callRemoveFriend(userUID, authToken) {
+    return fetch(apiUrl + 'users/' + userUID + '/friends', {
+        method: 'DELETE',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+            'EVERGLADE-USER-TOKEN': authToken
+        }
+    })
+    .then(response => response.json())
+    .catch(err => console.log(err))
+}

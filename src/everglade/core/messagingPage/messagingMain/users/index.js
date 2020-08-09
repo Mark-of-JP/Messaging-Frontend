@@ -6,6 +6,11 @@ import SettingsModal from './settingsModal'
 
 import { MarkJP } from '../../../../common/images/developers'
 
+import { 
+    setUserAction
+} from '../../../../common/util/redux/actions'
+import { fetchTokenUser, callSendFriendRequest, callRemoveFriend } from '../../../../common/util/apiCalls/userCalls'
+
 const MainSection = props => {
 
     const [isModalShowing, toggleModalShowing] = useState(false)
@@ -14,14 +19,17 @@ const MainSection = props => {
     const dispatch = useDispatch()
 
     const auth = useSelector(state => state.auth)
-    const user = useSelector(state => state.user)
-    const cachedUsers = useSelector(state => state.cachedUsers)
-    const cachedChats = useSelector(state => state.cachedChats)
 
     const isUnknown = !(props.userUID in props.friendsInfo)
 
     const onInviteFriend = () => {
         toggleModalShowing(true)
+        callSendFriendRequest(props.userUID, auth['token'])
+    }
+    const onRemoveFriend = () => {
+        callRemoveFriend(props.userUID, auth['token'])
+            .then(() => fetchTokenUser(auth['token']))
+            .then(response => dispatch(setUserAction(response)))
     }
 
     return (
@@ -36,7 +44,10 @@ const MainSection = props => {
                     </Button>
                 )}
                 <SettingsModal 
-                    isUnknown={isUnknown}/>
+                    isUnknown={isUnknown} 
+
+                    onRemoveFriend={onRemoveFriend}
+                    />
             </div>
 
             <div style={{ flex: 0.1, position: 'relative' }}>

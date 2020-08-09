@@ -30,6 +30,7 @@ class SettingsModal extends Component {
                                     <AreYouSureModal
                                         onConfirm={() => {
                                             this.toggleModal(false)
+                                            this.props.onRemoveFriend()
                                         }}
                                         trigger={(
                                             <Button color='red'>

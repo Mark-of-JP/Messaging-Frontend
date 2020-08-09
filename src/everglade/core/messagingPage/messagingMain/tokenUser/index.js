@@ -5,7 +5,7 @@ import { Divider, Header, Button, Icon, Image, Container, Card } from 'semantic-
 import RequestSection from './requestSection'
 import SettingsModal from './settingsModal'
 
-import { fetchTokenUser, fetchMultipleUsers } from '../../../../common/util/apiCalls/userCalls'
+import { fetchTokenUser, fetchMultipleUsers, callAcceptFriendRequest, callDeclineFriendRequest } from '../../../../common/util/apiCalls/userCalls'
 import { fetchMultipleSimpleChats, acceptInviteToChat, declineInviteToChat } from '../../../../common/util/apiCalls/chatCalls'
 
 import {
@@ -46,6 +46,17 @@ const MainSection = props => {
             .then(() => isUserRequestsLoading = false)
     }
 
+    const acceptFriendRequest = userUID => {
+        callAcceptFriendRequest(userUID, auth['token'])
+            .then(() => fetchTokenUser(auth['token']))
+            .then(response => dispatch(setUserAction(response)))
+    }
+    const declineFriendRequest = userUID => {
+        callDeclineFriendRequest(userUID, auth['token'])
+            .then(() => fetchTokenUser(auth['token']))
+            .then(response => dispatch(setUserAction(response)))
+    }
+
     const acceptChatRequest = chatUID => {
         acceptInviteToChat(chatUID, auth['token'])
             .then(() => fetchTokenUser(auth['token']))
@@ -81,8 +92,8 @@ const MainSection = props => {
                 <div style={{ display: 'flex', flex: 3 }}>
                     <Card.Group centered style={{ flex: 1, margin: '0.5em 0.5em', display: 'flex' }}>
                         <RequestSection
-                            acceptRequest={(uid) => console.log(uid)}
-                            declineRequest={uid => console.log(uid)}
+                            acceptRequest={acceptFriendRequest}
+                            declineRequest={declineFriendRequest}
                             title={'Friend Requests'}
                             requestUIDs={Object.keys(user.friend_requests)}
                             cachedValues={cachedUsers}
