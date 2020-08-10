@@ -92,7 +92,7 @@ class MessagesSection extends Component {
                     <Divider inverted />
                 </div>
 
-                <Form style={{ flex: 1, padding: '1em 2em' }}>
+                <Form style={{ maxHeight: '10%', padding: '1em 2em' }}>
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                         <TextArea placeholder='Send a message...' style={{ resize: 'none', marginRight: '2em' }}
                             value={this.state.message}
