@@ -70,8 +70,8 @@ class MessagesSection extends Component {
 
     render() {
         return (
-            <div style={{ flex: 7, flexDirection: 'column', maxHeight: '87.5%' }}>
-                <PerfectScrollbar style={{ marginRight: '15px', maxHeight: '61vh', backgroundColor: '#424547' }}
+            <div style={{ flex: 8, flexDirection: 'column', width:'85vw' }}>
+                <PerfectScrollbar style={{ marginRight: '15px', height: '61vh', backgroundColor: '#424547' }}
                     containerRef={ref => {
                         if (this.psRef === undefined) {
                             this.psRef = ref
@@ -92,12 +92,12 @@ class MessagesSection extends Component {
                     <Divider inverted />
                 </div>
 
-                <Form style={{ maxHeight: '10%'}}>
+                <Form style={{ maxHeight: '10%', padding:'0em 1.5em'}}>
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
-                        <TextArea placeholder='Send a message...' style={{ resize: 'none', height: '13vh', marginRight: '2em' }}
+                        <TextArea placeholder='Send a message...' style={{ resize: 'none', height: '12vh', marginRight: '2em' }}
                             value={this.state.message}
                             onChange={(e, v) => this.setState({ message: v['value'] }, () => { })} />
-                        <Button inverted style={{ margin: '1em 0em', alignSelf: 'center', height: '5vh' }}
+                        <Button inverted style={{ margin: '1em 0em', height: '10vh' }}
                             onClick={() => {
                                 if (this.state.message === "")
                                     return

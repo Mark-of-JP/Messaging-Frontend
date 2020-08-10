@@ -43,7 +43,7 @@ const MessagingMain = props => {
         else if (!fetchingUsers.includes(props.selectedUID)) {
             isUserLoading = true
 
-            fetchingUsers([props.selectedUID], auth['token'])
+            fetchMultipleUsers([props.selectedUID], auth['token'])
                 .then(response => {
                     fetchingUsers = fetchingUsers.filter(uid => uid !== props.selectedUID)
                     isUserLoading = false

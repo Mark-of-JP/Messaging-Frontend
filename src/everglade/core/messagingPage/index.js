@@ -5,11 +5,9 @@ import { useHistory } from 'react-router-dom'
 
 import WebsocketContainer from './websocketContainer'
 
-import MessagingSideBar from './messagingSideBar'
-import MessagingMain from './messagingMain'
+import MessagingView from './messagingView'
 
 import {
-    setSocketAction,
     setUserAction,
     setCachedUsersActions,
 } from '../../common/util/redux/actions'
@@ -102,29 +100,17 @@ function MessagingPage() {
     const uid = parameters[3]
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'row', height: '100vh', width:'100vw', backgroundColor: '#1B1C1D' }}>
-
+        <div style={{height: '200%', width:'200%', backgroundColor: '#1B1C1D'}}>
             <WebsocketContainer />
 
-            <MessagingSideBar
-                forceUpdate={forceUpdate}
-                friendsInfo={friendsInfo}
-                chatsInfo={chatsInfo}
-                />
-
-            <div style={{ flex: 0.1, position: 'relative' }}>
-                <Divider inverted vertical>
-                    <Icon name='leaf' />
-                </Divider>
-            </div>
-
-
-            <MessagingMain
+            <MessagingView
                 forceUpdate={forceUpdate}
                 messageOption={messageOption}
                 selectedUID={uid}
                 urlOption={urlOption}
-                friendsInfo={friendsInfo} />
+                friendsInfo={friendsInfo}
+                chatsInfo={chatsInfo}
+            />
         </div>
     )
 }

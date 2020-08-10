@@ -56,7 +56,7 @@ const MainSection = props => {
     }
 
     return (
-        <div style={{ display: 'flex', flex: 4, flexDirection: 'column', height: '100%', maxHeight: '100vh' }}>
+        <div style={{ display: 'flex', flex: 4, flexDirection: 'column' }}>
             <Dimmer active={props.isChatsLoading}>
                 <Loader>Loading</Loader>
             </Dimmer>

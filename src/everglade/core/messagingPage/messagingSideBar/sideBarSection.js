@@ -13,7 +13,8 @@ import { MESSAGE_OPTIONS } from '../../../common/util/redux/reducers/messagingOp
 class MessagingSideBar extends Component {
 
     state = {
-        search: ''
+        search: '',
+        isSidebarVisible: false
     }
 
     messageOptionInfo = {
