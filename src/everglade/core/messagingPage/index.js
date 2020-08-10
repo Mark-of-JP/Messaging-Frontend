@@ -23,6 +23,9 @@ var hasFetchedCachedUsers = false
  * The main messaging page of the website
  */
 function MessagingPage() {
+
+    document.body.style.overflow = "hidden"
+
     //Forced Update function
     const [, updateState] = React.useState();
     const forceUpdate = React.useCallback(() => updateState({}), []);
@@ -99,7 +102,7 @@ function MessagingPage() {
     const uid = parameters[3]
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'row', height: '100vh', backgroundColor: '#1B1C1D' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', height: '100vh', width:'100vw', backgroundColor: '#1B1C1D' }}>
 
             <WebsocketContainer />
 
