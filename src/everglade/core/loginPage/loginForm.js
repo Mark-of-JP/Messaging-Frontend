@@ -34,7 +34,6 @@ class LoginForm extends Component {
                     value={this.state.password}
                     onChange={this.handleFormChange}
                 />
-                <Form.Checkbox label='Remember Me' />
 
                 {this.props.authError !== null && <Message error header='Login Failed' content={this.props.authError.message}/>}
 

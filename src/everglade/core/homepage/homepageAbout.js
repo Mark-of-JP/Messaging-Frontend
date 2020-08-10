@@ -12,7 +12,7 @@ const technologyInfo = [
     {
         image: HerokuLogo,
         name: 'Heroku',
-        description: 'Heroku is a platform that allows developers to develop and deploy their online web apps. Heroku is being used to host the React frontend of our application.'
+        description: 'Heroku is a platform that allows developers to develop and deploy their online web apps. Heroku is being used to host the React frontend of our application and our Python Flask backend.'
     },
     {
         image: FlaskLogo,
@@ -22,7 +22,7 @@ const technologyInfo = [
     {
         image: FirebaseLogo,
         name: 'Google Firebase',
-        description: "Firebase is Google's mobile platform. It is hosting our python web app as well as being our database. Authentication is also being handled by Firebase."
+        description: "Firebase is Google's mobile platform. It is where our database is and it handles our authentication is also being handled by Firebase."
     }
 ]
 

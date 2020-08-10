@@ -4,7 +4,7 @@ import { Jakub } from '../../common/images/developers'
 export const ContactInfo = [{
     name: 'Mark JP Sanchez',
     education: 'Data Science and Computer Science at UofT 2019-2023',
-    description: "I have been programming for the past 6 years and I have worked programs such as mobile analytics app as well as an online messaging web app.",
+    description: "I have been programming for the past few years and I have worked programs such as mobile analytics app as well as an online messaging web app.",
     image: MarkJP,
     email: 'mark.of.sanchez@gmail.com',
     linkedin: 'https://www.linkedin.com/in/mark-of-jp-5406/',
