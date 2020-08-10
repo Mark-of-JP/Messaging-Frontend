@@ -5,7 +5,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar'
 import EditModal from './editModal'
 import AreYouSureModel from '../../../../../common/components/areYouSureModal' 
 
-import { MarkJP } from '../../../../../common/images/developers'
+import { getProfilePictureInfo } from '../../../../../common/images/profilePictures'
 import formatTime from '../../../../../common/util/basics/formatTime'
 
 class MessagesSection extends Component {
@@ -38,12 +38,14 @@ class MessagesSection extends Component {
         if (this.props.chat.messages)
             return this.props.chat.messages.map(messageInfo => {
 
+                const authorInfo = this.props.cachedUsers[messageInfo['author']]
+
                 return (
                     <Comment key={messageInfo['uid']} style={{ paddingLeft: '1em' }} >
-                        <Comment.Avatar src={MarkJP} />
+                        <Comment.Avatar src={getProfilePictureInfo(authorInfo['picture'])['picture']} />
                         <Comment.Content>
                             <Comment.Author as='a' onClick={() => this.visitProfile(messageInfo.author)}>
-                                {messageInfo['is_editted'] ? messageInfo['author_display_name'] + " (Editted)" : messageInfo['author_display_name']}</Comment.Author>
+                                {messageInfo['is_editted'] ? authorInfo['display_name'] + " (Editted)" : authorInfo['display_name']}</Comment.Author>
                             <Comment.Metadata>
                                 <div>{formatTime(parseInt(messageInfo.time))}</div>
                             </Comment.Metadata>

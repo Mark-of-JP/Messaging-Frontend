@@ -4,7 +4,7 @@ import { Divider, Header, Button, Icon, Image, Container, Modal } from 'semantic
 
 import SettingsModal from './settingsModal'
 
-import { MarkJP } from '../../../../common/images/developers'
+import { getProfilePictureInfo } from '../../../../common/images/profilePictures'
 
 import { 
     setUserAction
@@ -56,7 +56,7 @@ const MainSection = props => {
 
             <div style={{ display: 'flex', flex: 7, flexDirection: 'column' }}>
                 <div style={{ display: 'flex', flex: 2 }}>
-                    <Image circular size='medium' src={MarkJP} style={{ marginLeft: '1em' }} />
+                    <Image circular size='medium' src={getProfilePictureInfo(props.currUser.picture)['picture']} style={{ marginLeft: '1em' }} />
                     <Container text style={{ padding: '1em' }} >
                         <Header as='h2' inverted>Description</Header>
                         <Header as='h4' inverted >

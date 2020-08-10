@@ -21,6 +21,7 @@ const MainSection = props => {
 
     const auth = useSelector(state => state.auth)
     const user = useSelector(state => state.user)
+    const cachedUsers = useSelector(state => state.cachedUsers)
 
     const visitUser = userUID => {
         history.push('/messaging/users/' + userUID)
@@ -79,6 +80,7 @@ const MainSection = props => {
                     visitUser={visitUser}
                     editMessage={editMessage}
                     deleteMessage={deleteMessage}
+                    cachedUsers={cachedUsers}
                     user={user}
                     chat={props.chat}
                     chatUID={props.chatUID}

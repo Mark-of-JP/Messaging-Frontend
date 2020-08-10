@@ -13,7 +13,7 @@ export async function fetchTokenUser(authToken) {
     .catch(err => console.log(err))
 }
 
-export async function updateTokenUserInfo(authToken, displayName, description) {
+export async function updateTokenUserInfo(authToken, displayName, description, picture) {
     return fetch(apiUrl + 'users/me', {
         method: 'PATCH',
         mode: 'cors',
@@ -23,7 +23,8 @@ export async function updateTokenUserInfo(authToken, displayName, description) {
         },
         body: JSON.stringify({
             "new_display_name": displayName,
-            "description": description
+            "description": description,
+            "picture": picture
         })
     })
     .then(response => response.json())

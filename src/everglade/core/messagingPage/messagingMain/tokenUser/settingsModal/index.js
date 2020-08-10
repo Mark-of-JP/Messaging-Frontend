@@ -3,8 +3,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Modal, Button, Icon, List } from 'semantic-ui-react'
 
 import ChangeInfoForm from './changeInfoForm'
+import ChangePictureModal from './changePictureModal'
+
 import { updateTokenUserInfo } from '../../../../../common/util/apiCalls/userCalls'
 import { setUserAction } from '../../../../../common/util/redux/actions'
+import { getPictureKeys } from '../../../../../common/images/profilePictures'
 
 const SettingsModal = props => {
 
@@ -18,9 +21,19 @@ const SettingsModal = props => {
     const user = useSelector(state => state.user)
 
     const updateUserInfo = (displayName, description) => {
-        updateTokenUserInfo(auth['token'], displayName, description)
+        updateTokenUserInfo(auth['token'], displayName, description, user['picture'])
             .then(response => {
-                console.log(response)
+                if (response.error) {
+                    setErrorMessage(response.error)
+                } else {
+                    dispatch(setUserAction(response))
+                }
+                toggleModal(false)
+            })
+    }
+    const choosePicture = pictureKey => {
+        updateTokenUserInfo(auth['token'], user['display_name'], user['description'], pictureKey)
+            .then(response => {
                 if (response.error) {
                     setErrorMessage(response.error)
                 } else {
@@ -56,6 +69,15 @@ const SettingsModal = props => {
 
                 <Modal.Content>
                     <List celled>
+                        <List.Item>
+                            <ChangePictureModal
+                                trigger={(
+                                    <Button fluid style={{margin: '0.5em 0.5em'}} color="green">Change Profile Picture</Button>
+                                )}
+                                choices={getPictureKeys()}
+                                onChoosePicture={choosePicture}
+                            />
+                        </List.Item>
                         <List.Item>
                             <ChangeInfoForm
                                 displayName={user.display_name}

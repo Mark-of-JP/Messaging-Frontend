@@ -25,7 +25,7 @@ class ChangeInfoForm extends Component {
 
     render() {
         return (
-            <Form>
+            <Form style={{margin: '0.5em 0em'}}>
                 <Form.Input
                     label="Display Name"
                     placeholder="Display Name..."

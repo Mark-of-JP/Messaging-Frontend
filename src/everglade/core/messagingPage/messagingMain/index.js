@@ -68,6 +68,10 @@ const MessagingMain = props => {
         var currChat = cachedChats[props.selectedUID]
         if (currChat && !currChat['simple']) {
             let unfetchedUsers = Object.keys(currChat.members).filter(uid => !(uid in cachedUsers) && !fetchingUsers.includes(uid))
+            currChat.messages.forEach(messageInfo => {
+                if(!(messageInfo['author'] in cachedUsers) && !unfetchedUsers.includes(messageInfo['author']) && !fetchingUsers.includes(messageInfo['author']))
+                    unfetchedUsers.push(messageInfo['author'])
+            })
 
             if (unfetchedUsers.length > 0) {
                 fetchingUsers = fetchingUsers.concat(unfetchedUsers)
