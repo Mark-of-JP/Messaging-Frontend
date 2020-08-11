@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { Divider, Icon } from 'semantic-ui-react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 

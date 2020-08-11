@@ -19,7 +19,8 @@ class MessagesSection extends Component {
         if (this.props.chat.messages) {
             const lastMessage = this.props.chat.messages[this.props.chat.messages.length - 1]
 
-            if (!this.props.isChatLoading && this.state.lastMessage != lastMessage) {
+            //Scrolls to the bottom of the messages page on first load and whenever a new message appears
+            if (!this.props.isChatLoading && this.state.lastMessage !== lastMessage) {
                 this.psRef.scrollTop = Number.MAX_SAFE_INTEGER
                 this.setState({ lastMessage: lastMessage })
             }

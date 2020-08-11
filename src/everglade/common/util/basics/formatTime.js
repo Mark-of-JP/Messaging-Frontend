@@ -1,7 +1,13 @@
+//Days of the week in english
 const daysOfTheWeek = [
     'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'
 ]
 
+/**
+ * Formats the time to be readable
+ * @param {number} targetTime The time that needs to be formatted in milliseconds 
+ * @returns {string} The formatted time
+ */
 const formatTime = targetTime => {
     const targetDate = new Date(targetTime)
     const currDate = new Date()

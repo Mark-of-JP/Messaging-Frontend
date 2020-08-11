@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Divider, Header, Button, Icon, Image, Container, Card } from 'semantic-ui-react'
+import { Divider, Header, Image, Container, Card } from 'semantic-ui-react'
 
 import RequestSection from './requestSection'
 import SettingsModal from './settingsModal'

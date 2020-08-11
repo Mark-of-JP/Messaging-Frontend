@@ -1,3 +1,5 @@
+//Contains all the api calls related to authorization
+
 import { apiUrl } from '../constants'
 
 /**

@@ -10,7 +10,7 @@ class InviteModal extends Component {
     }
 
     componentWillUnmount() {
-        this.state.invitationSent = []
+        this.setState({ invitationSent: []})
     }
 
     sendInvite(invitationUID) {

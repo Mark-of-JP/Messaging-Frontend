@@ -1,5 +1,12 @@
+//Contains all the api calls related to chats
+
 import { apiUrl } from '../constants'
 
+/**
+ * Get's the simple information for the chat (Name)
+ * @param {string} chatUID The uid of the chat
+ * @param {string} authToken The auth token
+ */
 export async function fetchSimpleChat(chatUID, authToken) {
     return fetch(apiUrl + 'chat/' + chatUID + '/simple', {
         method: 'GET',
@@ -18,9 +25,10 @@ export async function fetchSimpleChat(chatUID, authToken) {
 }
 
 /**
- * @param {string[]} chatUIDs 
- * @param {string} authToken 
- * @param {{}} currentChatInfo
+ * Calls the api to get the info for multiple chats
+ * @param {string[]} chatUIDs The uids of each chat
+ * @param {string} authToken The auth token
+ * @param {{}} currentChatInfo Used to ensure that we don't get duplicate chat info
  */
 export async function fetchMultipleSimpleChats(chatUIDs, authToken, currentChatInfo = undefined) {
     let chosenChatUids = []
@@ -45,6 +53,12 @@ export async function fetchMultipleSimpleChats(chatUIDs, authToken, currentChatI
     return chatInfo
 }
 
+/**
+ * Gets information from the api with formatted message info
+ * @param {string} chatUID The uid of the chat
+ * @param {string} authToken The auth token
+ * @param {number} messageLimit The maximum number of messages for the call
+ */
 export async function fetchChat(chatUID, authToken, messageLimit) {
     return fetch(apiUrl + 'chat/' + chatUID + "?message_limit=" + messageLimit, {
         method: 'GET',
@@ -68,6 +82,12 @@ export async function fetchChat(chatUID, authToken, messageLimit) {
     .catch(err => console.log(err))
 }
 
+/**
+ * Sends a message to the chat
+ * @param {string} chatUID The uid of the chat
+ * @param {string} authToken The auth token
+ * @param {string} message The message you want to send 
+ */
 export async function sendMessage(chatUID, authToken, message) {
     return fetch(apiUrl + 'chat/' + chatUID, {
         method: 'POST',
@@ -84,6 +104,11 @@ export async function sendMessage(chatUID, authToken, message) {
     .catch(err => console.log(err))
 }
 
+/**
+ * Calls the api to create a chat and adds the current user to the chat
+ * @param {string} authToken The auth token 
+ * @param {string} chatName The name of the chat
+ */
 export async function callCreateChat(authToken, chatName) {
     return fetch(apiUrl + 'create/chat', {
         method: 'POST',
@@ -100,6 +125,11 @@ export async function callCreateChat(authToken, chatName) {
     .catch(err => console.log(err))
 }
 
+/**
+ * Calls the api to delete the chat
+ * @param {string} chatUID The uid of the chat
+ * @param {string} authToken The auth token
+ */
 export async function callDeleteChat(chatUID, authToken) {
     return fetch(apiUrl + 'chat/' + chatUID, {
         method: 'DELETE',
@@ -113,6 +143,12 @@ export async function callDeleteChat(chatUID, authToken) {
     .catch(err => console.log(err))
 }
 
+/**
+ * Calls the api to invite a user to the chat
+ * @param {string} chatUID The uid of the chat
+ * @param {string} authToken The auth token
+ * @param {string} receiver The uid of the user being invited
+ */
 export async function callInviteToChat(chatUID, authToken, receiver) {
     return fetch(apiUrl + 'chat/' + chatUID + '/invite', {
         method: 'PUT',
@@ -129,6 +165,11 @@ export async function callInviteToChat(chatUID, authToken, receiver) {
     .catch(err => console.log(err))
 }
 
+/**
+ * Accepts the invite for the given chat
+ * @param {string} chatUID The uid of the chat
+ * @param {string} authToken The auth token
+ */
 export async function acceptInviteToChat(chatUID, authToken) {
     return fetch(apiUrl + 'chat/' + chatUID + '/request', {
         method: 'PUT',
@@ -142,6 +183,11 @@ export async function acceptInviteToChat(chatUID, authToken) {
     .catch(err => console.log(err))
 }
 
+/**
+ * Declines the invite for the given chat
+ * @param {string} chatUID The uid of the chat
+ * @param {string} authToken The auth token
+ */
 export async function declineInviteToChat(chatUID, authToken) {
     return fetch(apiUrl + 'chat/' + chatUID + '/request', {
         method: 'DELETE',
@@ -155,6 +201,11 @@ export async function declineInviteToChat(chatUID, authToken) {
     .catch(err => console.log(err))
 }
 
+/**
+ * Calls the api so the user can leave the chat
+ * @param {string} chatUID The uid of the chat
+ * @param {string} authToken The auth token
+ */
 export async function callLeaveChat(chatUID, authToken) {
     return fetch(apiUrl + 'chat/' + chatUID + '/leave', {
         method: 'DELETE',
@@ -168,6 +219,12 @@ export async function callLeaveChat(chatUID, authToken) {
     .catch(err => console.log(err))
 }
 
+/**
+ * Calls the chat to edit one of the user's messages
+ * @param {string} messageUID The uid of the message
+ * @param {string} edit The new value of the message
+ * @param {string} authToken The auth token 
+ */
 export async function callEditMessage(messageUID, edit, authToken) {
     return fetch(apiUrl + 'message/' + messageUID, {
         method: 'PATCH',
@@ -182,6 +239,11 @@ export async function callEditMessage(messageUID, edit, authToken) {
     .catch(err => console.log(err))
 }
 
+/**
+ * Calls the api to delete the message
+ * @param {string} messageUID The uid of the message 
+ * @param {string} authToken The auth token
+ */
 export async function callDeleteMessage(messageUID, authToken) {
     return fetch(apiUrl + 'message/' + messageUID, {
         method: 'DELETE',

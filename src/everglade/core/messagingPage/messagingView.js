@@ -4,6 +4,9 @@ import { Divider, Icon, Menu, Sidebar } from 'semantic-ui-react'
 import MessagingSideBar from './messagingSideBar'
 import MessagingMain from './messagingMain'
 
+/**
+ * Contains the logic for display for the messaging page
+ */
 class MessagingView extends Component {
 
     state = {

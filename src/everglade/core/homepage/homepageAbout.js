@@ -32,9 +32,11 @@ const technologyInfo = [
 class HomepageAbout extends Component {
 
     generateTechnologyInfo = (image, title, message, isRight) => {
-        var left = (<Grid.Column floated='left' width={6}>
+        var left = (
+        <Grid.Column floated='left' width={6}>
             <Image bordered rounded size='large' src={image} centered/>
-        </Grid.Column>)
+        </Grid.Column>
+        )
 
         var right = (<Grid.Column width={8}>
             <Header inverted as='h3' style={{ fontSize: '2em' }}>
@@ -85,6 +87,8 @@ class HomepageAbout extends Component {
                 <Container style={{padding:'3em 0em'}}>
                     <p style={{ fontSize: '1.33em' }}>
                         Everglade Messaging is an online messaging web app which was created and designed as a side project. Both the backend and the frontend of the application were created by three developers.
+                        Front-end code can be found here: <a href={'https://github.com/Mark-of-JP/Messaging-Frontend'}>https://github.com/Mark-of-JP/Messaging-Frontend</a>.
+                        Back-end code can be found here: <a href={'https://github.com/Mark-of-JP/Messaging-Api'}>https://github.com/Mark-of-JP/Messaging-Api</a>.
                         The technology that was used is as follows:
                     </p>
                 </Container>

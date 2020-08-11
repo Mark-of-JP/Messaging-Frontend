@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Modal, Button, Icon, List } from 'semantic-ui-react'
 
 import AreYouSureModal from '../../../../common/components/areYouSureModal'
-import { callLeaveChat } from '../../../../common/util/apiCalls/chatCalls'
 
 class ChatSettingModal extends Component {
 

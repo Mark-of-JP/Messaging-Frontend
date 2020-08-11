@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { Modal, Button } from 'semantic-ui-react'
 
+/**
+ * Modal used to confirm actions and run these actions once the user clicks confirm
+ */
 class AreYouSureModel extends Component {
 
     state = {

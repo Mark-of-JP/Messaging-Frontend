@@ -1,5 +1,11 @@
+//Contains all the api calls related to users
+
 import { apiUrl } from '../constants'
 
+/**
+ * Gets info of the user associated with the auth token
+ * @param {string} authToken The auth token
+ */
 export async function fetchTokenUser(authToken) {
     return fetch(apiUrl + 'users/me', {
         method: 'GET',
@@ -13,6 +19,13 @@ export async function fetchTokenUser(authToken) {
     .catch(err => console.log(err))
 }
 
+/**
+ * Alters the user info of the user associated with the auth token
+ * @param {string} authToken The auth token
+ * @param {string} displayName The display name of the user
+ * @param {string} description The description of the user
+ * @param {string} picture The pictureKey of the user's profile picture
+ */
 export async function updateTokenUserInfo(authToken, displayName, description, picture) {
     return fetch(apiUrl + 'users/me', {
         method: 'PATCH',
@@ -31,6 +44,11 @@ export async function updateTokenUserInfo(authToken, displayName, description, p
     .catch(err => console.log(err))
 }
 
+/**
+ * Calls the api to get info of multiple users
+ * @param {string[]} userUids The uids of the desired user 
+ * @param {string} authToken The auth token
+ */
 export async function fetchMultipleUsers(userUids, authToken) {
 
     if (userUids.length === 0)
@@ -51,12 +69,21 @@ export async function fetchMultipleUsers(userUids, authToken) {
     .catch(err => console.log(err))
 }
 
+/**
+ * Calls the api to get the user info of the user with the desired display name
+ * @param {string} displayName The display name of the user
+ */
 export async function fetchUserByDisplayName(displayName) {
     return fetch(apiUrl + 'users/' + displayName + "/name")
         .then(response => response.json())
         .catch(err => console.log(err))
 }
 
+/**
+ * Sends a friend request to the user
+ * @param {string} userUID The uid of the user
+ * @param {string} authToken The auth token
+ */
 export async function callSendFriendRequest(userUID, authToken) {
     return fetch(apiUrl + 'users/' + userUID + '/invite', {
         method: 'PUT',
@@ -70,6 +97,11 @@ export async function callSendFriendRequest(userUID, authToken) {
     .catch(err => console.log(err))
 }
 
+/**
+ * Calls the api to accept the friend request of the desired user
+ * @param {string} userUID The uid of the user
+ * @param {string} authToken The auth token
+ */
 export async function callAcceptFriendRequest(userUID, authToken) {
     return fetch(apiUrl + 'users/' + userUID + '/request', {
         method: 'PUT',
@@ -83,6 +115,11 @@ export async function callAcceptFriendRequest(userUID, authToken) {
     .catch(err => console.log(err))
 }
 
+/**
+ * Calls the api to decline the friend request
+ * @param {string} userUID The uid of the user
+ * @param {string} authToken The auth token
+ */
 export async function callDeclineFriendRequest(userUID, authToken) {
     return fetch(apiUrl + 'users/' + userUID + '/request', {
         method: 'DELETE',
@@ -96,6 +133,11 @@ export async function callDeclineFriendRequest(userUID, authToken) {
     .catch(err => console.log(err))
 }
 
+/**
+ * Removes the friend off of the friend list
+ * @param {string} userUID The uid of the user
+ * @param {string} authToken The auth token
+ */
 export async function callRemoveFriend(userUID, authToken) {
     return fetch(apiUrl + 'users/' + userUID + '/friends', {
         method: 'DELETE',

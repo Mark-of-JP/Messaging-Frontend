@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, Form, Input, Button } from 'semantic-ui-react'
+import { Modal, Input, Button } from 'semantic-ui-react'
 
 class EditModal extends Component {
 

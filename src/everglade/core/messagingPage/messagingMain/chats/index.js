@@ -1,5 +1,5 @@
 import React from 'react'
-import { Divider, Header, Button, Icon, Dimmer, Loader } from 'semantic-ui-react'
+import { Divider, Header, Dimmer, Loader } from 'semantic-ui-react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
