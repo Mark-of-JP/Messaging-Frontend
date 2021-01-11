@@ -46,7 +46,7 @@ class MessagesSection extends Component {
                         <Comment.Avatar src={getProfilePictureInfo(authorInfo['picture'])['picture']} />
                         <Comment.Content>
                             <Comment.Author as='a' onClick={() => this.visitProfile(messageInfo.author)}>
-                                {messageInfo['is_editted'] ? authorInfo['display_name'] + " (Editted)" : authorInfo['display_name']}</Comment.Author>
+                                {messageInfo['is_editted'] ? authorInfo['display_name'] + " (Edited)" : authorInfo['display_name']}</Comment.Author>
                             <Comment.Metadata>
                                 <div>{formatTime(parseInt(messageInfo.time))}</div>
                             </Comment.Metadata>
